@@ -1,0 +1,7 @@
+{
+  "name": "cronometro",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
