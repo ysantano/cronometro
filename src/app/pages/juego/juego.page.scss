@@ -1,0 +1,111 @@
+#cronometro {
+  font-family: 'Orbitron-Bold';
+  text-shadow:0 0 5px silver;
+  font-size:4em;
+  color:green;
+}
+.medioActual {
+  margin-top: 8px;
+  font-size:large;
+  font-weight: bold;
+  font-size:4em;
+  color:gray
+}
+.btnPlayPause {
+  position: fixed;
+  right: 35%;
+  box-shadow: 0 0 12px black;
+  border-radius: 100%;
+  bottom: 30%;
+}
+.btnNextDown {
+  position: fixed;
+  box-shadow: 0 0 12px black;
+  border-radius: 100%;
+  right: 5%;
+  bottom: 50%;
+}
+.btnLastDown {
+  position: fixed;
+  box-shadow: 0 0 12px black;
+  border-radius: 100%;
+  right: 5%;
+  bottom: 40%;
+}
+.btnTochdown {
+  position: fixed;
+  box-shadow: 0 0 12px silver;
+  border-radius: 100%;
+  background-color: greenyellow;
+  bottom: 40%;
+  right: 50%;
+}
+.btnCastigo {
+  position: fixed;
+  box-shadow: 0 0 12px silver;
+  border-radius: 100%;
+  background-color: red;
+  bottom: 33%;
+  right: 65%;
+}
+.btnIntercepciones {
+  position: fixed;
+  box-shadow: 0 0 12px silver;
+  border-radius: 100%;
+  background-color: deeppink;
+  bottom: 22%;
+  right: 60%;
+}
+.btnCaptura {
+  position: fixed;
+  box-shadow: 0 0 12px silver;
+  border-radius: 100%;
+  background-color: blueviolet;
+  bottom: 15%;
+  right: 40%;
+}
+.clrModalHeader {
+  background-color: greenyellow;
+}
+
+.btnConfiguracion {
+  position: fixed;
+  bottom: 5%;
+  width: 70px;
+  height: 70px;
+  box-shadow: 0 0 12px silver;
+  box-shadow: none;
+  border-radius: 100%;
+  background-color: transparent;
+  left: 6%;
+  bottom: 27%;
+}
+
+.btnBack {
+  position: fixed;
+  right: 3%;
+  box-shadow: 0 0 12px black;
+  border-radius: 100%;
+  bottom: 30%;
+}
+
+.modalEstadisticas {
+
+  .color_anotacion {
+    --color: black !important;
+    --background:  greenyellow !important;
+  }
+  .color_castigo {
+    --color: white !important;
+    --background: red !important;
+  }
+  .color_intersepcion {
+    --color: black !important;
+    --background: deeppink !important;
+  }
+  .color_captura {
+    --color: white !important;
+    --background: blueviolet !important;
+  }
+
+}

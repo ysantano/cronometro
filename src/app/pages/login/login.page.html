@@ -1,0 +1,55 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <img alt="inicio" src="../../../assets/icon/NaoSport_1.jpeg" />
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div id="container">
+    <ion-card>
+      <img alt="inicio" src="../../../assets/icon/deportes1.png" width="170" height="auto" />
+      <ion-card-header>
+        <ion-card-title class="ion-text-center">!Hola!</ion-card-title>
+        <ion-card-subtitle class="ion-text-center">Pon tus datos para ingresar</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <form (ngSubmit)="login()">
+
+          <ion-list>
+            <ion-item>
+              <ion-input labelPlacement="floating" value="yucif@sanyoma.com">
+                <div slot="label">Correo: </div>
+              </ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input type="password" labelPlacement="floating" value="abc123">
+                <div slot="label">Clave de acceso: </div>
+              </ion-input>
+            </ion-item>
+
+            <ion-button type="submit" expand="full" color="success">Aceptar</ion-button>
+
+          </ion-list>
+
+        </form>
+
+      </ion-card-content>
+
+    </ion-card>
+
+    </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center">
+    <img alt="inicio" src="../../../assets/icon/sanyoma.png" width="20" height="auto" />
+    <ion-title size="small" class="ion-text-center">
+      <small>Copyright 2023 Sanyoma</small>
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

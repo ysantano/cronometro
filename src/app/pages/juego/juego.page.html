@@ -1,0 +1,432 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" shape="round" routerLink="/home">
+        <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="ion-text-right">
+      <ion-badge color="warning" style="font-size:x-small;text-transform:uppercase;"> Femenil libre </ion-badge><br/>
+      <ion-badge color="success" style="font-size:x-small;"> Campo 2 </ion-badge> / <ion-badge color="success" style="font-size:x-small;"> Jornada 6 </ion-badge>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button fill="clear" shape="round" routerLink="/home">
+          <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="ion-text-right">
+        <ion-badge color="warning" style="font-size:x-small;text-transform:uppercase;"> Femenil libre </ion-badge><br/>
+        <ion-badge color="success" style="font-size:x-small;"> Campo 2 </ion-badge> <ion-badge color="success" style="font-size:x-small;"> Jornada 6 </ion-badge>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios">
+    <ion-segment-button value="visitante">
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
+      <ion-badge style="font-size:large;">{{sVisitante}}</ion-badge>
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Pats</ion-label><br/>
+    </ion-segment-button>
+    <ion-segment-button value="local">
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
+      <ion-badge style="font-size:large;">{{sLocal}}</ion-badge>
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Raiders</ion-label><br/>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment value="{{down}}" mode="ios">
+    <ion-segment-button value="1">
+      <ion-label>1 down</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <ion-label>2 down</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      <ion-label>3 down</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="4">
+      <ion-label>4 down</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div id="cronometro" class="ion-text-center">
+          {{tiempo}}
+        </div>
+      </ion-col>
+      <ion-col class="ion-text-center medioActual">
+        {{timeTab}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab (click)="iniciarCronometro()" class="btnPlayPause">
+    <ion-fab-button>
+      <ion-icon [name]="iconBottonPlayPause"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab (click)="fncNextDown()" class="btnNextDown">
+    <ion-fab-button color="success">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab (click)="fncLastDown()" class="btnLastDown">
+    <ion-fab-button color="success">
+      <ion-icon name="remove-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-thumbnail (click)="openActionModal(1,true)" class="btnTochdown">
+    <img alt="Towchdown" src="../../../assets/icon/anotacion.png" />
+  </ion-thumbnail>
+
+  <ion-thumbnail (click)="openActionModal(2,true)" class="btnCastigo">
+    <img alt="Castigos" src="../../../assets/icon/castigo.png" />
+  </ion-thumbnail>
+
+  <ion-thumbnail (click)="openActionModal(3,true)" class="btnIntercepciones">
+    <img alt="Intercepciones" src="../../../assets/icon/intersepcion.png" />
+  </ion-thumbnail>
+
+  <ion-thumbnail (click)="openActionModal(4,true)" class="btnCaptura">
+    <img alt="Captura" src="../../../assets/icon/captura.png" />
+  </ion-thumbnail>
+
+  <ion-thumbnail (click)="openActionModal(5,true)" class="btnConfiguracion">
+    <img alt="Configurar" src="../../../assets/icon/config.png" />
+  </ion-thumbnail>
+
+
+  <!-- VENTANA MODAL PARA CAPTURA DE ESTADISTICAS -->
+  <ion-modal [isOpen]="isModalOpen" mode="ios">
+    <ng-template>
+      <ion-header class="modalEstadisticas">
+        <ion-toolbar class="color_{{imgAccion}}">
+          <ion-thumbnail>
+            <img alt="" src="../../../assets/icon/{{imgAccion}}.png" />
+          </ion-thumbnail>
+
+          <ion-title>{{accionJugada}}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button class="color_{{imgAccion}}" (click)="closeModal(false)">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+
+        <ion-fab (click)="closeModal(false)" class="btnBack">
+          <ion-fab-button>
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+
+        <div *ngIf="imgAccion !== 'config'">
+          <ion-segment value="{{equipo}}" mode="ios">
+            <ion-segment-button value="visitante">
+              <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
+              <ion-label style="font-size:x-small;text-transform:uppercase;">Pats</ion-label><br/>
+            </ion-segment-button>
+            <ion-segment-button value="local">
+              <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
+              <ion-label style="font-size:x-small;text-transform:uppercase;">Raiders</ion-label><br/>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <div *ngIf="imgAccion==='anotacion'">
+          <ion-segment value="6" mode="ios">
+            <ion-segment-button value="6">
+              <ion-label>6 pts</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="1">
+              <ion-label>1 pt</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="2">
+              <ion-label>2 pts</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="3">
+              <ion-label>3 pts</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+
+          <ion-list>
+            <ion-item>
+              <ion-input label="Jugador que anota" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Jugador que lanza" type="number"></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-grid>
+            <ion-row>
+              <ion-col></ion-col>
+              <ion-col>
+                <ion-button expand="block" (click)="closeModal(false)">Guardar</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-list [inset]="true">
+            <ion-item-sliding>
+              <ion-item [button]="true">
+                <ion-avatar aria-hidden="true" slot="start">
+                  <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                </ion-avatar>
+                <ion-label>
+                  <b>#54</b> Rick Astley
+                  <br/><small>Lanzó <b>#99</b></small>
+                  <br/><small>T1 D1 00:00</small>
+                </ion-label>
+                <ion-badge slot="end">6</ion-badge>
+              </ion-item>
+              <ion-item-options slot="end">
+                <ion-item-option color="danger" expandable="true" (click)="borraAnotacion()">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-list>
+
+          <ion-list [inset]="true">
+            <ion-item-sliding>
+              <ion-item [button]="true">
+                <ion-avatar aria-hidden="true" slot="start">
+                  <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                </ion-avatar>
+                <ion-label>
+                  <b>#88</b> Manoa Sphinth
+                  <br/><small>Lanzó <b>#99</b></small>
+                  <br/><small>T2 D4 03:10</small>
+                </ion-label>
+                <ion-badge slot="end">1</ion-badge>
+              </ion-item>
+              <ion-item-options slot="end">
+                <ion-item-option color="danger" expandable="true">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-list>
+
+        </div>
+
+        <div *ngIf="imgAccion==='castigo'">
+          <ion-list>
+            <ion-item>
+              <ion-input label="Jugador comete castigo" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-select label="Castigo cometido">
+                <ion-select-option value="1">Castigo 1</ion-select-option>
+                <ion-select-option value="2">Castigo 2</ion-select-option>
+                <ion-select-option value="3">Castigo 3</ion-select-option>
+                <ion-select-option value="4">Castigo 4</ion-select-option>
+                <ion-select-option value="5">Castigo 5</ion-select-option>
+                <ion-select-option value="6">Castigo 6</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+          <ion-grid>
+            <ion-row>
+              <ion-col></ion-col>
+              <ion-col>
+                <ion-button expand="block" (click)="closeModal(false)">Guardar</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-list [inset]="true">
+            <ion-item-sliding>
+              <ion-item [button]="true">
+                <ion-avatar aria-hidden="true" slot="start">
+                  <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                </ion-avatar>
+                <ion-label>
+                  <b>#88</b> Manoa Sphinth
+                  <br/><small>Lanzó <b>#99</b></small>
+                  <br/><small>T2 D4 03:10</small>
+                </ion-label>
+                <ion-badge slot="end">1</ion-badge>
+              </ion-item>
+              <ion-item-options slot="end">
+                <ion-item-option color="danger" expandable="true">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-list>
+        </div>
+
+        <div *ngIf="imgAccion==='intersepcion'">
+          <ion-list>
+            <ion-item>
+              <ion-input label="Jugador que intercepta" type="number"></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-grid>
+            <ion-row>
+              <ion-col></ion-col>
+              <ion-col>
+                <ion-button expand="block" (click)="closeModal(false)">Guardar</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-list [inset]="true">
+            <ion-item-sliding>
+              <ion-item [button]="true">
+                <ion-avatar aria-hidden="true" slot="start">
+                  <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                </ion-avatar>
+                <ion-label>
+                  <b>#54</b> Rick Astley
+                  <br/><small>T1 D1 00:00</small>
+                </ion-label>
+              </ion-item>
+              <ion-item-options slot="end">
+                <ion-item-option color="danger" expandable="true">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-list>
+
+        </div>
+
+        <div *ngIf="imgAccion==='captura'">
+          <ion-list>
+            <ion-item>
+              <ion-input label="Jugador que captura" type="number"></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-grid>
+            <ion-row>
+              <ion-col></ion-col>
+              <ion-col>
+                <ion-button expand="block" (click)="closeModal(false)">Guardar</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          <ion-list [inset]="true">
+            <ion-item-sliding>
+              <ion-item [button]="true">
+                <ion-avatar aria-hidden="true" slot="start">
+                  <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                </ion-avatar>
+                <ion-label>
+                  <b>#54</b> Rick Astley
+                  <br/><small>T1 D1 00:00</small>
+                </ion-label>
+              </ion-item>
+              <ion-item-options slot="end">
+                <ion-item-option color="danger" expandable="true">
+                  <ion-icon slot="icon-only" name="trash"></ion-icon>
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-list>
+
+        </div>
+
+        <div *ngIf="imgAccion==='config'">
+
+          <ion-segment [(ngModel)]="timeTab" mode="ios" (change)="updateTimeT1();" >
+            <ion-segment-button value="T1">
+              <ion-label>T1</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="MT">
+              <ion-label>MT</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="T2">
+              <ion-label>T2</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+
+          <div *ngIf="timeTab==='T1'">
+            <p>Cronómetro del Primer tiempo</p>
+            <ion-list>
+              <ion-item>
+                <ion-input class="ion-text-right" type="number" label="Minutos:" [(ngModel)]="minutosInputT1" value="{{minutosInputT1}}" ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input class="ion-text-right" type="number" label="Segundos:" [(ngModel)]="segundosInputT1" value="{{segundosInputT1}}" ></ion-input>
+              </ion-item>
+
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-button expand="full" shape="round" size="small"  (click)="resetCronometroActivo();">Reset</ion-button>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button expand="full" shape="round" size="small"  (click)="closeModal(false);">Aceptar</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-list>
+          </div>
+
+          <div *ngIf="timeTab==='MT'">
+            <p>Cronómetro del Medio tiempo</p>
+            <ion-list>
+              <ion-item>
+                <ion-input class="ion-text-right" type="number" label="Minutos:" [(ngModel)]="minutosInputMT" value="{{minutosInputMT}}" ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input class="ion-text-right" type="number" label="Segundos:" [(ngModel)]="segundosInputMT" value="{{segundosInputMT}}" ></ion-input>
+              </ion-item>
+
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-button expand="full" shape="round" size="small"  (click)="resetCronometroActivo();">Reset</ion-button>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button expand="full" shape="round" size="small"  (click)="closeModal(false);">Aceptar</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-list>
+
+          </div>
+
+          <div *ngIf="timeTab==='T2'">
+            <p>Cronómetro del Segundo tiempo</p>
+            <ion-list>
+              <ion-item>
+                <ion-input class="ion-text-right" type="number" label="Minutos:" [(ngModel)]="minutosInputT2" value="{{minutosInputT2}}" ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input class="ion-text-right" type="number" label="Segundos:" [(ngModel)]="segundosInputT2" value="{{segundosInputT2}}" ></ion-input>
+              </ion-item>
+
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-button expand="full" shape="round" size="small"  (click)="resetCronometroActivo();">Reset</ion-button>
+                  </ion-col>
+                  <ion-col>
+                    <ion-button expand="full" shape="round" size="small"  (click)="closeModal(false);">Aceptar</ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-list>
+          </div>
+
+        </div>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>
+
