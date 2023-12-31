@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { SqliteService } from 'src/app/service/sqlite.service';
 
 @Component({
   selector: 'app-juego',
@@ -39,7 +40,10 @@ export class JuegoPage implements OnInit {
 
   constructor(
     private toastController: ToastController,
-  ) {}
+    private sqliteService: SqliteService
+  ) {
+    this.sqliteService.insertData();
+  }
 
 
   async presentToast(position: 'top' | 'middle' | 'bottom', message: string) {
