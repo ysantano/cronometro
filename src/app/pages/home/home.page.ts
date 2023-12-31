@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/service/api.service';
 
 import { Device } from '@capacitor/device';
 import { Geolocation } from '@capacitor/geolocation';
+import { Network } from '@capacitor/network';
 
 
 @Component({
@@ -12,11 +13,15 @@ import { Geolocation } from '@capacitor/geolocation';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-
   constructor(
     private router: Router,
     private apiService: ApiService,
-  ) { }
+  )
+  {
+    Network.addListener('networkStatusChange', status => {
+      console.log('Network status changed', status);
+    });
+  }
 
   async ngOnInit() {
     console.log('Dentro de page.home');
@@ -41,8 +46,6 @@ export class HomePage implements OnInit {
     const getLanguageTag = await Device.getLanguageTag();
     console.log('getLanguageTag:', getLanguageTag);
 
-
-
     console.log('--- GEOLOCATION ---');
     const opciones = {
       enableHighAccuracy: true
@@ -66,6 +69,14 @@ export class HomePage implements OnInit {
 
     const checkPermissions = await Geolocation.checkPermissions();
     console.log('checkPermissions:', checkPermissions);
+
+
+    console.log('--- Network ---');
+    const logCurrentNetworkStatus = async () => {
+      const status = await Network.getStatus();
+      console.log('Network status:', status);
+    };
+
 
   }
 
