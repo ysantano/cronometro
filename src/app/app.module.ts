@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 
-import { SQLite } from '@ionic-native/sqlite/ngx';
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,7 +16,6 @@ import { SQLite } from '@ionic-native/sqlite/ngx';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    SQLite
   ],
   bootstrap: [AppComponent],
 })

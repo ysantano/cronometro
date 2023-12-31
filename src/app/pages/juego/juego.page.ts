@@ -42,7 +42,7 @@ export class JuegoPage implements OnInit {
     private toastController: ToastController,
     private sqliteService: SqliteService
   ) {
-    this.sqliteService.insertData();
+    //this.sqliteService.insertData();
   }
 
 
