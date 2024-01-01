@@ -6,6 +6,7 @@ import { Device } from '@capacitor/device';
 import { Geolocation } from '@capacitor/geolocation';
 import { Network } from '@capacitor/network';
 
+import { ScreenOrientation, OrientationType } from '@capawesome/capacitor-screen-orientation';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,10 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     console.log('Dentro de page.home');
+
+    const result = await ScreenOrientation.getCurrentOrientation();
+    console.log('result: ', result);
+
     this.apiService.getDatos().subscribe((response) => {
       // Manejar la respuesta aquí
       console.log(response);
@@ -36,6 +41,10 @@ export class HomePage implements OnInit {
 
     const getInfo = await Device.getInfo();
     console.log('getInfo:', getInfo);
+    if (getInfo.platform != 'web') {
+      await ScreenOrientation.lock({ type: OrientationType.PORTRAIT_PRIMARY });
+      console.log('Bloquer rotación!');
+    }
 
     const getBatteryInfo = await Device.getBatteryInfo();
     console.log('getBatteryInfo:', getBatteryInfo);
@@ -76,7 +85,6 @@ export class HomePage implements OnInit {
       const status = await Network.getStatus();
       console.log('Network status:', status);
     };
-
 
   }
 
