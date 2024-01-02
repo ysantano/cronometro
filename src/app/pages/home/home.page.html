@@ -8,6 +8,12 @@
   <ion-item>
     <ion-label class="ion-text-center">Juegos del día</ion-label>
   </ion-item>
+  <ion-item>
+    <!--
+    <ion-label [color]="networkStatus?.connected ? 'primary':'dark'" class="ion-text-center">Internet: {{ networkStatus | json }}</ion-label>
+    -->
+    <ion-label [color]="networkStatus?.connected ? 'primary':'dark'" class="ion-text-center">Internet: {{ networkStatus?.connectionType }}</ion-label>
+  </ion-item>
   <div id="container">
 
     <ion-card (click)="fncCronometroJuego();">

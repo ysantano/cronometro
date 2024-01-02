@@ -4,7 +4,7 @@ import { ApiService } from 'src/app/service/api.service';
 
 import { Device } from '@capacitor/device';
 import { Geolocation } from '@capacitor/geolocation';
-import { Network } from '@capacitor/network';
+import { Network, ConnectionStatus } from '@capacitor/network';
 
 import { ScreenOrientation, OrientationType } from '@capawesome/capacitor-screen-orientation';
 
@@ -14,6 +14,8 @@ import { ScreenOrientation, OrientationType } from '@capawesome/capacitor-screen
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  networkStatus: ConnectionStatus | undefined;
+
   constructor(
     private router: Router,
     private apiService: ApiService,
@@ -26,6 +28,15 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     console.log('Dentro de page.home');
+
+    if(Network) {
+      Network.getStatus().then((status)=>{
+        this.networkStatus = status;
+      })
+    }
+    Network.addListener("networkStatusChange", status=>{
+      this.networkStatus=status;
+    })
 
     const result = await ScreenOrientation.getCurrentOrientation();
     console.log('result: ', result);
