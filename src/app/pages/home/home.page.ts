@@ -102,4 +102,9 @@ export class HomePage implements OnInit {
   fncCronometroJuego() {
     this.router.navigate(['/juego']);
   }
+
+  fncDeviceInfo() {
+    this.router.navigate(['/deviceinfo']);
+  }
+
 }
