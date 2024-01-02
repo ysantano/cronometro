@@ -21,11 +21,11 @@ const routes: Routes = [
   },
   {
     path: 'pruebas',
-    loadChildren: () => import('./page/pruebas/pruebas.module').then( m => m.PruebasPageModule)
+    loadChildren: () => import('./pages/pruebas/pruebas.module').then( m => m.PruebasPageModule)
   },
   {
     path: 'deviceinfo',
-    loadChildren: () => import('./page/deviceinfo/deviceinfo.module').then( m => m.DeviceinfoPageModule)
+    loadChildren: () => import('./pages/deviceinfo/deviceinfo.module').then( m => m.DeviceinfoPageModule)
   },
 ];
 
