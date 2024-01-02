@@ -19,6 +19,14 @@ const routes: Routes = [
     path: 'juego',
     loadChildren: () => import('./pages/juego/juego.module').then( m => m.JuegoPageModule)
   },
+  {
+    path: 'pruebas',
+    loadChildren: () => import('./page/pruebas/pruebas.module').then( m => m.PruebasPageModule)
+  },
+  {
+    path: 'deviceinfo',
+    loadChildren: () => import('./page/deviceinfo/deviceinfo.module').then( m => m.DeviceinfoPageModule)
+  },
 ];
 
 @NgModule({
