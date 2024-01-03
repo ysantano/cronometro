@@ -18,27 +18,33 @@ export class StorageService {
   }
 
   public async set(key: string, value: any) {
-    const result = await this._storage?.set(key, value);
+    let result = await this._storage?.set(key, value);
+    console.log(result);
   }
 
   public async get(key: string) {
-    const result = await this._storage?.get(key);
+    let value = await this._storage?.get(key);
+    console.log(value);
+    return value;
   }
 
   public async remove(key: string) {
-    const result = await this._storage?.remove(key);
+    let value = await this._storage?.remove(key);
   }
 
   public async clear() {
-    const result = await this._storage?.clear();
+    let value = await this._storage?.clear();
   }
 
   public async keys() {
-    const result = await this._storage?.keys()
+    let value = await this._storage?.keys();
+    return value;
   }
 
   public async length() {
-    const result = await this._storage?.length()
+    let value = await this._storage?.length();
+    console.log(value);
+    return value;
   }
 
   public async list() {

@@ -107,4 +107,8 @@ export class HomePage implements OnInit {
     this.router.navigate(['/deviceinfo']);
   }
 
+  fncPruebas() {
+    this.router.navigate(['/pruebas']);
+  }
+
 }

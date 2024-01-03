@@ -10,4 +10,18 @@
       <ion-title size="large">pruebas</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div id="container">
+    <ion-button (click)="setValue()">Set value</ion-button>
+    <ion-button (click)="getValue()">Get value</ion-button>
+    <ion-button (click)="removeValue()">Remove value</ion-button>
+    <ion-button (click)="clearStorage()">Clear storage</ion-button>
+    <ion-button (click)="keysValue()">Keys value</ion-button>
+    <ion-button (click)="lengthValue()">Length value</ion-button>
+    <ion-button (click)="listValue()">List value</ion-button>
+
+    <div>{{value}}</div>
+
+  </div>
+
 </ion-content>
