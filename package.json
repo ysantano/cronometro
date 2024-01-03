@@ -39,6 +39,7 @@
     "cordova-sqlite-storage": "^6.1.0",
     "install": "^0.13.0",
     "ionicons": "^7.0.0",
+    "localforage-cordovasqlitedriver": "^1.8.0",
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2",
     "npm": "^10.2.5",
