@@ -21,7 +21,7 @@ export class TestsqlitePage {
     console.log('Create/Open database');
     try {
       this.sqlite.create({
-        name: 'naosql',
+        name: 'data.db',
         location: 'defalut'
       })
       .then((db: SQLiteObject) => {
