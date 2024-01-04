@@ -17,6 +17,7 @@ import { Drivers } from '@ionic/storage';
     AppRoutingModule,
     HttpClientModule,
     IonicStorageModule.forRoot({
+      name:'naosql',
       driverOrder: [Drivers.SecureStorage, Drivers.IndexedDB, Drivers.LocalStorage]
     })
   ],
