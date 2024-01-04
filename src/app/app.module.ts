@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -16,12 +18,12 @@ import { Drivers } from '@ionic/storage';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot({
-      name:'naosql',
-      driverOrder: [Drivers.SecureStorage, Drivers.IndexedDB, Drivers.LocalStorage]
-    })
+    //IonicStorageModule.forRoot({
+    //  driverOrder: [Drivers.SecureStorage, Drivers.IndexedDB, Drivers.LocalStorage]
+    //})
   ],
   providers: [
+    SQLite,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     importProvidersFrom(IonicStorageModule.forRoot({
       name: 'naodb',

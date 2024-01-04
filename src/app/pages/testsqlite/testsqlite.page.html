@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>testsqlite</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">testsqlite</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div style="border-bottom: solid 1px lightgray;margin-bottom: 20px;">
+    <ion-button (click)="createOpenDatabase()"size="small">Create/Open database</ion-button>
+    <ion-button (click)="createTable()"size="small">Create table</ion-button>
+  </div>
+
+  <div style="max-width:200px;margin: auto;">
+    <ion-item>
+      <ion-input placeholder="Enter book name" [(ngModel)]="book_name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Enter book price" [(ngModel)]="book_price"></ion-input>
+    </ion-item>
+    <ion-button size="small" (click)="insertData()" style="margin-bottom: 20px;">
+      Add Record
+    </ion-button>
+  </div>
+
+  <div style="border-top:solid 1px lightgray;">
+    <ion-button size="small" (click)="selectData()" style="margin-bottom: 20px;">Select Record</ion-button>
+
+    <div *ngFor="let b of bookData; let i = index">
+      <div>book name: {{b.book_name}}</div>
+      <div>price: {{b.book_price}}</div>
+    </div>
+
+  </div>
+
+</ion-content>

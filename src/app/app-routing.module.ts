@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'deviceinfo',
     loadChildren: () => import('./pages/deviceinfo/deviceinfo.module').then( m => m.DeviceinfoPageModule)
   },
+  {
+    path: 'testsqlite',
+    loadChildren: () => import('./pages/testsqlite/testsqlite.module').then( m => m.TestsqlitePageModule)
+  },
 ];
 
 @NgModule({
