@@ -48,9 +48,18 @@ export class StorageService {
   }
 
   public async list() {
+    /*
     this._storage?.forEach((key, value, index) => {
       console.log('key: ' + key + ' value: ' + value + ' index: ' + index);
     });
+    */
+    this._storage?.forEach((key, value, index) => {
+      var datos:[] = key;
+      console.log('value: ' + value + ' index: ' + index);
+      console.log(datos);
+
+    });
+
   }
 
 }

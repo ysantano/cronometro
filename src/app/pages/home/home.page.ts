@@ -57,8 +57,8 @@ export class HomePage implements OnInit {
   }
 
   fncPruebas() {
-    //this.router.navigate(['/pruebas']);
-    this.router.navigate(['/testsqlite']);
+    this.router.navigate(['/pruebas']);
+    //this.router.navigate(['/testsqlite']);
   }
 
 }

@@ -19,11 +19,30 @@ export class PruebasPage {
   ) { }
 
   async setValue() {
-    await this.storageService.set('country', 'India');
+    //await this.storageService.set('country', 'India');
+
+    const rec1 = {
+      'primero':'1',
+      'segundo':'2',
+      'tercero':'3'
+    };
+    await this.storageService.set('country1', rec1);
+
+    const rec2 = {
+      'primero':'4',
+      'segundo':'5',
+      'tercero':'6'
+    };
+    await this.storageService.set('country2', rec2);
   }
 
   async getValue() {
-    this.value = await this.storageService.get('country');
+    this.value = await this.storageService.get('country1');
+    for (const key in this.value) {
+      if (this.value.hasOwnProperty(key)) {
+        console.log(`${key}: ${this.value[key]}`);
+      }
+    }
   }
 
   async removeValue() {
