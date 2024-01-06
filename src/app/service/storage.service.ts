@@ -38,6 +38,7 @@ export class StorageService {
 
   public async keys() {
     let value = await this._storage?.keys();
+    console.log(value);
     return value;
   }
 
@@ -48,15 +49,10 @@ export class StorageService {
   }
 
   public async list() {
-    /*
     this._storage?.forEach((key, value, index) => {
-      console.log('key: ' + key + ' value: ' + value + ' index: ' + index);
-    });
-    */
-    this._storage?.forEach((key, value, index) => {
-      var datos:[] = key;
       console.log('value: ' + value + ' index: ' + index);
-      console.log(datos);
+      console.log(key);
+      console.log(key.primero + ',' + key.segundo + ',' + key.tercero);
 
     });
 

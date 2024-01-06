@@ -18,22 +18,40 @@ export class PruebasPage {
     private storageService: StorageService
   ) { }
 
+  getCurrentDayTimestamp() {
+    const d = new Date();
+    return d.getFullYear() + ''
+    + (d.getMonth() + 1).toString().padStart(2, '0') + ''
+    + d.getDate().toString().padStart(2, '0') + ''
+    + d.getHours().toString().padStart(2, '0') + ''
+    + d.getMinutes().toString().padStart(2, '0') + ''
+    + d.getSeconds().toString().padStart(2, '0');
+  }
+
   async setValue() {
     //await this.storageService.set('country', 'India');
 
+    var now = new Date().toLocaleDateString('es-MX');
+    //var todayDate = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate();
+    var todayDate = now
+    console.log('todayDate: ' + todayDate);
+
+    const key1 = '135|' + this.getCurrentDayTimestamp();
     const rec1 = {
       'primero':'1',
       'segundo':'2',
       'tercero':'3'
     };
-    await this.storageService.set('country1', rec1);
+    await this.storageService.set(key1, rec1);
 
+    /*
     const rec2 = {
       'primero':'4',
       'segundo':'5',
       'tercero':'6'
     };
     await this.storageService.set('country2', rec2);
+    */
   }
 
   async getValue() {
