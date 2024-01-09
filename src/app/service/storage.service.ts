@@ -49,10 +49,12 @@ export class StorageService {
   }
 
   public async list() {
+
+
     this._storage?.forEach((key, value, index) => {
       console.log('value: ' + value + ' index: ' + index);
       console.log(key);
-      console.log(key.primero + ',' + key.segundo + ',' + key.tercero);
+      //console.log(key.primero + ',' + key.segundo + ',' + key.tercero);
 
     });
 

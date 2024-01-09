@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { SqliteService } from 'src/app/service/sqlite.service';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-juego',
@@ -9,6 +10,8 @@ import { SqliteService } from 'src/app/service/sqlite.service';
 })
 
 export class JuegoPage implements OnInit {
+
+  idReg: number = 1;
 
   isModalOpen = false;
   accionJugada: string = "";
@@ -20,7 +23,6 @@ export class JuegoPage implements OnInit {
   sLocal: string = "";
   sVisitante: string = "";
   down: number = 1;
-
 
   timeTab: string = "T1"
   tiempo: string = ""
@@ -40,11 +42,11 @@ export class JuegoPage implements OnInit {
 
   constructor(
     private toastController: ToastController,
-    private sqliteService: SqliteService
+    private sqliteService: SqliteService,
+    private storageService: StorageService
   ) {
     //this.sqliteService.insertData();
   }
-
 
   async presentToast(position: 'top' | 'middle' | 'bottom', message: string) {
     const toast = await this.toastController.create({
@@ -148,12 +150,35 @@ export class JuegoPage implements OnInit {
     }
   }
 
-  iniciarCronometro() {
+  getCurrentDayTimestamp(dt:any) {
+    //const d = new Date();
+    return dt.getFullYear() + ''
+    + (dt.getMonth() + 1).toString().padStart(2, '0') + ''
+    + dt.getDate().toString().padStart(2, '0') + ''
+    + dt.getHours().toString().padStart(2, '0') + ''
+    + dt.getMinutes().toString().padStart(2, '0') + ''
+    + dt.getSeconds().toString().padStart(2, '0');
+  }
+
+  async iniciarCronometro() {
     if (this.pausado) {
       console.log("Inicia el conteo!");
       this.pausado = false;
       this.iconBottonPlayPause = "pause-outline";
       //this.equipo = "local"
+
+      const dt = new Date();
+      const key1 = this.idReg + '|CR|PY|135|' + this.getCurrentDayTimestamp(dt);
+      const rec1 = {
+        'feho':dt,
+        'tiempo':this.tiempo,
+        'medio':this.timeTab,
+        'down':this.down,
+        'equipo':this.equipo
+      };
+      await this.storageService.set(key1, rec1);
+      this.idReg++;
+
       this.intervalId = setInterval(() => {
         this.actualizarCronometro();
       }, 1000);
@@ -162,6 +187,19 @@ export class JuegoPage implements OnInit {
       this.pausado = true;
       this.iconBottonPlayPause = "caret-forward-outline";
       //this.equipo = "visitante"
+
+      const dt = new Date();
+      const key1 = this.idReg + '|CR|PA|135|' + this.getCurrentDayTimestamp(dt);
+      const rec1 = {
+        'feho':dt,
+        'tiempo':this.tiempo,
+        'medio':this.timeTab,
+        'down':this.down,
+        'equipo':this.equipo
+      };
+      await this.storageService.set(key1, rec1);
+      this.idReg++;
+
       clearInterval(this.intervalId);
     }
   }

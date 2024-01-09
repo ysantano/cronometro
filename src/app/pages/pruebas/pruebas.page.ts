@@ -32,11 +32,10 @@ export class PruebasPage {
     //await this.storageService.set('country', 'India');
 
     var now = new Date().toLocaleDateString('es-MX');
-    //var todayDate = now.getFullYear() + '/' + (now.getMonth() + 1) + '/' + now.getDate();
     var todayDate = now
-    console.log('todayDate: ' + todayDate);
+    //console.log('todayDate: ' + todayDate);
 
-    const key1 = '135|' + this.getCurrentDayTimestamp();
+    const key1 = 'CR|135|' + this.getCurrentDayTimestamp();
     const rec1 = {
       'primero':'1',
       'segundo':'2',
