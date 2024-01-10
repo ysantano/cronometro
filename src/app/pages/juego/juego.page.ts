@@ -23,6 +23,10 @@ export class JuegoPage implements OnInit {
   sLocal: string = "";
   sVisitante: string = "";
   down: number = 1;
+  puntos: number = 6;
+  numanota: string = "";
+  numlanza: string = "";
+
 
   timeTab: string = "T1"
   tiempo: string = ""
@@ -80,6 +84,7 @@ export class JuegoPage implements OnInit {
     this.sLocal = `${String(this.ptosLocal).padStart(2, "0")}`;
     this.sVisitante = `${String(this.ptosVisitante).padStart(2, "0")}`;
     this.down = 1;
+    this.puntos = 6;
 
   }
 
@@ -208,14 +213,16 @@ export class JuegoPage implements OnInit {
     this.down ++;
     if (this.down > 4) {
       this.down = 1;
-    }
+    };
+    this.fncChangeDown();
   }
 
   fncLastDown() {
     this.down --;
     if (this.down < 1) {
       this.down = 4;
-    }
+    };
+    this.fncChangeDown();
   }
 
   closeModal(isOpen: boolean) {
@@ -276,6 +283,65 @@ export class JuegoPage implements OnInit {
 
     this.isModalOpen = isOpen;
 
+  }
+
+  async fncChangeTeam() {
+    const dt = new Date();
+    const key1 = this.idReg + '|AC|TM|135|' + this.getCurrentDayTimestamp(dt);
+    const rec1 = {
+      'feho':dt,
+      'tiempo':this.tiempo,
+      'medio':this.timeTab,
+      'down':this.down,
+      'equipo':this.equipo
+    };
+    await this.storageService.set(key1, rec1);
+    this.idReg++;
+  }
+
+  async fncChangeDown() {
+    const dt = new Date();
+    const key1 = this.idReg + '|AC|DW|135|' + this.getCurrentDayTimestamp(dt);
+    const rec1 = {
+      'feho':dt,
+      'tiempo':this.tiempo,
+      'medio':this.timeTab,
+      'down':this.down,
+      'equipo':this.equipo
+    };
+    await this.storageService.set(key1, rec1);
+    this.idReg++;
+  }
+
+  async guardaAnotacion() {
+    const dt = new Date();
+    const key1 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+    const rec1 = {
+      'feho':dt,
+      'tiempo':this.tiempo,
+      'medio':this.timeTab,
+      'down':this.down,
+      'equipo':this.equipo,
+      'puntos': parseFloat(this.puntos.toString()),
+      'numanota':this.numanota,
+      'numlanza':this.numlanza
+    };
+    await this.storageService.set(key1, rec1);
+
+    if (this.equipo == "local") {
+      var suma = parseFloat(this.ptosLocal.toString()) + parseFloat(this.puntos.toString());
+      this.ptosLocal = suma;
+    } else {
+      var suma = parseFloat(this.ptosVisitante.toString()) + parseFloat(this.puntos.toString());
+      this.ptosVisitante = suma;
+    }
+    this.sLocal = `${String(this.ptosLocal).padStart(2, "0")}`;
+    this.sVisitante = `${String(this.ptosVisitante).padStart(2, "0")}`;
+
+    this.idReg++;
+    this.numanota = "";
+    this.numlanza = "";
+    this.isModalOpen = false;
   }
 
   borraAnotacion() {

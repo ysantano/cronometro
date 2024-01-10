@@ -27,7 +27,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios">
+  <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" (ionChange)="fncChangeTeam();">
     <ion-segment-button value="visitante">
       <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
       <ion-badge style="font-size:large;">{{sVisitante}}</ion-badge>
@@ -40,17 +40,17 @@
     </ion-segment-button>
   </ion-segment>
 
-  <ion-segment value="{{down}}" [(ngModel)]="down" mode="ios">
-    <ion-segment-button value=1>
+  <ion-segment [value]="down" [(ngModel)]="down" mode="ios" (ionChange)="fncChangeDown();">
+    <ion-segment-button value="1">
       <ion-label>1 down</ion-label>
     </ion-segment-button>
-    <ion-segment-button value=2>
+    <ion-segment-button value="2">
       <ion-label>2 down</ion-label>
     </ion-segment-button>
-    <ion-segment-button value=3>
+    <ion-segment-button value="3">
       <ion-label>3 down</ion-label>
     </ion-segment-button>
-    <ion-segment-button value=4>
+    <ion-segment-button value="4">
       <ion-label>4 down</ion-label>
     </ion-segment-button>
   </ion-segment>
@@ -106,7 +106,6 @@
     <img alt="Configurar" src="../../../assets/icon/config.png" />
   </ion-thumbnail>
 
-
   <!-- VENTANA MODAL PARA CAPTURA DE ESTADISTICAS -->
   <ion-modal [isOpen]="isModalOpen" mode="ios">
     <ng-template>
@@ -122,6 +121,7 @@
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
+
       <ion-content class="ion-padding">
 
         <ion-fab (click)="closeModal(false)" class="btnBack">
@@ -131,7 +131,7 @@
         </ion-fab>
 
         <div *ngIf="imgAccion !== 'config'">
-          <ion-segment value="{{equipo}}" mode="ios">
+          <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios">
             <ion-segment-button value="visitante">
               <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
               <ion-label style="font-size:x-small;text-transform:uppercase;">Pats</ion-label><br/>
@@ -144,34 +144,34 @@
         </div>
 
         <div *ngIf="imgAccion==='anotacion'">
-          <ion-segment value="6" mode="ios">
-            <ion-segment-button value="6">
+          <ion-segment [value]=puntos [(ngModel)]=puntos mode="ios">
+            <ion-segment-button value=6>
               <ion-label>6 pts</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="1">
+            <ion-segment-button value=1>
               <ion-label>1 pt</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="2">
+            <ion-segment-button value=2>
               <ion-label>2 pts</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="3">
+            <ion-segment-button value=3>
               <ion-label>3 pts</ion-label>
             </ion-segment-button>
           </ion-segment>
 
           <ion-list>
             <ion-item>
-              <ion-input label="Jugador que anota" type="number"></ion-input>
+              <ion-input [value]="numanota" [(ngModel)]="numanota" label="Jugador que anota" type="number"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input label="Jugador que lanza" type="number"></ion-input>
+              <ion-input [value]="numlanza" [(ngModel)]="numlanza" label="Jugador que lanza" type="number"></ion-input>
             </ion-item>
           </ion-list>
           <ion-grid>
             <ion-row>
               <ion-col></ion-col>
               <ion-col>
-                <ion-button expand="block" (click)="closeModal(false)">Guardar</ion-button>
+                <ion-button expand="block" (click)="guardaAnotacion()">Guardar</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
