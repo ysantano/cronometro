@@ -26,7 +26,11 @@ export class JuegoPage implements OnInit {
   puntos: number = 6;
   numanota: string = "";
   numlanza: string = "";
-
+  njcastigo: string = "";
+  njintercepta: string = "";
+  njinteranota: string = "";
+  ptsintercepta: number = 0;
+  njcaptura: string = "";
 
   timeTab: string = "T1"
   tiempo: string = ""
@@ -43,6 +47,22 @@ export class JuegoPage implements OnInit {
   intervalId:any;
 
   iconBottonPlayPause: string = "caret-forward-outline";
+
+  idcastigo: number = 0;
+  castigos: any = [
+    {'id':1, 'castigo':'Fuera de juego'},
+    {'id':2, 'castigo':'Movimiento ilegal'},
+    {'id':3, 'castigo':'Contacto ilegal'},
+    {'id':4, 'castigo':'Sujetar'},
+    {'id':5, 'castigo':'Interferencia en pase'},
+    {'id':6, 'castigo':'Bloqueo ilegal'},
+    {'id':7, 'castigo':'Proteger la bandera'},
+    {'id':8, 'castigo':'Golpear al pasador'},
+    {'id':9, 'castigo':'Conducta antideportiva'},
+    {'id':10, 'castigo':'Retraso de juego'},
+  ];
+  interanota: boolean = false;
+  capturaPtos: boolean = false;
 
   constructor(
     private toastController: ToastController,
@@ -264,10 +284,20 @@ export class JuegoPage implements OnInit {
         this.imgAccion = "castigo";
         break;
       case 3:
+        if (this.equipo == "local") {
+          this.equipo = "visitante";
+        }else{
+          this.equipo = "local";
+        }
         this.accionJugada = "Intercepción!";
         this.imgAccion = "intersepcion";
         break;
       case 4:
+        if (this.equipo == "local") {
+          this.equipo = "visitante";
+        }else{
+          this.equipo = "local";
+        }
         this.accionJugada = "Captura!";
         this.imgAccion = "captura";
         break;
@@ -280,9 +310,7 @@ export class JuegoPage implements OnInit {
         this.imgAccion = "config";
         break;
     }
-
     this.isModalOpen = isOpen;
-
   }
 
   async fncChangeTeam() {
@@ -311,6 +339,124 @@ export class JuegoPage implements OnInit {
     };
     await this.storageService.set(key1, rec1);
     this.idReg++;
+  }
+
+  async guardaCaptura() {
+    const dt = new Date();
+    const key1 = this.idReg + '|AC|KP|135|' + this.getCurrentDayTimestamp(dt);
+    const rec1 = {
+      'feho':dt,
+      'tiempo':this.tiempo,
+      'medio':this.timeTab,
+      'down':this.down,
+      'equipo':this.equipo,
+      'njcaptura':this.njcaptura
+    };
+    await this.storageService.set(key1, rec1);
+    this.idReg++;
+
+    if (this.capturaPtos) {
+      this.ptsintercepta = 2;
+      const dt = new Date();
+      const key1 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+      const rec1 = {
+        'feho':dt,
+        'tiempo':this.tiempo,
+        'medio':this.timeTab,
+        'down':this.down,
+        'equipo':this.equipo,
+        'puntos': parseFloat(this.ptsintercepta.toString()),
+        'numanota':this.njcaptura,
+        'numlanza':''
+      };
+      await this.storageService.set(key1, rec1);
+  
+      if (this.equipo == "local") {
+        var suma = parseFloat(this.ptosLocal.toString()) + parseFloat(this.ptsintercepta.toString());
+        this.ptosLocal = suma;
+      } else {
+        var suma = parseFloat(this.ptosVisitante.toString()) + parseFloat(this.ptsintercepta.toString());
+        this.ptosVisitante = suma;
+      }
+      this.sLocal = `${String(this.ptosLocal).padStart(2, "0")}`;
+      this.sVisitante = `${String(this.ptosVisitante).padStart(2, "0")}`;
+      this.idReg++;
+    }
+    this.njcaptura = "";
+    this.capturaPtos = false;
+    this.ptsintercepta = 0;
+    this.isModalOpen = false;
+
+  }
+
+  async guardaIntercepcion() {
+    const dt = new Date();
+    const key1 = this.idReg + '|AC|IT|135|' + this.getCurrentDayTimestamp(dt);
+    const rec1 = {
+      'feho':dt,
+      'tiempo':this.tiempo,
+      'medio':this.timeTab,
+      'down':this.down,
+      'equipo':this.equipo,
+      'njintercepta':this.njintercepta
+    };
+    await this.storageService.set(key1, rec1);
+    this.idReg++;
+
+    //En caso de anotación!
+    if (this.interanota) {
+      const dt = new Date();
+      const key1 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+      const rec1 = {
+        'feho':dt,
+        'tiempo':this.tiempo,
+        'medio':this.timeTab,
+        'down':this.down,
+        'equipo':this.equipo,
+        'puntos': parseFloat(this.ptsintercepta.toString()),
+        'numanota':this.njinteranota,
+        'numlanza':''
+      };
+      await this.storageService.set(key1, rec1);
+  
+      if (this.equipo == "local") {
+        var suma = parseFloat(this.ptosLocal.toString()) + parseFloat(this.ptsintercepta.toString());
+        this.ptosLocal = suma;
+      } else {
+        var suma = parseFloat(this.ptosVisitante.toString()) + parseFloat(this.ptsintercepta.toString());
+        this.ptosVisitante = suma;
+      }
+      this.sLocal = `${String(this.ptosLocal).padStart(2, "0")}`;
+      this.sVisitante = `${String(this.ptosVisitante).padStart(2, "0")}`;
+      this.idReg++;
+    }
+
+    this.njintercepta = "";
+    this.interanota = false;
+    this.njinteranota = "";
+    this.numlanza = "";
+    this.ptsintercepta = 0;
+    this.isModalOpen = false;
+  }
+
+  async guardaCastigo() {
+    const dt = new Date();
+    const key1 = this.idReg + '|AC|CT|135|' + this.getCurrentDayTimestamp(dt);
+    const rec1 = {
+      'feho':dt,
+      'tiempo':this.tiempo,
+      'medio':this.timeTab,
+      'down':this.down,
+      'equipo':this.equipo,
+      'njcastigo':this.njcastigo,
+      'idcastigo':parseFloat(this.idcastigo.toString())
+    };
+    await this.storageService.set(key1, rec1);
+
+    this.idReg++;
+    this.njcastigo = "";
+    this.idcastigo = 0;
+    this.isModalOpen = false;
   }
 
   async guardaAnotacion() {
@@ -348,5 +494,9 @@ export class JuegoPage implements OnInit {
     alert("Borrar registro de anotación!");
   }
 
+  fncInterAnota() {
+    this.njinteranota = this.njintercepta;
+  }
+  
 }
 

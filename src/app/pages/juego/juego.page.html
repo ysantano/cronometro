@@ -223,16 +223,11 @@
         <div *ngIf="imgAccion==='castigo'">
           <ion-list>
             <ion-item>
-              <ion-input label="Jugador comete castigo" type="number"></ion-input>
+              <ion-input [value]="njcastigo" [(ngModel)]="njcastigo" label="Jugador comete castigo" type="number"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-select label="Castigo cometido">
-                <ion-select-option value="1">Castigo 1</ion-select-option>
-                <ion-select-option value="2">Castigo 2</ion-select-option>
-                <ion-select-option value="3">Castigo 3</ion-select-option>
-                <ion-select-option value="4">Castigo 4</ion-select-option>
-                <ion-select-option value="5">Castigo 5</ion-select-option>
-                <ion-select-option value="6">Castigo 6</ion-select-option>
+              <ion-select [(ngModel)]="idcastigo" label="Castigo cometido">
+                <ion-select-option *ngFor="let castigo of castigos" value="{{castigo.id}}">{{castigo.castigo}}</ion-select-option>
               </ion-select>
             </ion-item>
           </ion-list>
@@ -240,7 +235,7 @@
             <ion-row>
               <ion-col></ion-col>
               <ion-col>
-                <ion-button expand="block" (click)="closeModal(false)">Guardar</ion-button>
+                <ion-button expand="block" (click)="guardaCastigo()">Guardar</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -269,14 +264,37 @@
         <div *ngIf="imgAccion==='intersepcion'">
           <ion-list>
             <ion-item>
-              <ion-input label="Jugador que intercepta" type="number"></ion-input>
+              <ion-input [value]="njintercepta" [(ngModel)]="njintercepta" label="Jugador que intercepta" type="number" (change)="fncInterAnota()"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-toggle [(ngModel)]=interanota>¿Anotó?</ion-toggle>
+            </ion-item>
+            <ion-item>
+              <ion-input [disabled]="!interanota" [value]="njinteranota" [(ngModel)]="njinteranota" label="Jugador que anota" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-segment [disabled]="!interanota" [value]=ptsintercepta [(ngModel)]=ptsintercepta mode="ios">
+                <ion-segment-button value=6>
+                  <ion-label>6 pts</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value=1>
+                  <ion-label>1 pt</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value=2>
+                  <ion-label>2 pts</ion-label>
+                </ion-segment-button>
+                <ion-segment-button value=3>
+                  <ion-label>3 pts</ion-label>
+                </ion-segment-button>
+              </ion-segment>
             </ion-item>
           </ion-list>
+
           <ion-grid>
             <ion-row>
               <ion-col></ion-col>
               <ion-col>
-                <ion-button expand="block" (click)="closeModal(false)">Guardar</ion-button>
+                <ion-button expand="block" (click)="guardaIntercepcion()">Guardar</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -305,14 +323,17 @@
         <div *ngIf="imgAccion==='captura'">
           <ion-list>
             <ion-item>
-              <ion-input label="Jugador que captura" type="number"></ion-input>
+              <ion-input [value]="njcaptura" [(ngModel)]="njcaptura" label="Jugador que captura" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-toggle [(ngModel)]=capturaPtos>¿Dentro de la anotación?</ion-toggle>
             </ion-item>
           </ion-list>
           <ion-grid>
             <ion-row>
               <ion-col></ion-col>
               <ion-col>
-                <ion-button expand="block" (click)="closeModal(false)">Guardar</ion-button>
+                <ion-button expand="block" (click)="guardaCaptura()">Guardar</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
