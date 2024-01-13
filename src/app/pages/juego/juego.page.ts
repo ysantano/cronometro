@@ -60,6 +60,7 @@ export class JuegoPage implements OnInit {
     {'id':8, 'castigo':'Golpear al pasador'},
     {'id':9, 'castigo':'Conducta antideportiva'},
     {'id':10, 'castigo':'Retraso de juego'},
+    {'id':11, 'castigo':'Otro'}
   ];
   interanota: boolean = false;
   capturaPtos: boolean = false;
@@ -370,7 +371,7 @@ export class JuegoPage implements OnInit {
         'numlanza':''
       };
       await this.storageService.set(key1, rec1);
-  
+
       if (this.equipo == "local") {
         var suma = parseFloat(this.ptosLocal.toString()) + parseFloat(this.ptsintercepta.toString());
         this.ptosLocal = suma;
@@ -418,7 +419,7 @@ export class JuegoPage implements OnInit {
         'numlanza':''
       };
       await this.storageService.set(key1, rec1);
-  
+
       if (this.equipo == "local") {
         var suma = parseFloat(this.ptosLocal.toString()) + parseFloat(this.ptsintercepta.toString());
         this.ptosLocal = suma;
@@ -497,6 +498,6 @@ export class JuegoPage implements OnInit {
   fncInterAnota() {
     this.njinteranota = this.njintercepta;
   }
-  
+
 }
 
