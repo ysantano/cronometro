@@ -333,6 +333,29 @@ export class JuegoPage implements OnInit {
 
   }
 
+  async fncInfoEquipo() {
+    console.log('imgAccion: ' + this.imgAccion);
+
+    if (this.imgAccion === 'anotacion') {
+      this.listAnotaciones = [];
+      await this._listStorage.forEach((key:any, value:any, index:any) => {
+        const array = value.split('|');
+        if (array[1] == 'AC') {
+          switch(array[2]) {
+            case "TW":
+              if (this.equipo === key.equipo) {
+                this.listAnotaciones.push(key);
+              }
+              break;
+          }
+        }
+      })
+    }
+
+
+
+  }
+
   async openActionModal(id:number, isOpen: boolean) {
     console.log("Acción : " + id);
 
@@ -341,7 +364,6 @@ export class JuegoPage implements OnInit {
 
     switch(id) {
       case 1:
-        console.log();
         this.listAnotaciones = [];
         await this._listStorage.forEach((key:any, value:any, index:any) => {
           console.log(value, key);
