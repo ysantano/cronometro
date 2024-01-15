@@ -11,7 +11,8 @@ import { StorageService } from 'src/app/service/storage.service';
 
 export class JuegoPage implements OnInit {
 
-  private _lstanotciones: any | null = null;
+  private _listStorage: any | null = null;
+  listAnotaciones: any = [];
 
   testjson: any = [
     {
@@ -334,12 +335,27 @@ export class JuegoPage implements OnInit {
 
   async openActionModal(id:number, isOpen: boolean) {
     console.log("Acción : " + id);
+
+    this._listStorage = await this.storageService.list();
     this.accionJugada = "";
+
     switch(id) {
       case 1:
-        this._lstanotciones = await this.storageService.list();
-        this._lstanotciones.forEach((key:any, value:any, index:any) => {
+        console.log();
+        this.listAnotaciones = [];
+        await this._listStorage.forEach((key:any, value:any, index:any) => {
           console.log(value, key);
+          const array = value.split('|');
+          if (array[1] == 'AC') {
+            switch(array[2]) {
+              case "TW":
+                if (this.equipo === key.equipo) {
+                  this.listAnotaciones.push(key);
+                }
+                break;
+            }
+          }
+
         })
 
         this.accionJugada = "Anotación!";

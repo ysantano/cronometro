@@ -183,42 +183,21 @@
             </ion-item>
           </ion-list>
           -->
-          <ion-list [inset]="true" *ngFor="let item of testjson">
+          <ion-list [inset]="true" *ngFor="let item of listAnotaciones">
             <ion-item-sliding>
               <ion-item [button]="true">
                 <ion-avatar aria-hidden="true" slot="start">
                   <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                 </ion-avatar>
                 <ion-label>
-                  <b>#54</b> {{ item.equipo }}
-                  <br/><small>Lanzó <b>#99</b></small>
-                  <br/><small>T1 D1 00:00</small>
+                  <b>#{{ item.numanota }}</b> {{ item.equipo }}
+                  <br/><small>Lanzó <b>#{{ item.numlanza }}</b></small>
+                  <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
                 </ion-label>
-                <ion-badge slot="end">6</ion-badge>
+                <ion-badge slot="end">{{item.puntos}}</ion-badge>
               </ion-item>
               <ion-item-options slot="end">
                 <ion-item-option color="danger" expandable="true" (click)="borraAnotacion()">
-                  <ion-icon slot="icon-only" name="trash"></ion-icon>
-                </ion-item-option>
-              </ion-item-options>
-            </ion-item-sliding>
-          </ion-list>
-
-          <ion-list [inset]="true">
-            <ion-item-sliding>
-              <ion-item [button]="true">
-                <ion-avatar aria-hidden="true" slot="start">
-                  <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-                </ion-avatar>
-                <ion-label>
-                  <b>#88</b> Manoa Sphinth
-                  <br/><small>Lanzó <b>#99</b></small>
-                  <br/><small>T2 D4 03:10</small>
-                </ion-label>
-                <ion-badge slot="end">1</ion-badge>
-              </ion-item>
-              <ion-item-options slot="end">
-                <ion-item-option color="danger" expandable="true">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
