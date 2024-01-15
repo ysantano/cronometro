@@ -14,65 +14,8 @@ export class JuegoPage implements OnInit {
   private _listStorage: any | null = null;
   listAnotaciones: any = [];
   listCastigos: any = [];
-
-  testjson: any = [
-    {
-      "feho": "2024-01-14T22:14:41.601Z",
-      "tiempo": "21:01",
-      "medio": "T1",
-      "down": 1,
-      "equipo": "local",
-      "puntos": 2,
-      "numanota": 55,
-      "numlanza": ""
-    },
-    {
-      "feho": "2024-01-14T22:14:41.599Z",
-      "tiempo": "21:01",
-      "medio": "T1",
-      "down": 1,
-      "equipo": "local",
-      "njcaptura": 55
-    },
-    {
-      "feho": "2024-01-14T22:14:29.769Z",
-      "tiempo": "21:01",
-      "medio": "T1",
-      "down": 1,
-      "equipo": "local",
-      "njintercepta": 75
-    },
-    {
-      "feho": "2024-01-14T22:14:29.771Z",
-      "tiempo": "21:01",
-      "medio": "T1",
-      "down": 1,
-      "equipo": "local",
-      "puntos": 6,
-      "numanota": 75,
-      "numlanza": ""
-    },
-    {
-      "feho": "2024-01-14T22:14:01.542Z",
-      "tiempo": "21:01",
-      "medio": "T1",
-      "down": 1,
-      "equipo": "visitante",
-      "puntos": 6,
-      "numanota": 24,
-      "numlanza": 3
-    },
-    {
-      "feho": "2024-01-14T22:14:19.114Z",
-      "tiempo": "21:01",
-      "medio": "T1",
-      "down": 1,
-      "equipo": "visitante",
-      "njcastigo": 25,
-      "idcastigo": 7
-    }
-  ];
-
+  listIntercepciones: any = [];
+  listCapturas: any = [];
 
   idReg: number = 1;
 
@@ -335,7 +278,7 @@ export class JuegoPage implements OnInit {
   }
 
   async fncInfoEquipo() {
-    console.log('imgAccion: ' + this.imgAccion);
+    //console.log('imgAccion: ' + this.imgAccion);
 
     if (this.imgAccion === 'anotacion') {
       this.listAnotaciones = [];
@@ -361,6 +304,29 @@ export class JuegoPage implements OnInit {
       })
     }
 
+    if (this.imgAccion === 'intersepcion') {
+      this.listIntercepciones = [];
+      await this._listStorage.forEach((key:any, value:any, index:any) => {
+        const array = value.split('|');
+        if (array[1] === 'AC' && array[2] === 'IT') {
+          if (this.equipo === key.equipo) {
+            this.listIntercepciones.push(key);
+          }
+        }
+      })
+    }
+
+    if (this.imgAccion === 'captura') {
+      this.listCapturas = [];
+      await this._listStorage.forEach((key:any, value:any, index:any) => {
+        const array = value.split('|');
+        if (array[1] === 'AC' && array[2] === 'KP') {
+          if (this.equipo === key.equipo) {
+            this.listCapturas.push(key);
+          }
+        }
+      })
+    }
 
   }
 
@@ -389,7 +355,6 @@ export class JuegoPage implements OnInit {
       case 2:
         this.listCastigos = [];
         await this._listStorage.forEach((key:any, value:any, index:any) => {
-          console.log(value, key);
           const array = value.split('|');
           if (array[1] === 'AC' && array[2] === 'CT') {
             if (this.equipo === key.equipo) {
@@ -401,12 +366,25 @@ export class JuegoPage implements OnInit {
         this.accionJugada = "Castigo!";
         this.imgAccion = "castigo";
         break;
+
       case 3:
         if (this.equipo == "local") {
           this.equipo = "visitante";
         }else{
           this.equipo = "local";
         }
+
+        this.listIntercepciones = [];
+        await this._listStorage.forEach((key:any, value:any, index:any) => {
+          //console.log(value, key);
+          const array = value.split('|');
+          if (array[1] === 'AC' && array[2] === 'IT') {
+            if (this.equipo === key.equipo) {
+              this.listIntercepciones.push(key);
+            }
+          }
+        })
+
         this.accionJugada = "Intercepción!";
         this.imgAccion = "intersepcion";
         break;
@@ -416,6 +394,18 @@ export class JuegoPage implements OnInit {
         }else{
           this.equipo = "local";
         }
+
+        this.listCapturas = [];
+        await this._listStorage.forEach((key:any, value:any, index:any) => {
+          //console.log(value, key);
+          const array = value.split('|');
+          if (array[1] === 'AC' && array[2] === 'KP') {
+            if (this.equipo === key.equipo) {
+              this.listCapturas.push(key);
+            }
+          }
+        })
+
         this.accionJugada = "Captura!";
         this.imgAccion = "captura";
         break;

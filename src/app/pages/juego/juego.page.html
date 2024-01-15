@@ -239,7 +239,6 @@
               </ion-item-options>
             </ion-item-sliding>
           </ion-list>
-
         </div>
 
         <div *ngIf="imgAccion==='intersepcion'">
@@ -280,19 +279,19 @@
             </ion-row>
           </ion-grid>
 
-          <ion-list [inset]="true">
+          <ion-list [inset]="true" *ngFor="let item of listIntercepciones">
             <ion-item-sliding>
               <ion-item [button]="true">
                 <ion-avatar aria-hidden="true" slot="start">
                   <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                 </ion-avatar>
                 <ion-label>
-                  <b>#54</b> Rick Astley
-                  <br/><small>T1 D1 00:00</small>
+                  <b>#{{ item.njintercepta }}</b> {{ item.equipo }}
+                  <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
                 </ion-label>
               </ion-item>
               <ion-item-options slot="end">
-                <ion-item-option color="danger" expandable="true">
+                <ion-item-option color="danger" expandable="true" (click)="borraAnotacion()">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
@@ -319,19 +318,19 @@
             </ion-row>
           </ion-grid>
 
-          <ion-list [inset]="true">
+          <ion-list [inset]="true" *ngFor="let item of listCapturas">
             <ion-item-sliding>
               <ion-item [button]="true">
                 <ion-avatar aria-hidden="true" slot="start">
                   <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                 </ion-avatar>
                 <ion-label>
-                  <b>#54</b> Rick Astley
-                  <br/><small>T1 D1 00:00</small>
+                  <b>#{{ item.njcaptura }}</b> {{ item.equipo }}
+                  <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
                 </ion-label>
               </ion-item>
               <ion-item-options slot="end">
-                <ion-item-option color="danger" expandable="true">
+                <ion-item-option color="danger" expandable="true" (click)="borraAnotacion()">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
