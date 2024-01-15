@@ -13,6 +13,7 @@ export class JuegoPage implements OnInit {
 
   private _listStorage: any | null = null;
   listAnotaciones: any = [];
+  listCastigos: any = [];
 
   testjson: any = [
     {
@@ -340,18 +341,25 @@ export class JuegoPage implements OnInit {
       this.listAnotaciones = [];
       await this._listStorage.forEach((key:any, value:any, index:any) => {
         const array = value.split('|');
-        if (array[1] == 'AC') {
-          switch(array[2]) {
-            case "TW":
-              if (this.equipo === key.equipo) {
-                this.listAnotaciones.push(key);
-              }
-              break;
+        if (array[1] === 'AC' && array[2] === 'TW') {
+          if (this.equipo === key.equipo) {
+            this.listAnotaciones.push(key);
           }
         }
       })
     }
 
+    if (this.imgAccion === 'castigo') {
+      this.listCastigos = [];
+      await this._listStorage.forEach((key:any, value:any, index:any) => {
+        const array = value.split('|');
+        if (array[1] === 'AC' && array[2] === 'CT') {
+          if (this.equipo === key.equipo) {
+            this.listCastigos.push(key);
+          }
+        }
+      })
+    }
 
 
   }
@@ -366,24 +374,30 @@ export class JuegoPage implements OnInit {
       case 1:
         this.listAnotaciones = [];
         await this._listStorage.forEach((key:any, value:any, index:any) => {
-          console.log(value, key);
           const array = value.split('|');
-          if (array[1] == 'AC') {
-            switch(array[2]) {
-              case "TW":
-                if (this.equipo === key.equipo) {
-                  this.listAnotaciones.push(key);
-                }
-                break;
+          if (array[1] === 'AC' && array[2] === 'TW') {
+            if (this.equipo === key.equipo) {
+              this.listAnotaciones.push(key);
             }
           }
-
         })
 
         this.accionJugada = "Anotación!";
         this.imgAccion = "anotacion";
         break;
+
       case 2:
+        this.listCastigos = [];
+        await this._listStorage.forEach((key:any, value:any, index:any) => {
+          console.log(value, key);
+          const array = value.split('|');
+          if (array[1] === 'AC' && array[2] === 'CT') {
+            if (this.equipo === key.equipo) {
+              this.listCastigos.push(key);
+            }
+          }
+        })
+
         this.accionJugada = "Castigo!";
         this.imgAccion = "castigo";
         break;

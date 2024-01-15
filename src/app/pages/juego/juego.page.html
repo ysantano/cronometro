@@ -218,26 +218,28 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-          <ion-list [inset]="true">
+
+          <ion-list [inset]="true" *ngFor="let item of listCastigos">
             <ion-item-sliding>
               <ion-item [button]="true">
                 <ion-avatar aria-hidden="true" slot="start">
                   <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                 </ion-avatar>
                 <ion-label>
-                  <b>#88</b> Manoa Sphinth
-                  <br/><small>Lanzó <b>#99</b></small>
-                  <br/><small>T2 D4 03:10</small>
+                  <b>#{{ item.njcastigo }}</b> {{ item.equipo }}
+                  <br/><small>Castigo: {{ item.idcastigo }}</small>
+                  <br/><small>{{ castigos[item.idcastigo].castigo }}</small>
+                  <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
                 </ion-label>
-                <ion-badge slot="end">1</ion-badge>
               </ion-item>
               <ion-item-options slot="end">
-                <ion-item-option color="danger" expandable="true">
+                <ion-item-option color="danger" expandable="true" (click)="borraAnotacion()">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
             </ion-item-sliding>
           </ion-list>
+
         </div>
 
         <div *ngIf="imgAccion==='intersepcion'">
