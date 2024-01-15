@@ -175,15 +175,22 @@
               </ion-col>
             </ion-row>
           </ion-grid>
-
-          <ion-list [inset]="true">
+          <!--
+          <ion-list *ngFor="let item of testjson">
+            <ion-item>
+              <ion-label>{{ item.equipo }}</ion-label>
+              <ion-note slot="end">{{ item.equipo }}</ion-note>
+            </ion-item>
+          </ion-list>
+          -->
+          <ion-list [inset]="true" *ngFor="let item of testjson">
             <ion-item-sliding>
               <ion-item [button]="true">
                 <ion-avatar aria-hidden="true" slot="start">
                   <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                 </ion-avatar>
                 <ion-label>
-                  <b>#54</b> Rick Astley
+                  <b>#54</b> {{ item.equipo }}
                   <br/><small>Lanzó <b>#99</b></small>
                   <br/><small>T1 D1 00:00</small>
                 </ion-label>

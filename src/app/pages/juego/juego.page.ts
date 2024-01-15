@@ -11,6 +11,67 @@ import { StorageService } from 'src/app/service/storage.service';
 
 export class JuegoPage implements OnInit {
 
+  private _lstanotciones: any | null = null;
+
+  testjson: any = [
+    {
+      "feho": "2024-01-14T22:14:41.601Z",
+      "tiempo": "21:01",
+      "medio": "T1",
+      "down": 1,
+      "equipo": "local",
+      "puntos": 2,
+      "numanota": 55,
+      "numlanza": ""
+    },
+    {
+      "feho": "2024-01-14T22:14:41.599Z",
+      "tiempo": "21:01",
+      "medio": "T1",
+      "down": 1,
+      "equipo": "local",
+      "njcaptura": 55
+    },
+    {
+      "feho": "2024-01-14T22:14:29.769Z",
+      "tiempo": "21:01",
+      "medio": "T1",
+      "down": 1,
+      "equipo": "local",
+      "njintercepta": 75
+    },
+    {
+      "feho": "2024-01-14T22:14:29.771Z",
+      "tiempo": "21:01",
+      "medio": "T1",
+      "down": 1,
+      "equipo": "local",
+      "puntos": 6,
+      "numanota": 75,
+      "numlanza": ""
+    },
+    {
+      "feho": "2024-01-14T22:14:01.542Z",
+      "tiempo": "21:01",
+      "medio": "T1",
+      "down": 1,
+      "equipo": "visitante",
+      "puntos": 6,
+      "numanota": 24,
+      "numlanza": 3
+    },
+    {
+      "feho": "2024-01-14T22:14:19.114Z",
+      "tiempo": "21:01",
+      "medio": "T1",
+      "down": 1,
+      "equipo": "visitante",
+      "njcastigo": 25,
+      "idcastigo": 7
+    }
+  ];
+
+
   idReg: number = 1;
 
   isModalOpen = false;
@@ -60,7 +121,6 @@ export class JuegoPage implements OnInit {
     {'id':8, 'castigo':'Golpear al pasador'},
     {'id':9, 'castigo':'Conducta antideportiva'},
     {'id':10, 'castigo':'Retraso de juego'},
-    {'id':11, 'castigo':'Otro'}
   ];
   interanota: boolean = false;
   capturaPtos: boolean = false;
@@ -272,11 +332,16 @@ export class JuegoPage implements OnInit {
 
   }
 
-  openActionModal(id:number, isOpen: boolean) {
+  async openActionModal(id:number, isOpen: boolean) {
     console.log("Acción : " + id);
     this.accionJugada = "";
     switch(id) {
       case 1:
+        this._lstanotciones = await this.storageService.list();
+        this._lstanotciones.forEach((key:any, value:any, index:any) => {
+          console.log(value, key);
+        })
+
         this.accionJugada = "Anotación!";
         this.imgAccion = "anotacion";
         break;
@@ -311,7 +376,9 @@ export class JuegoPage implements OnInit {
         this.imgAccion = "config";
         break;
     }
+
     this.isModalOpen = isOpen;
+
   }
 
   async fncChangeTeam() {

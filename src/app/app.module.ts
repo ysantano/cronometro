@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 
-import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+//import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +23,7 @@ import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
     //})
   ],
   providers: [
-    SQLite,
+    //SQLite,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     importProvidersFrom(IonicStorageModule.forRoot({
       name: 'naodb',
