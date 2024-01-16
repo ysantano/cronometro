@@ -608,5 +608,87 @@ export class JuegoPage implements OnInit {
     this.njinteranota = this.njintercepta;
   }
 
+  async ionViewWillLeave() {
+    console.log('guardar estado actual del juego!');
+    const dt = new Date();
+    const key1 = this.idReg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
+    const rec1 = {
+      'feho':dt,
+      'equipo':this.equipo,
+      'down':this.down,
+      'tiempo':this.tiempo,
+      'medio':this.timeTab,
+      'ptsvisita': parseFloat(this.sVisitante.toString()),
+      'ptslocal': parseFloat(this.sLocal.toString()),
+      'timeTab':this.timeTab,
+      't1min':this.minutosInputT1,
+      't1seg':this.segundosInputT1,
+      'mtmin':this.minutosInputMT,
+      'mtseg':this.segundosInputMT,
+      't2min':this.minutosInputT2,
+      't2seg':this.segundosInputT2,
+      'idreg':this.idReg
+    };
+    await this.storageService.set(key1, rec1);
+    this.idReg++;
+    //console.log('key1:',key1);
+    //console.log('rec1:',rec1);
+
+  }
+  async ionViewDidEnter() {
+    var _idren = 0;
+    var _index = -1;
+    this._listStorage = await this.storageService.list();
+    await this._listStorage.forEach((key:any, value:any, index:any) => {
+      const array = value.split('|');
+      if (array[1] === 'DG' && array[2] === 'BK') {
+        console.log('value: ', value);
+        if (parseFloat(array[4].toString()) > _idren) {
+          _index = index;
+        }
+        _idren = parseFloat(array[4].toString());
+      }
+    });
+    await this._listStorage.forEach((key:any, value:any, index:any) => {
+      if (index === _index) {
+        console.log('value: ', value);
+        console.log('key: ', key);
+
+        this.equipo = key.equipo;
+        this.down = key.down;
+        this.tiempo = key.tiempo;
+        this.timeTab = key.medio;
+        this.sVisitante = key.ptsvisita;
+        this.sLocal = key.ptslocal;
+        this.timeTab = key.timeTab;
+        this.minutosInputT1 = key.t1min;
+        this.segundosInputT1 = key.t1seg;
+        this.minutosInputMT = key.mtmin;
+        this.segundosInputMT = key.mtseg;
+        this.minutosInputT2 = key.t2min;
+        this.segundosInputT2 = key.t2seg;
+        this.idReg = key.idreg;
+  
+      }
+    })
+
+  }
+
+
+/*
+  ionViewWillEnter() {
+    console.log('funcion: ionViewWillEnter()');
+  }
+  ionViewDidEnter() {
+    console.log('funcion: ionViewDidEnter()');
+  }
+  ionViewWillLeave() {
+    console.log('funcion: ionViewWillLeave()');
+  }
+  ionViewDidLeave() {
+    console.log('funcion: ionViewDidLeave()');
+  }
+*/
+
 }
 
