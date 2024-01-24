@@ -21,26 +21,29 @@
         </ion-button>
       </ion-buttons>
       <ion-title class="ion-text-right">
-        <ion-badge color="warning" style="font-size:x-small;text-transform:uppercase;"> Femenil libre </ion-badge><br/>
-        <ion-badge color="success" style="font-size:x-small;"> Campo 2 </ion-badge> <ion-badge color="success" style="font-size:x-small;"> Jornada 6 </ion-badge>
+        <ion-badge color="warning" style="font-size:x-small;text-transform:uppercase;"> Varonil 35+ </ion-badge><br/>
+        <ion-badge color="success" style="font-size:x-small;"> Campo 4 </ion-badge> <ion-badge color="success" style="font-size:x-small;"> Amistoso </ion-badge>
       </ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" (ionChange)="fncChangeTeam();">
     <ion-segment-button value="visitante">
-      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
       <ion-badge style="font-size:large;">{{sVisitante}}</ion-badge>
-      <ion-label style="font-size:x-small;text-transform:uppercase;">Pats</ion-label><br/>
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Azur</ion-label><br/>
     </ion-segment-button>
     <ion-segment-button value="local">
-      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
       <ion-badge style="font-size:large;">{{sLocal}}</ion-badge>
-      <ion-label style="font-size:x-small;text-transform:uppercase;">Raiders</ion-label><br/>
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Amazonas renegados</ion-label><br/>
     </ion-segment-button>
   </ion-segment>
 
   <ion-segment [value]="down" [(ngModel)]="down" mode="ios" (ionChange)="fncChangeDown();">
+    <ion-segment-button value="0">
+      <ion-label>kickoff</ion-label>
+    </ion-segment-button>
     <ion-segment-button value="1">
       <ion-label>1 down</ion-label>
     </ion-segment-button>
@@ -55,56 +58,95 @@
     </ion-segment-button>
   </ion-segment>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <div id="cronometro" class="ion-text-center">
-          {{tiempo}}
-        </div>
-      </ion-col>
-      <ion-col class="ion-text-center medioActual">
-        {{timeTab}}
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div *ngIf="vistacrono === '1'">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div id="cronometro" class="ion-text-center">
+            {{tiempo}}
+          </div>
+        </ion-col>
+        <ion-col class="ion-text-center medioActual">
+          {{timeTab}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-  <ion-fab (click)="iniciarCronometro()" class="btnPlayPause">
-    <ion-fab-button>
-      <ion-icon [name]="iconBottonPlayPause"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-fab (click)="iniciarCronometro()" class="btnPlayPause">
+      <ion-fab-button>
+        <ion-icon [name]="iconBottonPlayPause"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 
-  <ion-fab (click)="fncNextDown()" class="btnNextDown">
-    <ion-fab-button color="success">
-      <ion-icon name="add-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-fab (click)="fncNextDown()" class="btnNextDown">
+      <ion-fab-button color="success">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 
-  <ion-fab (click)="fncLastDown()" class="btnLastDown">
-    <ion-fab-button color="success">
-      <ion-icon name="remove-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <ion-fab (click)="fncLastDown()" class="btnLastDown">
+      <ion-fab-button color="success">
+        <ion-icon name="remove-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 
-  <ion-thumbnail (click)="openActionModal(1,true)" class="btnTochdown">
-    <img alt="Towchdown" src="../../../assets/icon/anotacion.png" />
-  </ion-thumbnail>
+    <ion-thumbnail (click)="openActionModal(1,true)" class="btnTochdown">
+      <img alt="Towchdown" src="../../../assets/icon/anotacion.png" />
+    </ion-thumbnail>
 
-  <ion-thumbnail (click)="openActionModal(2,true)" class="btnCastigo">
-    <img alt="Castigos" src="../../../assets/icon/castigo.png" />
-  </ion-thumbnail>
+    <ion-thumbnail (click)="openActionModal(2,true)" class="btnCastigo">
+      <img alt="Castigos" src="../../../assets/icon/castigo.png" />
+    </ion-thumbnail>
 
-  <ion-thumbnail (click)="openActionModal(3,true)" class="btnIntercepciones">
-    <img alt="Intercepciones" src="../../../assets/icon/intersepcion.png" />
-  </ion-thumbnail>
+    <ion-thumbnail (click)="openActionModal(3,true)" class="btnIntercepciones">
+      <img alt="Intercepciones" src="../../../assets/icon/intersepcion.png" />
+    </ion-thumbnail>
 
-  <ion-thumbnail (click)="openActionModal(4,true)" class="btnCaptura">
-    <img alt="Captura" src="../../../assets/icon/captura.png" />
-  </ion-thumbnail>
+    <ion-thumbnail (click)="openActionModal(4,true)" class="btnCaptura">
+      <img alt="Captura" src="../../../assets/icon/captura.png" />
+    </ion-thumbnail>
 
-  <ion-thumbnail (click)="openActionModal(5,true)" class="btnConfiguracion">
-    <img alt="Configurar" src="../../../assets/icon/config.png" />
-  </ion-thumbnail>
+    <ion-thumbnail (click)="openActionModal(5,true)" class="btnConfiguracion">
+      <img alt="Configurar" src="../../../assets/icon/config.png" />
+    </ion-thumbnail>
+
+  </div>
+
+  <div *ngIf="vistacrono === '2'">
+    <ion-grid>
+      <ion-row class="ion-text-center">
+        <ion-col>
+          <div id="cronometro">
+            {{tiempo}}
+          </div>
+        </ion-col>
+        <ion-col>
+          <ion-col class="medioActual">
+            {{timeTab}}
+          </ion-col>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-fab (click)="iniciarCronometro()" class="btnPlayPause">
+      <ion-fab-button>
+        <ion-icon [name]="iconBottonPlayPause"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab (click)="fncNextDown()" class="btnNextDown">
+      <ion-fab-button color="success">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab (click)="fncLastDown()" class="btnLastDown">
+      <ion-fab-button color="success">
+        <ion-icon name="remove-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  </div>
 
   <!-- VENTANA MODAL PARA CAPTURA DE ESTADISTICAS -->
   <ion-modal [isOpen]="isModalOpen" mode="ios">
@@ -133,28 +175,28 @@
         <div *ngIf="imgAccion !== 'config'">
           <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" (ionChange)="fncInfoEquipo()">
             <ion-segment-button value="visitante">
-              <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
-              <ion-label style="font-size:x-small;text-transform:uppercase;">Pats</ion-label><br/>
+              <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
+              <ion-label style="font-size:x-small;text-transform:uppercase;">Azur</ion-label><br/>
             </ion-segment-button>
             <ion-segment-button value="local">
-              <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
-              <ion-label style="font-size:x-small;text-transform:uppercase;">Raiders</ion-label><br/>
+              <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
+              <ion-label style="font-size:x-small;text-transform:uppercase;">Amazonas renegados</ion-label><br/>
             </ion-segment-button>
           </ion-segment>
         </div>
 
         <div *ngIf="imgAccion==='anotacion'">
-          <ion-segment [value]=puntos [(ngModel)]=puntos mode="ios">
-            <ion-segment-button value=6>
+          <ion-segment [value]="puntos" [(ngModel)]="puntos" mode="ios">
+            <ion-segment-button value="6">
               <ion-label>6 pts</ion-label>
             </ion-segment-button>
-            <ion-segment-button value=1>
+            <ion-segment-button value="1">
               <ion-label>1 pt</ion-label>
             </ion-segment-button>
-            <ion-segment-button value=2>
+            <ion-segment-button value="2">
               <ion-label>2 pts</ion-label>
             </ion-segment-button>
-            <ion-segment-button value=3>
+            <ion-segment-button value="3">
               <ion-label>3 pts</ion-label>
             </ion-segment-button>
           </ion-segment>
@@ -171,14 +213,14 @@
             <ion-row>
               <ion-col></ion-col>
               <ion-col>
-                <ion-button expand="block" (click)="guardaAnotacion()">Guardar</ion-button>
+                <ion-button expand="block" (click)="guardaAnotacion()">{{accionGuardar}}</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
 
           <ion-list [inset]="true" *ngFor="let item of listAnotaciones">
             <ion-item-sliding>
-              <ion-item [button]="true">
+              <ion-item [button]="true" (click)="editarAnotacion(item)">
                 <ion-avatar aria-hidden="true" slot="start">
                   <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                 </ion-avatar>
@@ -189,11 +231,13 @@
                 </ion-label>
                 <ion-badge slot="end">{{item.puntos}}</ion-badge>
               </ion-item>
+
               <ion-item-options slot="end">
-                <ion-item-option color="danger" expandable="true" (click)="borraAnotacion()">
+                <ion-item-option id="popover-anotacion" color="danger" expandable="true" (click)="borraAnotacion(item)">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
+
             </ion-item-sliding>
           </ion-list>
 
@@ -205,8 +249,8 @@
               <ion-input [value]="njcastigo" [(ngModel)]="njcastigo" label="Jugador comete castigo" type="number"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-select [(ngModel)]="idcastigo" label="Castigo cometido">
-                <ion-select-option *ngFor="let castigo of castigos" value="{{castigo.id}}">{{castigo.castigo}}</ion-select-option>
+              <ion-select [(ngModel)]="idcastigo" [value]="idcastigo" label="Castigo cometido">
+                <ion-select-option *ngFor="let castigo of castigos" [value]="castigo.id">{{castigo.castigo}}</ion-select-option>
               </ion-select>
             </ion-item>
           </ion-list>
@@ -214,29 +258,31 @@
             <ion-row>
               <ion-col></ion-col>
               <ion-col>
-                <ion-button expand="block" (click)="guardaCastigo()">Guardar</ion-button>
+                <ion-button expand="block" (click)="guardaCastigo()">{{accionGuardar}}</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
 
           <ion-list [inset]="true" *ngFor="let item of listCastigos">
             <ion-item-sliding>
-              <ion-item [button]="true">
+              <ion-item [button]="true" (click)="editarCastigo(item)">
                 <ion-avatar aria-hidden="true" slot="start">
                   <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                 </ion-avatar>
                 <ion-label>
                   <b>#{{ item.njcastigo }}</b> {{ item.equipo }}
                   <br/><small>Castigo: {{ item.idcastigo }}</small>
-                  <br/><small>{{ castigos[item.idcastigo].castigo }}</small>
+                  <br/><small>{{ castigos[item.idcastigo - 1].castigo }}</small>
                   <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
                 </ion-label>
               </ion-item>
+              
               <ion-item-options slot="end">
-                <ion-item-option color="danger" expandable="true" (click)="borraAnotacion()">
+                <ion-item-option color="danger" expandable="true"(click)="borraCastigo(item)">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
+              
             </ion-item-sliding>
           </ion-list>
         </div>
@@ -274,14 +320,14 @@
             <ion-row>
               <ion-col></ion-col>
               <ion-col>
-                <ion-button expand="block" (click)="guardaIntercepcion()">Guardar</ion-button>
+                <ion-button expand="block" (click)="guardaIntercepcion()">{{accionGuardar}}</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
 
           <ion-list [inset]="true" *ngFor="let item of listIntercepciones">
             <ion-item-sliding>
-              <ion-item [button]="true">
+              <ion-item [button]="true" (click)="editarIntercepcion(item)">
                 <ion-avatar aria-hidden="true" slot="start">
                   <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                 </ion-avatar>
@@ -290,11 +336,13 @@
                   <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
                 </ion-label>
               </ion-item>
+              
               <ion-item-options slot="end">
-                <ion-item-option color="danger" expandable="true" (click)="borraAnotacion()">
+                <ion-item-option color="danger" expandable="true" (click)="borraIntercepcion(item)">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
+              
             </ion-item-sliding>
           </ion-list>
 
@@ -329,11 +377,13 @@
                   <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
                 </ion-label>
               </ion-item>
+              <!--
               <ion-item-options slot="end">
                 <ion-item-option color="danger" expandable="true" (click)="borraAnotacion()">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
+              -->
             </ion-item-sliding>
           </ion-list>
 
@@ -341,7 +391,7 @@
 
         <div *ngIf="imgAccion==='config'">
 
-          <ion-segment [(ngModel)]="timeTab" mode="ios" (change)="updateTimeT1();" >
+          <ion-segment [(ngModel)]="timeTab" mode="ios" (ionChange)="updateTimeT1();" >
             <ion-segment-button value="T1">
               <ion-label>T1</ion-label>
             </ion-segment-button>
@@ -423,11 +473,78 @@
             </ion-list>
           </div>
 
+          <div>
+          </div>
+
         </div>
 
       </ion-content>
-    </ng-template>
-  </ion-modal>
 
+      <ion-footer *ngIf="imgAccion==='config'">
+        <ion-toolbar>
+          <ion-segment [(ngModel)]="vistacrono" mode="ios" (ionChange)="changeVistaCronometro();" >
+            <ion-segment-button value="1">
+              <ion-label>Pulgar</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="2">
+              <ion-label>Botones</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-toolbar>
+      </ion-footer>
+    </ng-template>
+
+    <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+      <ng-template>
+        <ion-content>
+          <ion-list>
+            <ion-item [button]="true" [detail]="false">Option 1</ion-item>
+            <ion-item [button]="true" [detail]="false">Option 2</ion-item>
+            <ion-item [button]="true" id="nested-trigger">More options...</ion-item>
+
+            <ion-popover trigger="nested-trigger" [dismissOnSelect]="true" side="end">
+              <ng-template>
+                <ion-content>
+                  <ion-list>
+                    <ion-item [button]="true" [detail]="false">Nested option</ion-item>
+                  </ion-list>
+                </ion-content>
+              </ng-template>
+            </ion-popover>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
+
+
+
+  </ion-modal>
 </ion-content>
 
+
+<div *ngIf="vistacrono === '2'">
+  <ion-footer>
+    <ion-toolbar>
+      <ion-button fill="clear" (click)="openActionModal(5,true)">
+        <img alt="Configurar" style="width: 35px;height: auto;padding: 0px !important;" src="../../../assets/icon/config.png" />
+      </ion-button>
+
+      <ion-button fill="clear" (click)="openActionModal(1,true)" class="btnTochdown_2">
+        <img alt="Towchdown" style="width: 35px;height: auto;padding: 0px !important;" src="../../../assets/icon/anotacion.png" />
+      </ion-button>
+
+      <ion-button fill="clear" (click)="openActionModal(2,true)" class="btnCastigo_2">
+        <img alt="Castigos" style="width: 35px;height: auto;padding: 0px !important;" src="../../../assets/icon/castigo.png" />
+      </ion-button>
+
+      <ion-button fill="clear" (click)="openActionModal(3,true)" class="btnIntercepciones_2">
+        <img alt="Intercepciones" style="width: 35px;height: auto;padding: 0px !important;" src="../../../assets/icon/intersepcion.png" />
+      </ion-button>
+
+      <ion-button fill="clear" (click)="openActionModal(4,true)" class="btnCaptura_2">
+        <img alt="Captura" style="width: 35px;height: auto;padding: 0px !important;" src="../../../assets/icon/captura.png" />
+      </ion-button>
+
+    </ion-toolbar>
+  </ion-footer>
+</div>

@@ -9,7 +9,7 @@
   font-size:large;
   font-weight: bold;
   font-size:4em;
-  color:gray
+  color:black
 }
 .btnPlayPause {
   position: fixed;
@@ -40,6 +40,10 @@
   bottom: 40%;
   right: 50%;
 }
+.btnTochdown_2 {
+  padding: 0px;
+  background-color: greenyellow;
+}
 .btnCastigo {
   position: fixed;
   box-shadow: 0 0 12px silver;
@@ -47,6 +51,10 @@
   background-color: red;
   bottom: 33%;
   right: 65%;
+}
+.btnCastigo_2 {
+  padding: 0px;
+  background-color: red;
 }
 .btnIntercepciones {
   position: fixed;
@@ -56,6 +64,10 @@
   bottom: 22%;
   right: 60%;
 }
+.btnIntercepciones_2 {
+  padding: 0px;
+  background-color: deeppink;
+}
 .btnCaptura {
   position: fixed;
   box-shadow: 0 0 12px silver;
@@ -63,6 +75,10 @@
   background-color: blueviolet;
   bottom: 15%;
   right: 40%;
+}
+.btnCaptura_2 {
+  padding: 0px;
+  background-color: blueviolet;
 }
 .clrModalHeader {
   background-color: greenyellow;
