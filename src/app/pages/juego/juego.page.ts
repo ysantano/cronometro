@@ -414,7 +414,13 @@ export class JuegoPage implements OnInit {
         this.accionJugada = "Intercepción!";
         this.imgAccion = "intersepcion";
         break;
+
       case 4:
+        this.accionGuardar = "Guardar captura";
+        this.njcaptura = "";
+        this.capturaPtos = false;
+        this.ptsintercepta = 0;
+            
         if (this.equipo == "local") {
           this.equipo = "visitante";
         }else{
@@ -435,6 +441,7 @@ export class JuegoPage implements OnInit {
         this.accionJugada = "Captura!";
         this.imgAccion = "captura";
         break;
+
       case 5:
         this.pausado = true;
         this.iconBottonPlayPause = "caret-forward-outline";
@@ -478,51 +485,117 @@ export class JuegoPage implements OnInit {
   }
 
   async guardaCaptura() {
-    const dt = new Date();
-    const key1 = this.idReg + '|AC|KP|135|' + this.getCurrentDayTimestamp(dt);
-    const rec1 = {
-      'feho':dt,
-      'tiempo':this.tiempo,
-      'medio':this.timeTab,
-      'down':this.down,
-      'equipo':this.equipo,
-      'njcaptura':this.njcaptura
-    };
-    await this.storageService.set(key1, rec1);
-    this.idReg++;
+    if (this.accionGuardar === "MODIFICAR CAPTURA") {
+      var _tiempo;
+      var _timeTab;
+      var _down;
+      const _storage = await this.storageService.list();
+      await _storage?.forEach((key:any, value:any, index:any) => {
+        if (value === this.iditemedit) {
+          console.log(value, key);
+          _tiempo = key.tiempo;
+          _timeTab = key.timeTab;
+          _down = key.down;
+          const rec1 = {
+            'iditem':value,
+            'feho':key.feho,
+            'tiempo':key.tiempo,
+            'medio':key.medio,
+            'down':key.down,
+            'equipo':this.equipo,
+            'njcaptura':this.njcaptura,
+            'capturaPtos':this.capturaPtos
+          };
+          this.storageService.set(value, rec1);
+        }
+      });
 
-    if (this.capturaPtos) {
-      this.ptsintercepta = 2;
+      var regNew = true;
+      await _storage?.forEach((key:any, value:any, index:any) => {
+        const array = value.split('|');
+        if (array[1] === "AC" && array[2] === "TW") {
+          console.log('idCaptura: ' + key.idCaptura, 'iditemedit: ' + this.iditemedit);
+          if (key.idCaptura === this.iditemedit) {
+            regNew = false;
+            if (!this.capturaPtos) {
+              this.storageService.remove(key.iditem);
+            }
+          }
+        }
+      });
+
+      if (regNew && this.capturaPtos) {
+        this.ptsintercepta = 2;
+        const dt = new Date();
+        const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+        const rec2 = {
+          'iditem':key2,
+          'feho':dt,
+          'tiempo':_tiempo,
+          'medio':_timeTab,
+          'down':_down,
+          'equipo':this.equipo,
+          'puntos': parseFloat(this.ptsintercepta.toString()),
+          'numanota':this.njcaptura,
+          'numlanza':'',
+          'idCaptura':this.iditemedit
+        };
+        await this.storageService.set(key2, rec2);
+        this.idReg++;
+      }
+
+
+
+    } else {
       const dt = new Date();
-      const key1 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+      const key1 = this.idReg + '|AC|KP|135|' + this.getCurrentDayTimestamp(dt);
       const rec1 = {
+        'iditem':key1,
         'feho':dt,
         'tiempo':this.tiempo,
         'medio':this.timeTab,
         'down':this.down,
         'equipo':this.equipo,
-        'puntos': parseFloat(this.ptsintercepta.toString()),
-        'numanota':this.njcaptura,
-        'numlanza':''
+        'njcaptura':this.njcaptura,
+        'capturaPtos':this.capturaPtos
       };
       await this.storageService.set(key1, rec1);
-
-      if (this.equipo == "local") {
-        var suma = parseFloat(this.ptosLocal.toString()) + parseFloat(this.ptsintercepta.toString());
-        this.ptosLocal = suma;
-      } else {
-        var suma = parseFloat(this.ptosVisitante.toString()) + parseFloat(this.ptsintercepta.toString());
-        this.ptosVisitante = suma;
-      }
-      this.sLocal = `${String(this.ptosLocal).padStart(2, "0")}`;
-      this.sVisitante = `${String(this.ptosVisitante).padStart(2, "0")}`;
       this.idReg++;
+  
+      if (this.capturaPtos) {
+        this.ptsintercepta = 2;
+        const dt = new Date();
+        const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+        const rec2 = {
+          'iditem':key2,
+          'feho':dt,
+          'tiempo':this.tiempo,
+          'medio':this.timeTab,
+          'down':this.down,
+          'equipo':this.equipo,
+          'puntos': parseFloat(this.ptsintercepta.toString()),
+          'numanota':this.njcaptura,
+          'numlanza':'',
+          'idCaptura':key1
+        };
+        await this.storageService.set(key2, rec2);
+        this.idReg++;
+      }
+  
     }
+    this.calculaMarcador();
+
     this.njcaptura = "";
     this.capturaPtos = false;
     this.ptsintercepta = 0;
     this.isModalOpen = false;
+  }
 
+  async editarCaptura(_key: any) {
+    this.accionGuardar = "MODIFICAR CAPTURA"
+    this.iditemedit = _key.iditem;
+    this.njcaptura = _key.njcaptura;
+    this.capturaPtos = _key.capturaPtos;
   }
 
   async editarIntercepcion(_key: any) {
@@ -550,59 +623,117 @@ export class JuegoPage implements OnInit {
     this.iditemedit = _key.iditem;
     this.njcastigo = _key.njcastigo;
     this.idcastigo = _key.idcastigo;
-    /*
-    this.castigos.forEach((key:any) => {
-      if (key.id === this.idcastigo) {
-        console.log(key.castigo);
-      }
-    });
-    */
   }
 
   async guardaIntercepcion() {
-    const dt = new Date();
-    const key1 = this.idReg + '|AC|IT|135|' + this.getCurrentDayTimestamp(dt);
-    const rec1 = {
-      'iditem':key1,
-      'feho':dt,
-      'tiempo':this.tiempo,
-      'medio':this.timeTab,
-      'down':this.down,
-      'equipo':this.equipo,
-      'njintercepta':this.njintercepta,
-      'anota':this.interanota
-    };
-    await this.storageService.set(key1, rec1);
-    this.idReg++;
+    if (this.accionGuardar === "MODIFICAR INTERCEPCION") {
+      var _tiempo;
+      var _medio;
+      var _down;
+      const _storage = await this.storageService.list();
+      await _storage?.forEach((key:any, value:any, index:any) => {
+        if (value === this.iditemedit) {
+          console.log(value, key);
+          _tiempo = key.tiempo
+          _medio = key.medio;
+          _down = key.down;
+          const rec1 = {
+            'iditem':value,
+            'feho':key.feho,
+            'tiempo':key.tiempo,
+            'medio':key.medio,
+            'down':key.down,
+            'equipo':this.equipo,
+            'njintercepta':this.njintercepta,
+            'anota':this.interanota
+          };
+          this.storageService.set(value, rec1);
+        }
+      });
 
-    //En caso de anotación!
-    if (this.interanota) {
+      var regNew = true;
+      await _storage?.forEach((key:any, value:any, index:any) => {
+        const array = value.split('|');
+        if (array[1] === "AC" && array[2] === "TW") {
+          if (key.idItercepcion === this.iditemedit) {
+            if (this.interanota) {
+              const rec2 = {
+                'iditem':key.iditem,
+                'feho':key.feho,
+                'tiempo':key.tiempo,
+                'medio':key.timeTab,
+                'down':key.down,
+                'equipo':this.equipo,
+                'puntos': parseFloat(this.ptsintercepta.toString()),
+                'numanota':this.njinteranota,
+                'numlanza':'',
+                'idItercepcion':key.idItercepcion
+              };
+              this.storageService.set(value, rec2);
+              regNew = false;
+            }else{
+              this.storageService.remove(key.iditem);
+              regNew = false;
+            }
+          }
+        }
+      });
+
+      if (regNew && this.interanota) {
+        const dt = new Date();
+        const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+        const rec2 = {
+          'iditem':key2,
+          'feho':dt,
+          'tiempo':_tiempo,
+          'medio':_medio,
+          'down':_down,
+          'equipo':this.equipo,
+          'puntos': parseFloat(this.ptsintercepta.toString()),
+          'numanota':this.njinteranota,
+          'numlanza':'',
+          'idItercepcion':this.iditemedit
+        };
+        await this.storageService.set(key2, rec2);
+        this.idReg++;
+      }
+
+
+    } else {
       const dt = new Date();
-      const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
-      const rec2 = {
-        'iditem':key2,
+      const key1 = this.idReg + '|AC|IT|135|' + this.getCurrentDayTimestamp(dt);
+      const rec1 = {
+        'iditem':key1,
         'feho':dt,
         'tiempo':this.tiempo,
         'medio':this.timeTab,
         'down':this.down,
         'equipo':this.equipo,
-        'puntos': parseFloat(this.ptsintercepta.toString()),
-        'numanota':this.njinteranota,
-        'numlanza':'',
-        'idItercepcion':key1
+        'njintercepta':this.njintercepta,
+        'anota':this.interanota
       };
-      await this.storageService.set(key2, rec2);
-
-      if (this.equipo == "local") {
-        var suma = parseFloat(this.ptosLocal.toString()) + parseFloat(this.ptsintercepta.toString());
-        this.ptosLocal = suma;
-      } else {
-        var suma = parseFloat(this.ptosVisitante.toString()) + parseFloat(this.ptsintercepta.toString());
-        this.ptosVisitante = suma;
-      }
-      this.sLocal = `${String(this.ptosLocal).padStart(2, "0")}`;
-      this.sVisitante = `${String(this.ptosVisitante).padStart(2, "0")}`;
+      await this.storageService.set(key1, rec1);
       this.idReg++;
+  
+      //En caso de anotación!
+      if (this.interanota) {
+        const dt = new Date();
+        const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+        const rec2 = {
+          'iditem':key2,
+          'feho':dt,
+          'tiempo':this.tiempo,
+          'medio':this.timeTab,
+          'down':this.down,
+          'equipo':this.equipo,
+          'puntos': parseFloat(this.ptsintercepta.toString()),
+          'numanota':this.njinteranota,
+          'numlanza':'',
+          'idItercepcion':key1
+        };
+        await this.storageService.set(key2, rec2);
+        this.idReg++;
+      }
     }
     this.calculaMarcador();
 
@@ -663,6 +794,7 @@ export class JuegoPage implements OnInit {
     this.ptosVisitante = 0;
     const _storage = await this.storageService.list();
     await _storage?.forEach((key:any, value:any, index:any) => {
+      console.log(value, key);
       const array = value.split('|');
       if (array[1] === "AC" && array[2] === "TW") {
         if (key.equipo == "local") {
@@ -683,7 +815,6 @@ export class JuegoPage implements OnInit {
       const _storage = await this.storageService.list();
       await _storage?.forEach((key:any, value:any, index:any) => {
         if (value === this.iditemedit) {
-          console.log(value, key);
           const rec1 = {
             'iditem':value,
             'feho':key.feho,
@@ -738,8 +869,17 @@ export class JuegoPage implements OnInit {
 
   async borraIntercepcion(_key:any) {
     this.iditemedit = _key.iditem;
-    await this.storageService.remove(this.iditemedit);
+    const _storage = await this.storageService.list();
+    await _storage?.forEach((key:any, value:any, index:any) => {
+      const array = value.split('|');
+      if (array[1] === "AC" && array[2] === "TW") {
+        if (key.idItercepcion === this.iditemedit) {
+          this.storageService.remove(key.iditem);
+        }
+      }
+    });
     await this.calculaMarcador();
+    await this.storageService.remove(this.iditemedit);
     this.isModalOpen = false;
   }
 

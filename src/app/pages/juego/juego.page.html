@@ -361,14 +361,14 @@
             <ion-row>
               <ion-col></ion-col>
               <ion-col>
-                <ion-button expand="block" (click)="guardaCaptura()">Guardar</ion-button>
+                <ion-button expand="block" (click)="guardaCaptura()">{{accionGuardar}}</ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
 
           <ion-list [inset]="true" *ngFor="let item of listCapturas">
             <ion-item-sliding>
-              <ion-item [button]="true">
+              <ion-item [button]="true" (click)="editarCaptura(item)">
                 <ion-avatar aria-hidden="true" slot="start">
                   <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
                 </ion-avatar>
