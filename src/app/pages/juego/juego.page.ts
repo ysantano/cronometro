@@ -420,7 +420,7 @@ export class JuegoPage implements OnInit {
         this.njcaptura = "";
         this.capturaPtos = false;
         this.ptsintercepta = 0;
-            
+
         if (this.equipo == "local") {
           this.equipo = "visitante";
         }else{
@@ -561,7 +561,7 @@ export class JuegoPage implements OnInit {
       };
       await this.storageService.set(key1, rec1);
       this.idReg++;
-  
+
       if (this.capturaPtos) {
         this.ptsintercepta = 2;
         const dt = new Date();
@@ -581,7 +581,7 @@ export class JuegoPage implements OnInit {
         await this.storageService.set(key2, rec2);
         this.idReg++;
       }
-  
+
     }
     this.calculaMarcador();
 
@@ -714,7 +714,7 @@ export class JuegoPage implements OnInit {
       };
       await this.storageService.set(key1, rec1);
       this.idReg++;
-  
+
       //En caso de anotación!
       if (this.interanota) {
         const dt = new Date();
@@ -827,7 +827,7 @@ export class JuegoPage implements OnInit {
             'numlanza':this.numlanza,
             'idItercepcion':''
           };
-          this.storageService.set(value, rec1);  
+          this.storageService.set(value, rec1);
         }
       });
     } else {
@@ -930,6 +930,7 @@ export class JuegoPage implements OnInit {
     //console.log('rec1:',rec1);
 
   }
+
   async ionViewDidEnter() {
     var _idren = 0;
     var _index = -1;
@@ -972,6 +973,12 @@ export class JuegoPage implements OnInit {
 
   changeVistaCronometro() {
     this.isModalOpen = false;
+  }
+
+  estadisticasFinales() {
+    console.log("Continuar...");
+    this.isModalOpen = false;
+    this.router.navigate(['/estadisticasfinales']);
   }
 
 /*

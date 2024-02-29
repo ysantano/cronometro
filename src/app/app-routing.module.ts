@@ -31,6 +31,14 @@ const routes: Routes = [
     path: 'testsqlite',
     loadChildren: () => import('./pages/testsqlite/testsqlite.module').then( m => m.TestsqlitePageModule)
   },
+  {
+    path: 'estadisticasfinales',
+    loadChildren: () => import('./pages/estadisticasfinales/estadisticasfinales.module').then( m => m.EstadisticasfinalesPageModule)
+  },
+  {
+    path: 'cronome',
+    loadChildren: () => import('./pages/cronome/cronome.module').then( m => m.CronomePageModule)
+  },
 ];
 
 @NgModule({

@@ -61,12 +61,12 @@
   <div *ngIf="vistacrono === '1'">
     <ion-grid>
       <ion-row>
-        <ion-col>
+        <ion-col size="9">
           <div id="cronometro" class="ion-text-center">
             {{tiempo}}
           </div>
         </ion-col>
-        <ion-col class="ion-text-center medioActual">
+        <ion-col size="3" class="ion-text-center medioActual">
           {{timeTab}}
         </ion-col>
       </ion-row>
@@ -276,13 +276,13 @@
                   <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
                 </ion-label>
               </ion-item>
-              
+
               <ion-item-options slot="end">
                 <ion-item-option color="danger" expandable="true"(click)="borraCastigo(item)">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
-              
+
             </ion-item-sliding>
           </ion-list>
         </div>
@@ -336,13 +336,13 @@
                   <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
                 </ion-label>
               </ion-item>
-              
+
               <ion-item-options slot="end">
                 <ion-item-option color="danger" expandable="true" (click)="borraIntercepcion(item)">
                   <ion-icon slot="icon-only" name="trash"></ion-icon>
                 </ion-item-option>
               </ion-item-options>
-              
+
             </ion-item-sliding>
           </ion-list>
 
@@ -472,14 +472,9 @@
               </ion-grid>
             </ion-list>
           </div>
-
-          <div>
-          </div>
-
         </div>
-
       </ion-content>
-
+      <!--
       <ion-footer *ngIf="imgAccion==='config'">
         <ion-toolbar>
           <ion-segment [(ngModel)]="vistacrono" mode="ios" (ionChange)="changeVistaCronometro();" >
@@ -492,6 +487,7 @@
           </ion-segment>
         </ion-toolbar>
       </ion-footer>
+      -->
     </ng-template>
 
     <ion-popover trigger="popover-button" [dismissOnSelect]="true">
@@ -515,12 +511,13 @@
         </ion-content>
       </ng-template>
     </ion-popover>
-
-
-
   </ion-modal>
-</ion-content>
 
+  <div class="btnEstadiFinales" >
+    <ion-button expand="block" shape="round" size="small" (click)="estadisticasFinales();">Estadísticas finales</ion-button>
+  </div>
+
+</ion-content>
 
 <div *ngIf="vistacrono === '2'">
   <ion-footer>

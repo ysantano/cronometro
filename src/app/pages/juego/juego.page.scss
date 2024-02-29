@@ -105,6 +105,14 @@
   bottom: 30%;
 }
 
+.btnEstadiFinales {
+  position: fixed !important;
+  bottom: 10px;
+  padding-bottom:50px !important;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .modalEstadisticas {
 
   .color_anotacion {
