@@ -14,12 +14,97 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+
+  <ion-segment [(ngModel)]="timeTab" mode="ios" (ionChange)="updateTimeT1();" >
+    <ion-segment-button value="T1">
+      <ion-label>T1</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="MT">
+      <ion-label>MT</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="T2">
+      <ion-label>T2</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">croconfig</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <div *ngIf="timeTab==='T1'">
+    <p>Cronómetro del Primer tiempo</p>
+    <ion-list>
+      <ion-item>
+        <ion-input class="ion-text-right" type="number" label="Minutos:" [(ngModel)]="minutosInputT1" value="{{minutosInputT1}}" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input class="ion-text-right" type="number" label="Segundos:" [(ngModel)]="segundosInputT1" value="{{segundosInputT1}}" ></ion-input>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="full" shape="round" size="small"  (click)="resetCronometroActivo();">Reset</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="full" shape="round" size="small"  (click)="closeModal();">Aceptar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </div>
+
+  <div *ngIf="timeTab==='MT'">
+    <p>Cronómetro del Medio tiempo</p>
+    <ion-list>
+      <ion-item>
+        <ion-input class="ion-text-right" type="number" label="Minutos:" [(ngModel)]="minutosInputMT" value="{{minutosInputMT}}" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input class="ion-text-right" type="number" label="Segundos:" [(ngModel)]="segundosInputMT" value="{{segundosInputMT}}" ></ion-input>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="full" shape="round" size="small"  (click)="resetCronometroActivo();">Reset</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="full" shape="round" size="small"  (click)="closeModal();">Aceptar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
+  </div>
+
+  <div *ngIf="timeTab==='T2'">
+    <p>Cronómetro del Segundo tiempo</p>
+    <ion-list>
+      <ion-item>
+        <ion-input class="ion-text-right" type="number" label="Minutos:" [(ngModel)]="minutosInputT2" value="{{minutosInputT2}}" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input class="ion-text-right" type="number" label="Segundos:" [(ngModel)]="segundosInputT2" value="{{segundosInputT2}}" ></ion-input>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="full" shape="round" size="small"  (click)="resetCronometroActivo();">Reset</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="full" shape="round" size="small"  (click)="closeModal();">Aceptar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </div>
+
+  <ion-fab routerLink="/cronome" class="btnBack">
+    <ion-fab-button>
+      <ion-icon name="close-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

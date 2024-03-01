@@ -5,8 +5,18 @@ ion-header {
     background: #c6c6c6;
     --background: #c6c6c6;
   }
+  ion-segment {
+    background: #c6c6c6;
+    --background: #c6c6c6;
+  }
 }
-
+.btnBack {
+  position: fixed;
+  right: 3%;
+  box-shadow: 0 0 12px black;
+  border-radius: 100%;
+  bottom: 30%;
+}
 
 
 .color_config {

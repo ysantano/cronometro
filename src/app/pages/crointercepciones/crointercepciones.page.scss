@@ -6,3 +6,10 @@ ion-header {
     --background: deeppink;
   }
 }
+.btnBack {
+  position: fixed;
+  right: 3%;
+  box-shadow: 0 0 12px black;
+  border-radius: 100%;
+  bottom: 30%;
+}
