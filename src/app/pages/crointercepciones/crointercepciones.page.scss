@@ -5,6 +5,18 @@ ion-header {
     background: deeppink;
     --background: deeppink;
   }
+  ion-list {
+    background: deeppink;
+    --background: deeppink;
+    ion-item {
+      background: deeppink;
+      --background: deeppink;
+    }
+  }
+  ion-grid {
+    background: deeppink;
+    --background: deeppink;
+  }
 }
 .btnBack {
   position: fixed;

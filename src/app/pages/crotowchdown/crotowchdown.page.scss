@@ -1,9 +1,22 @@
 ion-header {
   background: greenyellow;
   --background: greenyellow;
+
   ion-toolbar {
     background: greenyellow;
     --background: greenyellow;
+  }
+  ion-segment {
+    background: greenyellow;
+    --background: greenyellow;
+  }
+  ion-list {
+    background: greenyellow;
+    --background: greenyellow;
+    ion-item {
+      background: greenyellow;
+      --background: greenyellow;
+    }
   }
 }
 .btnBack {

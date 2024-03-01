@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrocapturasPage implements OnInit {
 
+  njcaptura: string = "";
+  capturaPtos: boolean = false;
+  accionGuardar: string = "Guardar";
+  listCapturas: any = [];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  guardaCaptura() {
+  }
+
+  editarCaptura(item:any) {
   }
 
 }

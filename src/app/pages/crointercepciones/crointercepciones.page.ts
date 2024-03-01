@@ -7,9 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrointercepcionesPage implements OnInit {
 
+  njintercepta: string = "";
+  interanota: boolean = false;
+  njinteranota: string = "";
+  ptsintercepta: number = 0;
+  accionGuardar: string = "Guardar";
+  listIntercepciones: any = [];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  fncInterAnota() {
+  }
+
+  guardaIntercepcion() {
+  }
+
+  editarIntercepcion(item:any) {
+  }
+
+  borraIntercepcion(item:any) {
   }
 
 }

@@ -7,6 +7,24 @@ ion-header {
     color: white;
     --color: white;
   }
+  ion-list {
+    background: blueviolet;
+    --background: blueviolet;
+    color: white;
+    --color: white;
+    ion-item {
+      background: blueviolet;
+      --background: blueviolet;
+      color: white;
+      --color: white;
+    }
+  }
+  ion-grid {
+    background: blueviolet;
+    --background: blueviolet;
+    color: white;
+    --color: white;
+  }
 }
 .btnBack {
   position: fixed;

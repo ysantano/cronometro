@@ -1,9 +1,25 @@
 ion-header {
   background: red;
   --background: red;
+  color: white;
+  --color: white;
   ion-toolbar {
     background: red;
     --background: red;
+          color: white;
+    --color: white;
+  }
+  ion-list {
+    background: red;
+    --background: red;
+          color: white;
+    --color: white;
+    ion-item {
+      background: red;
+      --background: red;
+              color: white;
+      --color: white;
+    }
   }
 }
 .btnBack {

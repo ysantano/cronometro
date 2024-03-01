@@ -7,9 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrotowchdownPage implements OnInit {
 
+  puntos: string = "6";
+  numanota: string = "";
+  numlanza: string = "";
+  accionGuardar: string = "Guardar";
+  listAnotaciones: any = [];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  guardaAnotacion() {
+  }
+
+  editarAnotacion(item:any) {
+  }
+
+  borraAnotacion(item:any) {
   }
 
 }

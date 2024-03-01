@@ -14,6 +14,26 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+
+  <ion-list>
+    <ion-item>
+      <ion-input [value]="njcastigo" [(ngModel)]="njcastigo" label="Jugador comete castigo" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select [(ngModel)]="idcastigo" [value]="idcastigo" label="Castigo cometido">
+        <ion-select-option *ngFor="let castigo of castigos" [value]="castigo.id">{{castigo.castigo}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <ion-button expand="block" (click)="guardaCastigo()">{{accionGuardar}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
