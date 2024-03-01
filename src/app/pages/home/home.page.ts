@@ -16,7 +16,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private router: Router,
-    private apiService: ApiService,
+    private apiService: ApiService
   ) {}
 
   async ngOnInit() {
@@ -46,6 +46,10 @@ export class HomePage implements OnInit {
     //console.log('checkPermissions:', checkPermissions);
     */
 
+  }
+
+  goCronometro() {
+    this.router.navigate(['/cronome']);
   }
 
   fncCronometroJuego() {

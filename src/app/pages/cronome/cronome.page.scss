@@ -1,0 +1,54 @@
+ion-footer {
+  background: black;
+  --background: black;
+  ion-toolbar {
+    background: #cecece;
+    --background: #cecece;
+  }
+}
+
+ion-content {
+  background: #cecece;
+  --background: #cecece;
+}
+
+ion-header {
+  background: black;
+  --background: black;
+  ion-toolbar {
+    background: #cecece;
+    --background: #cecece;
+  }
+}
+
+.btnTochdown_2 {
+  padding: 0px;
+  background-color: greenyellow;
+  border-radius: 10px;
+  border:thin solid black;
+}
+.btnCastigo_2 {
+  padding: 0px;
+  background-color: red;
+  border-radius: 10px;
+  border:thin solid black;
+}
+.btnIntercepciones_2 {
+  padding: 0px;
+  background-color: deeppink;
+  border-radius: 10px;
+  border:thin solid black;
+}
+.btnCaptura_2 {
+  padding: 0px;
+  background-color: blueviolet;
+  border-radius: 10px;
+  border:thin solid black;
+}
+.btnEstadiFinales {
+  position: fixed !important;
+  bottom: 10px;
+  padding-bottom:50px !important;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

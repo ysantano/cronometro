@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { IonicModule } from '@ionic/angular';
-import { CronomePageRoutingModule } from './cronome-routing.module';
-import { CronomePage } from './cronome.page';
+
+import { CrocastigosPageRoutingModule } from './crocastigos-routing.module';
+
+import { CrocastigosPage } from './crocastigos.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CronomePageRoutingModule,
+    CrocastigosPageRoutingModule
   ],
-  declarations: [CronomePage,]
+  declarations: [CrocastigosPage]
 })
-export class CronomePageModule {}
+export class CrocastigosPageModule {}

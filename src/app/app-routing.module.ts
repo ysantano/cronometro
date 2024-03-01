@@ -39,6 +39,26 @@ const routes: Routes = [
     path: 'cronome',
     loadChildren: () => import('./pages/cronome/cronome.module').then( m => m.CronomePageModule)
   },
+  {
+    path: 'croconfig',
+    loadChildren: () => import('./pages/croconfig/croconfig.module').then( m => m.CroconfigPageModule)
+  },
+  {
+    path: 'crotowchdown',
+    loadChildren: () => import('./pages/crotowchdown/crotowchdown.module').then( m => m.CrotowchdownPageModule)
+  },
+  {
+    path: 'crocastigos',
+    loadChildren: () => import('./pages/crocastigos/crocastigos.module').then( m => m.CrocastigosPageModule)
+  },
+  {
+    path: 'crointercepciones',
+    loadChildren: () => import('./pages/crointercepciones/crointercepciones.module').then( m => m.CrointercepcionesPageModule)
+  },
+  {
+    path: 'crocapturas',
+    loadChildren: () => import('./pages/crocapturas/crocapturas.module').then( m => m.CrocapturasPageModule)
+  },
 ];
 
 @NgModule({
