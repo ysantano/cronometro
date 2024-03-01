@@ -10,15 +10,58 @@ ion-footer {
 ion-content {
   background: #cecece;
   --background: #cecece;
+  padding-top: 50px;
 }
 
 ion-header {
-  background: black;
-  --background: black;
+  background: #cecece;
+  --background: #cecece;
   ion-toolbar {
     background: #cecece;
     --background: #cecece;
   }
+  ion-segment {
+    background: #cecece;
+    --background: #cecece;
+  }
+  ion-segment {
+    padding-bottom: 10px;
+  }
+}
+
+#cronometro {
+  font-family: 'Orbitron-Bold';
+  text-shadow:0 0 5px silver;
+  font-size:4em;
+  color:green;
+}
+.medioActual {
+  margin-top: 8px;
+  font-size:large;
+  font-weight: bold;
+  font-size:4em;
+  color:black
+}
+.btnPlayPause {
+  position: fixed;
+  right: 35%;
+  box-shadow: 0 0 12px black;
+  border-radius: 100%;
+  bottom: 30%;
+}
+.btnNextDown {
+  position: fixed;
+  box-shadow: 0 0 12px black;
+  border-radius: 100%;
+  right: 5%;
+  bottom: 50%;
+}
+.btnLastDown {
+  position: fixed;
+  box-shadow: 0 0 12px black;
+  border-radius: 100%;
+  right: 5%;
+  bottom: 40%;
 }
 
 .btnTochdown_2 {
@@ -48,7 +91,7 @@ ion-header {
 .btnEstadiFinales {
   position: fixed !important;
   bottom: 10px;
-  padding-bottom:50px !important;
+  padding-bottom:40px !important;
   left: 50%;
   transform: translate(-50%, -50%);
 }

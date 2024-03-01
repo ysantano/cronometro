@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" class="ion-no-border">
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button fill="clear" shape="round" routerLink="/home">
@@ -9,10 +9,80 @@
       <ion-badge color="warning" style="font-size:x-small;text-transform:uppercase;"> Femenil libre </ion-badge><br/>
       <ion-badge color="success" style="font-size:x-small;"> Campo 2 </ion-badge> / <ion-badge color="success" style="font-size:x-small;"> Jornada 6 </ion-badge>
     </ion-title>
+    <ion-buttons [collapse]="true" slot="end">
+      <ion-button fill="clear" shape="round" routerLink="/cronome">
+        <img alt="captura" width="45px" height="auto" src="../../../assets/icon/ligas/naolg_65d9557c38b9c_20240224033332.png" />
+      </ion-button>
+    </ion-buttons>
+
   </ion-toolbar>
+
+  <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" (ionChange)="fncChangeTeam();">
+    <ion-segment-button value="visitante">
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
+      <ion-badge style="font-size:large;">{{sVisitante}}</ion-badge>
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Azur</ion-label><br/>
+    </ion-segment-button>
+    <ion-segment-button value="local">
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
+      <ion-badge style="font-size:large;">{{sLocal}}</ion-badge>
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Amazonas renegados</ion-label><br/>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment [value]="down" [(ngModel)]="down" mode="ios" (ionChange)="fncChangeDown();">
+    <ion-segment-button value="0">
+      <ion-label>kickoff</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <ion-label>1 down</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <ion-label>2 down</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      <ion-label>3 down</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="4">
+      <ion-label>4 down</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="9">
+        <div id="cronometro" class="ion-text-center">
+          {{tiempo}}
+        </div>
+      </ion-col>
+      <ion-col size="3" class="ion-text-center medioActual">
+        {{timeTab}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab (click)="iniciarCronometro()" class="btnPlayPause">
+    <ion-fab-button>
+      <ion-icon [name]="iconBottonPlayPause"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab (click)="fncNextDown()" class="btnNextDown">
+    <ion-fab-button color="success">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab (click)="fncLastDown()" class="btnLastDown">
+    <ion-fab-button color="success">
+      <ion-icon name="remove-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <div class="btnEstadiFinales" >
     <ion-button expand="block" shape="round" size="small" (click)="estadisticasFinales();">Estadísticas finales</ion-button>
