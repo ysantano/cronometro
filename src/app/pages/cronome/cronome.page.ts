@@ -78,7 +78,7 @@ export class CronomePage implements OnInit {
   /* FUNCIONAMIENTO DEL CRONOMETRO */
   async iniciarCronometro() {
     if (this.pausado) {
-      console.log("Inicia el conteo!");
+      //console.log("Inicia el conteo!");
       this.pausado = false;
       this.iconBottonPlayPause = "pause-outline";
 
@@ -98,7 +98,7 @@ export class CronomePage implements OnInit {
         this.actualizarCronometro();
       }, 1000);
     } else {
-      console.log("Pausar el conteo!");
+      //console.log("Pausar el conteo!");
       this.pausado = true;
       this.iconBottonPlayPause = "caret-forward-outline";
       //this.equipo = "visitante"
@@ -248,8 +248,6 @@ export class CronomePage implements OnInit {
       equipo: this.equipo,
       down:this.down,
       timeTab:this.timeTab,
-      ptosVisitante: this.ptosVisitante,
-      ptosLocal: this.ptosLocal,
       minutosInputT1: this.minutosInputT1,
       segundosInputT1: this.segundosInputT1,
       minutosInputMT: this.minutosInputMT,
@@ -283,22 +281,21 @@ export class CronomePage implements OnInit {
 
 
   async ionViewDidEnter() {
-    console.log('Actualizar el cronómetro!');
+    //console.log('Actualizar el cronómetro!');
     this.idReg = 0;
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
       const array = value.split('|');
       if (array[1] === 'DG' && array[2] === 'BK') {
-        console.log(key);
+        //console.log(key);
+        this.equipo = key.equipo;
         this.timeTab = key.timeTab;
-
-        this.minutosInputT1 = key.t1min;
-        this.segundosInputT1 = key.t1seg;
-        this.minutosInputMT = key.mtmin;
-        this.segundosInputMT = key.mtseg;
-        this.minutosInputT2 = key.t2min;
-        this.segundosInputT2 = key.t2seg;
-
+        this.minutosInputT1 = key.minutosInputT1;
+        this.segundosInputT1 = key.segundosInputT1;
+        this.minutosInputMT = key.minutosInputMT;
+        this.segundosInputMT = key.segundosInputMT;
+        this.minutosInputT2 = key.minutosInputT2;
+        this.segundosInputT2 = key.segundosInputT2;
         if (this.timeTab == "T1") {
           this.tiempo = `${String(this.minutosInputT1).padStart(2, "0")}:${String(this.segundosInputT1).padStart(2, "0")}`;
         } else if (this.timeTab == "MT") {
@@ -308,11 +305,39 @@ export class CronomePage implements OnInit {
         }
       }
 
-
-
       this.idReg++;
     })
   }
+
+  async ionViewWillLeave() {
+    // Guardar variables del juego.
+    const dt = new Date();
+    var key1 =  this.idReg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
+
+    const rec1 = {
+      'feho':dt,
+      'equipo':this.equipo,
+      'down':this.down,
+      'timeTab':this.timeTab,
+      'minutosInputT1':this.minutosInputT1,
+      'segundosInputT1':this.segundosInputT1,
+      'minutosInputMT':this.minutosInputMT,
+      'segundosInputMT':this.segundosInputMT,
+      'minutosInputT2':this.minutosInputT2,
+      'segundosInputT2':this.segundosInputT2
+    };
+    const _listStorage = await this.storageService.list();
+    await _listStorage?.forEach((key:any, value:any, index:any) => {
+      const array = value.split('|');
+      if (array[1] === 'DG' && array[2] === 'BK') {
+        key1 = value;
+      }
+    })
+    await this.storageService.set(key1, rec1);
+
+
+  }
+
 
 
 /*

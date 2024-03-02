@@ -20,19 +20,19 @@ export class HomePage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log('Dentro de page.home');
+    //console.log('Dentro de page.home');
 
     const result = await ScreenOrientation.getCurrentOrientation();
 
     this.apiService.getDatos().subscribe((response) => {
       // Manejar la respuesta aquí
-      console.log('getDatos() => ', response);
+      //console.log('getDatos() => ', response);
     });
 
     const getInfo = await Device.getInfo();
     if (getInfo.platform != 'web') {
       await ScreenOrientation.lock({ type: OrientationType.PORTRAIT_PRIMARY });
-      console.log('Bloquer rotación!');
+      //console.log('Bloquer rotación!');
     }
 
     /*

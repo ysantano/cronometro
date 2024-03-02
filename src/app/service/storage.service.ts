@@ -19,12 +19,12 @@ export class StorageService {
 
   public async set(key: string, value: any) {
     let result = await this._storage?.set(key, value);
-    console.log(result);
+    //console.log(result);
   }
 
   public async get(key: string) {
     let value = await this._storage?.get(key);
-    console.log(value);
+    //console.log(value);
     return value;
   }
 

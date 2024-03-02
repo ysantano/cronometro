@@ -10,8 +10,6 @@ import { StorageService } from 'src/app/service/storage.service';
 export class CroconfigPage implements OnInit {
   _equipo: string = "";
   _down: number = 0;
-  _ptosVisitante: number = 0;
-  _ptosLocal: number = 0;
   _idreg: number = 0;
 
   timeTab: string = "T1";
@@ -22,7 +20,6 @@ export class CroconfigPage implements OnInit {
   minutosInputT2: number = 22;
   segundosInputT2: number = 2;
 
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,15 +27,13 @@ export class CroconfigPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('Inicio de configiración!');
+    //console.log('Inicio de configiración!');
     this.route.params.subscribe(params => {
       if (params) {
-        console.log(params);
+        //console.log(params);
         this._equipo = params['equipo'];
         this._down = params['down'];
         this.timeTab = params['timeTab'];
-        this._ptosVisitante = params['ptosVisitante'];
-        this._ptosLocal = params['ptosLocal'];
         this._idreg = params['idreg'];
         this.minutosInputT1 = params['minutosInputT1'];
         this.segundosInputT1 = params['segundosInputT1'];
@@ -48,9 +43,6 @@ export class CroconfigPage implements OnInit {
         this.segundosInputT2 = params['segundosInputT2'];
       }
     });
-  }
-
-  updateTimeT1() {
   }
 
   resetCronometroActivo() {
@@ -67,24 +59,19 @@ export class CroconfigPage implements OnInit {
   }
 
   async guardarDatos() {
-    console.log('guardar estado actual del juego!');
-
     const dt = new Date();
     var key1 =  this._idreg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
     const rec1 = {
       'feho':dt,
       'equipo':this._equipo,
       'down':this._down,
-      'ptosVisitante': this._ptosVisitante,
-      'ptosLocal': this._ptosLocal,
       'timeTab':this.timeTab,
-      't1min':this.minutosInputT1,
-      't1seg':this.segundosInputT1,
-      'mtmin':this.minutosInputMT,
-      'mtseg':this.segundosInputMT,
-      't2min':this.minutosInputT2,
-      't2seg':this.segundosInputT2,
-      'idreg':this._idreg
+      'minutosInputT1':this.minutosInputT1,
+      'segundosInputT1':this.segundosInputT1,
+      'minutosInputMT':this.minutosInputMT,
+      'segundosInputMT':this.segundosInputMT,
+      'minutosInputT2':this.minutosInputT2,
+      'segundosInputT2':this.segundosInputT2
     };
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
@@ -94,31 +81,6 @@ export class CroconfigPage implements OnInit {
       }
     })
     await this.storageService.set(key1, rec1);
-
-
-/*
-
-    const dt = new Date();
-    const key1 =  this._idreg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
-    console.log('key1: ', key1);
-    const rec1 = {
-      'feho':dt,
-      'equipo':this._equipo,
-      'down':this._down,
-      'ptosVisitante': this._ptosVisitante,
-      'ptosLocal': this._ptosLocal,
-      'timeTab':this.timeTab,
-      't1min':this.minutosInputT1,
-      't1seg':this.segundosInputT1,
-      'mtmin':this.minutosInputMT,
-      'mtseg':this.segundosInputMT,
-      't2min':this.minutosInputT2,
-      't2seg':this.segundosInputT2,
-      'idreg':this._idreg
-    };
-    console.log(rec1);
-    //await this.storageService.set(key1, rec1);
-*/
     this.router.navigate(['/cronome']);
   }
 
