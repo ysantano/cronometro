@@ -13,6 +13,7 @@ export class CrointercepcionesPage implements OnInit {
   ptsintercepta: number = 0;
   accionGuardar: string = "Guardar";
   listIntercepciones: any = [];
+  equipo: string = "visitante";
 
   constructor() { }
 
@@ -29,6 +30,9 @@ export class CrointercepcionesPage implements OnInit {
   }
 
   borraIntercepcion(item:any) {
+  }
+
+  fncInfoEquipo() {
   }
 
 }

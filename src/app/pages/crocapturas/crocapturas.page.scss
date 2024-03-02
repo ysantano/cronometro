@@ -1,29 +1,16 @@
 ion-header {
-  background: blueviolet;
-  --background: blueviolet;
+  border-radius: 12px;
+  padding-bottom: 10px;
   ion-toolbar {
     background: blueviolet;
     --background: blueviolet;
     color: white;
     --color: white;
   }
-  ion-list {
-    background: blueviolet;
-    --background: blueviolet;
-    color: white;
-    --color: white;
-    ion-item {
-      background: blueviolet;
-      --background: blueviolet;
-      color: white;
-      --color: white;
-    }
-  }
-  ion-grid {
-    background: blueviolet;
-    --background: blueviolet;
-    color: white;
-    --color: white;
+  ion-segment {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-radius: 0px;
   }
 }
 .btnBack {

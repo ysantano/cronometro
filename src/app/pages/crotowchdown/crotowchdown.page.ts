@@ -12,6 +12,7 @@ export class CrotowchdownPage implements OnInit {
   numlanza: string = "";
   accionGuardar: string = "Guardar";
   listAnotaciones: any = [];
+  equipo: string = "visitante";
 
   constructor() { }
 
@@ -25,6 +26,9 @@ export class CrotowchdownPage implements OnInit {
   }
 
   borraAnotacion(item:any) {
+  }
+
+  fncInfoEquipo() {
   }
 
 }

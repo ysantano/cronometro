@@ -22,6 +22,7 @@ export class CrocastigosPage implements OnInit {
     {'id':10, 'castigo':'Retraso de juego'},
   ];
   accionGuardar: string = "Guardar";
+  equipo: string = "visitante";
 
   constructor() { }
 
@@ -29,6 +30,9 @@ export class CrocastigosPage implements OnInit {
   }
 
   guardaCastigo() {
+  }
+
+  fncInfoEquipo() {
   }
 
 }

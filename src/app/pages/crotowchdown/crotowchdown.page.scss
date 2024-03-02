@@ -1,22 +1,15 @@
 ion-header {
-  background: greenyellow;
-  --background: greenyellow;
+  border-radius: 12px;
+  padding-bottom: 10px;
 
   ion-toolbar {
     background: greenyellow;
     --background: greenyellow;
   }
   ion-segment {
-    background: greenyellow;
-    --background: greenyellow;
-  }
-  ion-list {
-    background: greenyellow;
-    --background: greenyellow;
-    ion-item {
-      background: greenyellow;
-      --background: greenyellow;
-    }
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-radius: 0px;
   }
 }
 .btnBack {

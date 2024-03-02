@@ -1,21 +1,14 @@
 ion-header {
-  background: deeppink;
-  --background: deeppink;
+  border-radius: 12px;
+  padding-bottom: 10px;
   ion-toolbar {
     background: deeppink;
     --background: deeppink;
   }
-  ion-list {
-    background: deeppink;
-    --background: deeppink;
-    ion-item {
-      background: deeppink;
-      --background: deeppink;
-    }
-  }
-  ion-grid {
-    background: deeppink;
-    --background: deeppink;
+  ion-segment {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-radius: 0px;
   }
 }
 .btnBack {

@@ -11,6 +11,7 @@ export class CrocapturasPage implements OnInit {
   capturaPtos: boolean = false;
   accionGuardar: string = "Guardar";
   listCapturas: any = [];
+  equipo: string = "visitante";
 
   constructor() { }
 
@@ -21,6 +22,9 @@ export class CrocapturasPage implements OnInit {
   }
 
   editarCaptura(item:any) {
+  }
+
+  fncInfoEquipo() {
   }
 
 }

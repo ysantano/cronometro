@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" class="ion-no-border">
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons [collapse]="true" slot="start">
       <ion-button fill="clear" shape="round" routerLink="/cronome">
@@ -14,6 +14,17 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+
+  <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" (ionChange)="fncInfoEquipo()">
+    <ion-segment-button value="visitante">
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Azur</ion-label><br/>
+    </ion-segment-button>
+    <ion-segment-button value="local">
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Amazonas renegados</ion-label><br/>
+    </ion-segment-button>
+  </ion-segment>
 
   <ion-list>
     <ion-item>
