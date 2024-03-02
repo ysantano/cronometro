@@ -7,9 +7,15 @@ ion-header {
     --background: greenyellow;
   }
   ion-segment {
+    border-radius: 0px;
     padding-top: 7px;
     padding-bottom: 7px;
-    border-radius: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  ion-list {
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 .btnBack {

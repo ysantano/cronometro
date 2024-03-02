@@ -260,7 +260,14 @@ export class CronomePage implements OnInit {
   }
 
   goTowchdown() {
-    this.router.navigate(['/crotowchdown']);
+    const informacion = {
+      tiempo: this.tiempo,
+      medio:this.timeTab,
+      down:this.down,
+      equipo: this.equipo,
+      idreg: this.idReg
+    };
+    this.router.navigate(['/crotowchdown', informacion]);
   }
 
   goCastigos() {
@@ -281,11 +288,26 @@ export class CronomePage implements OnInit {
 
 
   async ionViewDidEnter() {
-    //console.log('Actualizar el cronómetro!');
+    console.log('Actualizar el cronómetro!');
     this.idReg = 0;
+    this.ptosLocal = 0;
+    this.ptosVisitante = 0;
+
+
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
       const array = value.split('|');
+
+      if (array[1] === 'AC' && array[2] === 'TW') {
+        console.log('key', key);
+        if (key.equipo === 'visitante'){
+          this.ptosVisitante += key.puntos;
+        }else{
+          this.ptosLocal += key.puntos;
+        }
+
+      }
+
       if (array[1] === 'DG' && array[2] === 'BK') {
         //console.log(key);
         this.equipo = key.equipo;
@@ -307,6 +329,10 @@ export class CronomePage implements OnInit {
 
       this.idReg++;
     })
+
+    this.sLocal = `${String(this.ptosLocal).padStart(2, "0")}`;
+    this.sVisitante = `${String(this.ptosVisitante).padStart(2, "0")}`;
+
   }
 
   async ionViewWillLeave() {
