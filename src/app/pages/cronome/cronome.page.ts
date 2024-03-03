@@ -215,7 +215,7 @@ export class CronomePage implements OnInit {
   /* ACTUALIZA EL CAMBIO DEL EQUIPO */
   async fncChangeTeam() {
     const dt = new Date();
-    const key1 = this.idReg + '|AC|TM|135|' + this.getCurrentDayTimestamp(dt);
+    const key1 = this.idReg + '|CR|TM|135|' + this.getCurrentDayTimestamp(dt);
     const rec1 = {
       'feho':dt,
       'tiempo':this.tiempo,
@@ -230,7 +230,7 @@ export class CronomePage implements OnInit {
   /* ACTUALIZAR CUANDO SE HACE CAMBIO DE DOWN */
   async fncChangeDown() {
     const dt = new Date();
-    const key1 = this.idReg + '|AC|DW|135|' + this.getCurrentDayTimestamp(dt);
+    const key1 = this.idReg + '|CR|DW|135|' + this.getCurrentDayTimestamp(dt);
     const rec1 = {
       'feho':dt,
       'tiempo':this.tiempo,
