@@ -42,10 +42,9 @@ export class CrocastigosPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params) {
-        console.log(params);
         this.tiempo = params['tiempo'];
         this.medio = params['medio'];
-        this.down = params['down'];
+        this.down = Number(params['down']);
         this.equipo = params['equipo'];
         this.idReg = params['idreg'];
       }
@@ -102,7 +101,7 @@ export class CrocastigosPage implements OnInit {
     + dt.getMinutes().toString().padStart(2, '0') + ''
     + dt.getSeconds().toString().padStart(2, '0');
   }
-  /* Lista los catigos cometidos según el equipo seleccinado */ 
+  /* Lista los catigos cometidos según el equipo seleccinado */
   async fncInfoEquipo() {
     this.listCastigos = [];
     const _storage = await this.storageService.list();

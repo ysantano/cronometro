@@ -22,12 +22,12 @@ export class CronomePage implements OnInit {
   idReg: number = 1;
   intervalId:any;
 
-  minutosInputT1: number = 21;
-  segundosInputT1: number = 1;
-  minutosInputMT: number = 10;
+  minutosInputT1: number = 0;
+  segundosInputT1: number = 0;
+  minutosInputMT: number = 0;
   segundosInputMT: number = 0;
-  minutosInputT2: number = 22;
-  segundosInputT2: number = 2;
+  minutosInputT2: number = 0;
+  segundosInputT2: number = 0;
   tiempoRestante: number = 0;
   ptosLocal: number = 0;
   ptosVisitante: number = 0;
@@ -51,12 +51,12 @@ export class CronomePage implements OnInit {
   ngOnInit() {
     this.tiempoRestante = 0;
 
-    this.minutosInputT1 = 21;
-    this.segundosInputT1 = 1;
-    this.minutosInputMT = 10;
+    this.minutosInputT1 = 5;
+    this.segundosInputT1 = 0;
+    this.minutosInputMT = 2;
     this.segundosInputMT = 0;
-    this.minutosInputT2 = 22;
-    this.segundosInputT2 = 2;
+    this.minutosInputT2 = 5;
+    this.segundosInputT2 = 0;
 
     if (this.timeTab == "T1") {
       this.tiempo = `${String(this.minutosInputT1).padStart(2, "0")}:${String(this.segundosInputT1).padStart(2, "0")}`;
@@ -72,7 +72,6 @@ export class CronomePage implements OnInit {
     this.sVisitante = `${String(this.ptosVisitante).padStart(2, "0")}`;
     this.down = "0";
     this.puntos = "6";
-
   }
 
   /* FUNCIONAMIENTO DEL CRONOMETRO */
@@ -88,7 +87,7 @@ export class CronomePage implements OnInit {
         'feho':dt,
         'tiempo':this.tiempo,
         'medio':this.timeTab,
-        'down':this.down,
+        'down':Number(this.down),
         'equipo':this.equipo
       };
       await this.storageService.set(key1, rec1);
@@ -109,7 +108,7 @@ export class CronomePage implements OnInit {
         'feho':dt,
         'tiempo':this.tiempo,
         'medio':this.timeTab,
-        'down':this.down,
+        'down':Number(this.down),
         'equipo':this.equipo
       };
       await this.storageService.set(key1, rec1);
@@ -194,7 +193,7 @@ export class CronomePage implements OnInit {
 
   /* FUNCIONAMIENTO DE AVANZAR AL SIGUIENTE DOWN */
   fncNextDown() {
-    var _down = parseFloat(this.down);
+    var _down = Number(this.down);
     _down ++;
     this.down = _down.toString();
     if (_down > 4) {
@@ -203,7 +202,7 @@ export class CronomePage implements OnInit {
     this.fncChangeDown();
   }
   fncLastDown() {
-    var _down = parseFloat(this.down);
+    var _down = Number(this.down);
     _down --;
     this.down = _down.toString();
     if (_down < 0) {
@@ -220,7 +219,7 @@ export class CronomePage implements OnInit {
       'feho':dt,
       'tiempo':this.tiempo,
       'medio':this.timeTab,
-      'down':this.down,
+      'down':Number(this.down),
       'equipo':this.equipo
     };
     await this.storageService.set(key1, rec1);
@@ -235,7 +234,7 @@ export class CronomePage implements OnInit {
       'feho':dt,
       'tiempo':this.tiempo,
       'medio':this.timeTab,
-      'down':this.down,
+      'down':Number(this.down),
       'equipo':this.equipo
     };
     await this.storageService.set(key1, rec1);
@@ -246,7 +245,7 @@ export class CronomePage implements OnInit {
   goCroconfig() {
     const informacion = {
       equipo: this.equipo,
-      down:this.down,
+      down:Number(this.down),
       timeTab:this.timeTab,
       minutosInputT1: this.minutosInputT1,
       segundosInputT1: this.segundosInputT1,
@@ -263,7 +262,7 @@ export class CronomePage implements OnInit {
     const informacion = {
       tiempo: this.tiempo,
       medio:this.timeTab,
-      down:this.down,
+      down:Number(this.down),
       equipo: this.equipo,
       idreg: this.idReg
     };
@@ -274,7 +273,7 @@ export class CronomePage implements OnInit {
     const informacion = {
       tiempo: this.tiempo,
       medio:this.timeTab,
-      down:this.down,
+      down:Number(this.down),
       equipo: this.equipo,
       idreg: this.idReg
     };
@@ -285,7 +284,7 @@ export class CronomePage implements OnInit {
     const informacion = {
       tiempo: this.tiempo,
       medio:this.timeTab,
-      down:this.down,
+      down:Number(this.down),
       equipo: this.equipo,
       idreg: this.idReg
     };
@@ -296,7 +295,7 @@ export class CronomePage implements OnInit {
     const informacion = {
       tiempo: this.tiempo,
       medio:this.timeTab,
-      down:this.down,
+      down:Number(this.down),
       equipo: this.equipo,
       idreg: this.idReg
     };
@@ -306,7 +305,6 @@ export class CronomePage implements OnInit {
   estadisticasFinales() {
     this.router.navigate(['/estadisticasfinales']);
   }
-
 
   async ionViewDidEnter() {
     console.log('Actualizar el cronómetro!');
@@ -364,7 +362,7 @@ export class CronomePage implements OnInit {
     const rec1 = {
       'feho':dt,
       'equipo':this.equipo,
-      'down':this.down,
+      'down':Number(this.down),
       'timeTab':this.timeTab,
       'minutosInputT1':this.minutosInputT1,
       'segundosInputT1':this.segundosInputT1,
