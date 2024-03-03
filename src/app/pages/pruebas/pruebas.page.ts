@@ -13,13 +13,26 @@ import { StorageService } from 'src/app/service/storage.service';
 export class PruebasPage {
   private _storage: any | null = null;
 
+  private _storage2: Map<any, any> | undefined; //Nueva línea
+
   detallejuego: any = [];
   value: any;
   resumen: any;
 
   constructor(
     private storageService: StorageService
-  ) { }
+  ) {
+   // Inicializar _storage
+   this._storage2 = new Map();
+   //this._storage2.set('b', 2);
+   //this._storage2.set('a', 1);
+   //this._storage2.set('c', 3);
+
+   this._storage2.set('68|AC|DW|135|20240303100947', {feho: '2024-03-03T16:09:47.817Z', tiempo: '02:08', medio: 'T1', down: '2', equipo: 'visitante'});
+   this._storage2.set('38|AC|DW|135|20240303100456', {feho: '2024-03-03T16:04:56.841Z', tiempo: '06:41', medio: 'T1', down: '1', equipo: 'local'});
+   this._storage2.set('23|AC|DW|135|20240303100250', {feho: '2024-03-03T16:02:50.011Z', tiempo: '08:40', medio: 'T1', down: '1', equipo: 'visitante'});
+
+  }
 
   getCurrentDayTimestamp() {
     const d = new Date();
@@ -82,13 +95,27 @@ export class PruebasPage {
   }
 
   async listValue() {
-    //this.value = await this.storageService.list();
-    //console.log(this.value);
-
+    /*
     this._storage = await this.storageService.list();
     await this._storage?.forEach((key:any, value:any, index:any) => {
       console.log(value, key);
     })
+    */
+
+    await this._storage2?.forEach((value: any, key: any) => {
+      console.log(key, value );
+    });
+    const sortedEntries = [...(this._storage2?.entries() || [])].sort(([keyA], [keyB]) => {
+      if (keyA < keyB) return -1;
+      if (keyA > keyB) return 1;
+      return 0;
+    });
+
+    console.log("Ordenado por key:");
+    sortedEntries.forEach(([key, value]) => {
+      console.log(key, value);
+    });
+
   }
 
   async listValue2() {
