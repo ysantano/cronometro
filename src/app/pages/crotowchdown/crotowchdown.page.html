@@ -70,7 +70,7 @@
   </ion-fab>
 
   <ion-list [inset]="true" *ngFor="let item of listAnotaciones">
-    <ion-item-sliding>
+    <ion-item-sliding style="border:thin solid #818181;border-radius:6px;">
       <ion-item [button]="true" (click)="editarAnotacion(item)">
         <ion-avatar aria-hidden="true" slot="start">
           <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />

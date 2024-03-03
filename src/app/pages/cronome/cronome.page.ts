@@ -271,15 +271,36 @@ export class CronomePage implements OnInit {
   }
 
   goCastigos() {
-    this.router.navigate(['/crocastigos']);
+    const informacion = {
+      tiempo: this.tiempo,
+      medio:this.timeTab,
+      down:this.down,
+      equipo: this.equipo,
+      idreg: this.idReg
+    };
+    this.router.navigate(['/crocastigos', informacion]);
   }
 
   goIntercepciones() {
-    this.router.navigate(['/crointercepciones']);
+    const informacion = {
+      tiempo: this.tiempo,
+      medio:this.timeTab,
+      down:this.down,
+      equipo: this.equipo,
+      idreg: this.idReg
+    };
+    this.router.navigate(['/crointercepciones', informacion]);
   }
 
   goCaptura() {
-    this.router.navigate(['/crocapturas']);
+    const informacion = {
+      tiempo: this.tiempo,
+      medio:this.timeTab,
+      down:this.down,
+      equipo: this.equipo,
+      idreg: this.idReg
+    };
+    this.router.navigate(['/crocapturas', informacion]);
   }
 
   estadisticasFinales() {

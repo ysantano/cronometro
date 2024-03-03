@@ -55,4 +55,25 @@
     </ion-fab-button>
   </ion-fab>
 
+  <ion-list [inset]="true" *ngFor="let item of listCastigos">
+    <ion-item-sliding style="border:thin solid #818181;border-radius:6px;">
+      <ion-item [button]="true" (click)="editarCastigo(item)">
+        <ion-avatar aria-hidden="true" slot="start">
+          <img alt="" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+        <ion-label>
+          <b>#{{ item.njcastigo }}</b> {{ item.equipo }}
+          <br/><small>Castigo: {{ item.idcastigo }}</small>
+          <br/><small>{{ castigos[item.idcastigo - 1].castigo }}</small>
+          <br/><small>{{item.medio}} D{{item.down}} {{item.tiempo}}</small>
+        </ion-label>
+      </ion-item>
+      <ion-item-options slot="end">
+        <ion-item-option color="danger" expandable="true"(click)="borraCastigo(item)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
 </ion-content>

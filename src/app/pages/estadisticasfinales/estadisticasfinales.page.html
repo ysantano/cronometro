@@ -13,12 +13,94 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+
+  <ion-card>
+    <img alt="fondo" src="../../../assets/icon/mvp_1.png" />
+
+    <div class="fotoMVP">
+      <img alt="Silhouette of mountains" src="../../../assets/icon/avatar-3.jpg" />
+    </div>
+
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+        <strong class="item_mvp">
+          <ion-chip>
+            <ion-avatar>
+              <img alt="Silhouette of a person's head" src="../../../assets/icon/avatar-3.jpg" />
+            </ion-avatar>
+            <ion-label>#54 Rick Astley</ion-label>
+          </ion-chip>
+        </strong>
+      </ion-card-title>
+      <ion-card-subtitle class="ion-text-center">
+        <ion-label style="text-transform:uppercase;">Amazonas renegados</ion-label>
+        <br/>
+        <ion-grid class="ion-text-center">
+          <ion-col size="4">
+            <ion-badge color="warning" style="text-transform:uppercase;"> Femenil libre </ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <ion-badge color="success" style="text-transform:uppercase;"> Campo 2 </ion-badge>
+          </ion-col>
+          <ion-col size="4">
+            <ion-badge color="success" style="text-transform:uppercase;"> Jornada 6 </ion-badge>
+          </ion-col>
+        </ion-grid>
+      </ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-segment mode="ios" value="local">
+    <ion-segment-button value="visitante">
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Azur</ion-label><br/>
+    </ion-segment-button>
+    <ion-segment-button value="local">
+      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
+      <ion-label style="font-size:x-small;text-transform:uppercase;">Amazonas renegados</ion-label><br/>
+    </ion-segment-button>
+  </ion-segment>
+
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">estadisticasfinales</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <ion-list [inset]="true">
+
+    <ion-item [button]="false" detail="false">
+      <ion-label>
+        <strong class="item_mvp">
+          <ion-chip>
+            <ion-avatar>
+              <img alt="Silhouette of a person's head" src="../../../assets/icon/avatar-3.jpg" />
+            </ion-avatar>
+            <ion-label>#54 Rick Astley</ion-label>
+          </ion-chip>
+        </strong>
+      </ion-label>
+      <div class="metadata-end-wrapper ion-text-right item_mvp" slot="end">
+        <ion-note color="dark">99 TD</ion-note><br/>
+        <ion-note color="dark">999 Pts</ion-note>
+      </div>
+    </ion-item>
+
+    <ion-item [button]="false" detail="false">
+      <ion-label>
+        <strong>
+          <ion-chip color="medium">
+            <ion-avatar>
+              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            </ion-avatar>
+            <ion-label>#54 Rick Astley</ion-label>
+          </ion-chip>
+        </strong>
+      </ion-label>
+      <div class="metadata-end-wrapper ion-text-right" slot="end">
+        <ion-note color="medium">99 TD</ion-note><br/>
+        <ion-note color="medium">999 Pts</ion-note>
+      </div>
+    </ion-item>
+
+  </ion-list>
+
 </ion-content>

@@ -28,6 +28,7 @@ export class CrotowchdownPage implements OnInit {
     private storageService: StorageService
   ) { }
 
+  /* Cargar información inicial de las anotaciones */
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params) {
@@ -39,8 +40,9 @@ export class CrotowchdownPage implements OnInit {
         this.idReg = params['idreg'];
       }
     });
+    this.fncInfoEquipo();
   }
-
+  /* Guarda la información nueva o editada */
   async guardaAnotacion() {
     if (this.accionGuardar === "MODIFICAR ANOTACIÓN") {
       const _storage = await this.storageService.list();
@@ -58,7 +60,7 @@ export class CrotowchdownPage implements OnInit {
             'numlanza':this.numlanza,
             'idItercepcion':''
           };
-          //this.storageService.set(value, rec1);
+          this.storageService.set(value, rec1);
         }
       });
     } else {
@@ -76,7 +78,7 @@ export class CrotowchdownPage implements OnInit {
         'numlanza':this.numlanza,
         'idItercepcion':''
       };
-      console.log(rec1);
+      //console.log(rec1);
       await this.storageService.set(key1, rec1);
     }
 
@@ -84,7 +86,7 @@ export class CrotowchdownPage implements OnInit {
     this.numlanza = "";
     this.router.navigate(['/cronome']);
   }
-
+  /* Retorna la fecha y hora actual en numeros */
   getCurrentDayTimestamp(dt:any) {
     return dt.getFullYear() + ''
     + (dt.getMonth() + 1).toString().padStart(2, '0') + ''
@@ -93,14 +95,33 @@ export class CrotowchdownPage implements OnInit {
     + dt.getMinutes().toString().padStart(2, '0') + ''
     + dt.getSeconds().toString().padStart(2, '0');
   }
-
-  editarAnotacion(item:any) {
+  /* Actualiza el listado de anotaciones del equipo seleccionado */
+  async fncInfoEquipo() {
+    this.listAnotaciones = [];
+    const _storage = await this.storageService.list();
+    await _storage?.forEach((key:any, value:any, index:any) => {
+      const array = value.split('|');
+      if (array[1] === 'AC' && array[2] === 'TW') {
+        if (this.equipo === key.equipo) {
+          this.listAnotaciones.push(key);
+        }
+      }
+    });
   }
-
-  borraAnotacion(item:any) {
+  /* Actualizar campos para hacer una edición de la información */
+  editarAnotacion(_key:any) {
+    this.accionGuardar = "MODIFICAR ANOTACIÓN"
+    this.iditemedit = _key.iditem;
+    var _idreg = _key.feho;
+    this.puntos = _key.puntos.toString();
+    this.numanota = _key.numanota;
+    this.numlanza = _key.numlanza;
   }
-
-  fncInfoEquipo() {
+  /* Eliminar el registro seleccionado */
+  async borraAnotacion(_key:any) {
+    this.iditemedit = _key.iditem;
+    await this.storageService.remove(this.iditemedit);
+    this.router.navigate(['/cronome']);
   }
 
 }
