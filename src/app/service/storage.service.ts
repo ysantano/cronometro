@@ -50,41 +50,6 @@ export class StorageService {
 
   public async list() {
     return this._storage;
-    /*
-    var value = '';
-    await this._storage?.forEach((key, value, index) => {
-      const array = value.split('|');
-      //console.log('value: ' + value + ' index: ' + index);
-      if (array[1] == 'AC') {
-        switch(array[2]) {
-          case "CT":
-            console.log('Acción: ' + array[2] +" Castigo!");
-            console.log(key);
-
-            value += '<b>CASTIGO</b>';
-
-            break;
-          case "TW":
-            //console.log('Acción: ' + array[2] +" Anotación!");
-            //console.log(key);
-            break;
-          case "KP":
-            //console.log('Acción: ' + array[2] +" Captura!");
-            //console.log(key);
-            break;
-          case "IT":
-            //console.log('Acción: ' + array[2] +" Intercepción!");
-            //console.log(key);
-            break;
-
-        }
-        //console.log(key);
-        //console.log(key.primero + ',' + key.segundo + ',' + key.tercero);
-      }
-    });
-    console.log('cadena: ' + value);
-    return value;
-    */
   }
 
 }
