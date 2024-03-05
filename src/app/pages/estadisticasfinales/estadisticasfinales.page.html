@@ -50,7 +50,7 @@
     </ion-card-header>
   </ion-card>
 
-  <ion-segment mode="ios" value="local">
+  <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" value="local" (ionChange)="fncChangeTeam();">
     <ion-segment-button value="visitante">
       <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
       <ion-label style="font-size:x-small;text-transform:uppercase;">Azur</ion-label><br/>
@@ -65,41 +65,56 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-list [inset]="true">
+  <ion-list [inset]="true" *ngFor="let item of dataFinal" style="padding:4px; margin:8px;">
 
-    <ion-item [button]="false" detail="false">
+    <ion-item [button]="true" detail="false" style="border:thin solid gray;border-radius:6px;">
+      <div class="unread-indicator-wrapper" slot="start">
+        <ion-avatar>
+          <img alt="foto" src="../../../assets/icon/avatar-3.jpg" />
+        </ion-avatar>
+      </div>
+      <ion-label>
+        <strong>#{{ item.NJ }} <small>Nombre del jugador</small></strong>
+        <br />
+        <ion-note color="medium" class="ion-text-wrap">
+          <ion-badge *ngIf="item.sm !== 0" color="primary" style="text-transform:uppercase;margin-right: 5px;">&nbsp;sm {{ item.sm }}&nbsp;</ion-badge>
+          <ion-badge *ngIf="item.IT>0" color="success" style="text-transform:uppercase;margin-right: 5px;">&nbsp;IT {{ item.IT }}&nbsp;</ion-badge>
+          <ion-badge *ngIf="item.KP>0" color="success" style="text-transform:uppercase;margin-right: 5px;">&nbsp;KP {{ item.KP }}&nbsp;</ion-badge>
+          <ion-badge *ngIf="item.lz>0" color="success" style="text-transform:uppercase;margin-right: 5px;">&nbsp;lz {{ item.lz }}&nbsp;</ion-badge>
+          <ion-badge *ngIf="item.CT>0" color="danger" style="text-transform:uppercase;margin-right: 5px;">&nbsp;CT {{ item.CT }}&nbsp;</ion-badge>
+        </ion-note>
+      </ion-label>
+      <div class="metadata-end-wrapper ion-text-right" slot="end">
+        <ion-note *ngIf="item.pt>0" color="dark">{{ item.pt }} Pts</ion-note><br/>
+        <ion-note *ngIf="item.TW>0" color="medium">{{ item.TW }} TD</ion-note>
+      </div>
+    </ion-item>
+
+    <!--
+    <ion-item [button]="false" detail="false" style="border-radius:8px; border:thin solid gray; padding: 0px;margin: 0px !important;">
       <ion-label>
         <strong class="item_mvp">
           <ion-chip>
             <ion-avatar>
               <img alt="Silhouette of a person's head" src="../../../assets/icon/avatar-3.jpg" />
             </ion-avatar>
-            <ion-label>#54 Rick Astley</ion-label>
+            <ion-label>#{{ item.NJ }}</ion-label>
           </ion-chip>
         </strong>
+        <br/>
+        <ion-badge *ngIf="item.sm !== 0" color="primary" style="text-transform:uppercase;margin-right: 5px;">&nbsp;sm {{ item.sm }}&nbsp;</ion-badge>
+        <ion-badge *ngIf="item.IT>0" color="success" style="text-transform:uppercase;margin-right: 5px;">&nbsp;IT {{ item.IT }}&nbsp;</ion-badge>
+        <ion-badge *ngIf="item.KP>0" color="success" style="text-transform:uppercase;margin-right: 5px;">&nbsp;KP {{ item.KP }}&nbsp;</ion-badge>
+        <ion-badge *ngIf="item.lz>0" color="success" style="text-transform:uppercase;margin-right: 5px;">&nbsp;lz {{ item.lz }}&nbsp;</ion-badge>
+        <ion-badge *ngIf="item.CT>0" color="danger" style="text-transform:uppercase;margin-right: 5px;">&nbsp;CT {{ item.CT }}&nbsp;</ion-badge>
       </ion-label>
-      <div class="metadata-end-wrapper ion-text-right item_mvp" slot="end">
-        <ion-note color="dark">13 Pts</ion-note><br/>
-        <ion-note color="dark">3 TD</ion-note>
-      </div>
-    </ion-item>
 
-    <ion-item [button]="false" detail="false">
-      <ion-label>
-        <strong>
-          <ion-chip color="medium">
-            <ion-avatar>
-              <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-            </ion-avatar>
-            <ion-label>#5 Saul Duarte</ion-label>
-          </ion-chip>
-        </strong>
-      </ion-label>
-      <div class="metadata-end-wrapper ion-text-right" slot="end">
-        <ion-note color="medium">7 Pts</ion-note><br/>
-        <ion-note color="medium">2 TD</ion-note>
+      <div class="metadata-end-wrapper ion-text-right item_mvp" slot="end">
+        <ion-note *ngIf="item.pt>0" color="dark">{{ item.pt }} Pts</ion-note><br/>
+        <ion-note *ngIf="item.TW>0" color="dark">{{ item.TW }} TD</ion-note>
       </div>
     </ion-item>
+    -->
 
   </ion-list>
 

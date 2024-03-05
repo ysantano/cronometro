@@ -135,7 +135,7 @@ export class PruebasPage {
       }
       if (key['keyact'] === "IT") {
         key1 += key['njintercepta'];
-
+        _IT = 1;
       }
       if (key['keyact'] === "KP") {
         key1 += key['njcaptura'];
@@ -187,10 +187,6 @@ export class PruebasPage {
         }
       }
     });
-
-
-
-
     console.log('final');
     console.log(dataObj);
 

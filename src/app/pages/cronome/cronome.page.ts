@@ -281,29 +281,48 @@ export class CronomePage implements OnInit {
   }
 
   goIntercepciones() {
+    var _equipo = 'local';
+    if (this.equipo === _equipo) {
+      _equipo = 'visitante';
+    }else{
+      _equipo = 'local';
+    }
     const informacion = {
       tiempo: this.tiempo,
       medio:this.timeTab,
       down:Number(this.down),
-      equipo: this.equipo,
+      equipo: _equipo,
       idreg: this.idReg
     };
     this.router.navigate(['/crointercepciones', informacion]);
   }
 
   goCaptura() {
+    var _equipo = 'local';
+    if (this.equipo === _equipo) {
+      _equipo = 'visitante';
+    }else{
+      _equipo = 'local';
+    }
     const informacion = {
       tiempo: this.tiempo,
       medio:this.timeTab,
       down:Number(this.down),
-      equipo: this.equipo,
+      equipo: _equipo,
       idreg: this.idReg
     };
     this.router.navigate(['/crocapturas', informacion]);
   }
 
   estadisticasFinales() {
-    this.router.navigate(['/estadisticasfinales']);
+    var _equipo = 'local';
+    if (this.ptosVisitante > this.ptosLocal) {
+      _equipo = 'visitante';
+    }
+    const informacion = {
+      equipo: _equipo, //this.equipo,
+    };
+    this.router.navigate(['/estadisticasfinales', informacion]);
   }
 
   async ionViewDidEnter() {
