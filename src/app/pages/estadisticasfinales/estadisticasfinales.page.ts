@@ -36,6 +36,7 @@ export class EstadisticasfinalesPage implements OnInit {
     this._storage = await this.storageService.list();
     this._storage2 = new Map();
     await this._storage?.forEach((value: any, key: any) => {
+      console.log('value: ', value);
       var _key = key.split('|');
       if (_key[1] === "AC") {
         //console.log(_key[1]);
@@ -49,6 +50,7 @@ export class EstadisticasfinalesPage implements OnInit {
         this._storage2.set(keyi, value);
       }
     });
+    console.log('----------------------------------');
 
     const sortedEntries = [...(this._storage2?.entries() || [])].sort(([keyA], [keyB]) => {
       if (Number(keyA) < Number(keyB)) return -1;
@@ -75,7 +77,9 @@ export class EstadisticasfinalesPage implements OnInit {
       var key2 = "";
       if (key['keyact'] === "TW") {
         key1 += key['numanota'];
-        key2 = key['equipo'].substring(0,1) + key['numlanza'];
+        if (key['numlanza'] !== "") {
+          key2 = key['equipo'].substring(0,1) + key['numlanza'];
+        }
         _pt =  key['puntos'];
         _TW = 1;
         _lz = 1;

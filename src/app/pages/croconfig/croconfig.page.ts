@@ -20,6 +20,11 @@ export class CroconfigPage implements OnInit {
   minutosInputT2: number = 22;
   segundosInputT2: number = 2;
 
+  vTF1: boolean = true;
+  vTF2: boolean = true;
+  lTF1: boolean = true;
+  lTF2: boolean = true;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -41,6 +46,10 @@ export class CroconfigPage implements OnInit {
         this.segundosInputMT = params['segundosInputMT'];
         this.minutosInputT2 = params['minutosInputT2'];
         this.segundosInputT2 = params['segundosInputT2'];
+        this.vTF1 = params['vTF1'];
+        this.vTF2 = params['vTF2'];
+        this.lTF1 = params['lTF1'];
+        this.lTF2 = params['lTF2'];
       }
     });
   }
@@ -71,7 +80,11 @@ export class CroconfigPage implements OnInit {
       'minutosInputMT':this.minutosInputMT,
       'segundosInputMT':this.segundosInputMT,
       'minutosInputT2':this.minutosInputT2,
-      'segundosInputT2':this.segundosInputT2
+      'segundosInputT2':this.segundosInputT2,
+      'vTF1':this.vTF1,
+      'vTF2':this.vTF2,
+      'lTF1':this.lTF1,
+      'lTF2':this.lTF2  
     };
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
@@ -92,5 +105,19 @@ export class CroconfigPage implements OnInit {
     + dt.getMinutes().toString().padStart(2, '0') + ''
     + dt.getSeconds().toString().padStart(2, '0');
   }
+
+  ionViewWillEnter() {
+    console.log('funcion: ionViewWillEnter()');
+  }
+  ionViewDidEnter() {
+    console.log('funcion: ionViewDidEnter()');
+  }
+  ionViewWillLeave() {
+    console.log('funcion: ionViewWillLeave()');
+  }
+  ionViewDidLeave() {
+    console.log('funcion: ionViewDidLeave()');
+  }
+
 
 }

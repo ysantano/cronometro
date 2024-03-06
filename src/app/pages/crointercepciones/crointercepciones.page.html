@@ -28,26 +28,26 @@
 
   <ion-list>
     <ion-item>
-      <ion-input [value]="njintercepta" [(ngModel)]="njintercepta" label="Jugador que intercepta" type="number" (change)="fncInterAnota()"></ion-input>
+      <ion-input [value]="njintercepta" [(ngModel)]="njintercepta" label="Jugador que intercepta" type="number"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-toggle [(ngModel)]=interanota>¿Anotó?</ion-toggle>
+      <ion-toggle [(ngModel)]=interanota (ionChange)="fncInterAnota()">¿Anotó?</ion-toggle>
     </ion-item>
     <ion-item>
       <ion-input [disabled]="!interanota" [value]="njinteranota" [(ngModel)]="njinteranota" label="Jugador que anota" type="number"></ion-input>
     </ion-item>
     <ion-item>
       <ion-segment [disabled]="!interanota" [value]=ptsintercepta [(ngModel)]=ptsintercepta mode="ios">
-        <ion-segment-button value=6>
+        <ion-segment-button value="6">
           <ion-label>6 pts</ion-label>
         </ion-segment-button>
-        <ion-segment-button value=1>
+        <ion-segment-button value="1">
           <ion-label>1 pt</ion-label>
         </ion-segment-button>
-        <ion-segment-button value=2>
+        <ion-segment-button value="2">
           <ion-label>2 pts</ion-label>
         </ion-segment-button>
-        <ion-segment-button value=3>
+        <ion-segment-button value="3">
           <ion-label>3 pts</ion-label>
         </ion-segment-button>
       </ion-segment>

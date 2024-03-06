@@ -10,18 +10,19 @@ import { StorageService } from 'src/app/service/storage.service';
 export class CrocastigosPage implements OnInit {
 
   njcastigo: string = "";
-  idcastigo: number = 0;
+  idcastigo: number = 1;
   castigos: any = [
-    {'id':1, 'castigo':'Fuera de juego'},
-    {'id':2, 'castigo':'Movimiento ilegal'},
-    {'id':3, 'castigo':'Contacto ilegal'},
-    {'id':4, 'castigo':'Sujetar'},
-    {'id':5, 'castigo':'Interferencia en pase'},
-    {'id':6, 'castigo':'Bloqueo ilegal'},
-    {'id':7, 'castigo':'Proteger la bandera'},
-    {'id':8, 'castigo':'Golpear al pasador'},
-    {'id':9, 'castigo':'Conducta antideportiva'},
-    {'id':10, 'castigo':'Retraso de juego'},
+    {'id':1, 'castigo':'No definido'},
+    {'id':2, 'castigo':'Fuera de juego'},
+    {'id':3, 'castigo':'Movimiento ilegal'},
+    {'id':4, 'castigo':'Contacto ilegal'},
+    {'id':5, 'castigo':'Sujetar'},
+    {'id':6, 'castigo':'Interferencia en pase'},
+    {'id':7, 'castigo':'Bloqueo ilegal'},
+    {'id':8, 'castigo':'Proteger la bandera'},
+    {'id':9, 'castigo':'Golpear al pasador'},
+    {'id':10, 'castigo':'Conducta antideportiva'},
+    {'id':11, 'castigo':'Retraso de juego'},
   ];
   accionGuardar: string = "Guardar";
   equipo: string = "visitante";
@@ -53,7 +54,8 @@ export class CrocastigosPage implements OnInit {
   }
   /* Guardar la información nueva o editada del castigo. */
   async guardaCastigo() {
-    console.log("Castigo: ", this.accionGuardar);
+    console.log("Castigo: ", this.accionGuardar + " idCastigo:" + this.idcastigo);
+    //this.idcastigo = 0;
     if (this.accionGuardar === "MODIFICAR CASTIGO") {
       const _storage = await this.storageService.list();
       await _storage?.forEach((key:any, value:any, index:any) => {

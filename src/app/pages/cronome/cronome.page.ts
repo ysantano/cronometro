@@ -33,6 +33,12 @@ export class CronomePage implements OnInit {
   ptosVisitante: number = 0;
   puntos: string = "6";
 
+  vTF1: boolean = true;
+  vTF2: boolean = true;
+  lTF1: boolean = true;
+  lTF2: boolean = true;
+  alertButtons = ['Aceptar'];
+
   constructor(
     private router: Router,
     private toastController: ToastController,
@@ -72,6 +78,12 @@ export class CronomePage implements OnInit {
     this.sVisitante = `${String(this.ptosVisitante).padStart(2, "0")}`;
     this.down = "0";
     this.puntos = "6";
+
+    this.vTF1 = true;
+    this.vTF2 = true;
+    this.lTF1 = true;
+    this.lTF2 = true;
+
   }
 
   /* FUNCIONAMIENTO DEL CRONOMETRO */
@@ -253,6 +265,10 @@ export class CronomePage implements OnInit {
       segundosInputMT: this.segundosInputMT,
       minutosInputT2: this.minutosInputT2,
       segundosInputT2: this.segundosInputT2,
+      vTF1: this.vTF1,
+      vTF2: this.vTF2,
+      lTF1: this.lTF1,
+      lTF2: this.lTF2,
       idreg: this.idReg
     };
     this.router.navigate(['/croconfig', informacion]);
@@ -326,28 +342,24 @@ export class CronomePage implements OnInit {
   }
 
   async ionViewDidEnter() {
-    console.log('Actualizar el cronómetro!');
+    //console.log('Actualizar el cronómetro!');
     this.idReg = 0;
     this.ptosLocal = 0;
     this.ptosVisitante = 0;
-
 
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
       const array = value.split('|');
 
       if (array[1] === 'AC' && array[2] === 'TW') {
-        console.log('key', key);
         if (key.equipo === 'visitante'){
           this.ptosVisitante += key.puntos;
         }else{
           this.ptosLocal += key.puntos;
         }
-
       }
 
       if (array[1] === 'DG' && array[2] === 'BK') {
-        //console.log(key);
         this.equipo = key.equipo;
         this.timeTab = key.timeTab;
         this.minutosInputT1 = key.minutosInputT1;
@@ -363,8 +375,11 @@ export class CronomePage implements OnInit {
         } else if (this.timeTab == "T2") {
           this.tiempo = `${String(this.minutosInputT2).padStart(2, "0")}:${String(this.segundosInputT2).padStart(2, "0")}`;
         }
+        this.vTF1 = key.vTF1
+        this.vTF2 = key.vTF2
+        this.lTF1 = key.lTF1
+        this.lTF2 = key.lTF2
       }
-
       this.idReg++;
     })
 
@@ -388,7 +403,11 @@ export class CronomePage implements OnInit {
       'minutosInputMT':this.minutosInputMT,
       'segundosInputMT':this.segundosInputMT,
       'minutosInputT2':this.minutosInputT2,
-      'segundosInputT2':this.segundosInputT2
+      'segundosInputT2':this.segundosInputT2,
+      'vTF1':this.vTF1,
+      'vTF2':this.vTF2,
+      'lTF1':this.lTF1,
+      'lTF2':this.lTF2
     };
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
@@ -398,8 +417,21 @@ export class CronomePage implements OnInit {
       }
     })
     await this.storageService.set(key1, rec1);
+  }
 
-
+  async fncTiempFuera(_tiefur: any) {
+    const dt = new Date();
+    const key1 = this.idReg + '|AC|TF|135|' + this.getCurrentDayTimestamp(dt);
+    const rec1 = {
+      'feho':dt,
+      'tiempo':this.tiempo,
+      'medio':this.timeTab,
+      'down':Number(this.down),
+      'equipo':this.equipo,
+      'tiefue':_tiefur
+    };
+    await this.storageService.set(key1, rec1);
+    this.idReg++;
   }
 
 

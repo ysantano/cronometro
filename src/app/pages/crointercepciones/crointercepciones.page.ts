@@ -12,7 +12,7 @@ export class CrointercepcionesPage implements OnInit {
   njintercepta: string = "";
   interanota: boolean = false;
   njinteranota: string = "";
-  ptsintercepta: number = 0;
+  ptsintercepta: string = "0";
   accionGuardar: string = "Guardar";
   listIntercepciones: any = [];
   equipo: string = "visitante";
@@ -83,7 +83,7 @@ export class CrointercepcionesPage implements OnInit {
                 'medio':key.timeTab,
                 'down':key.down,
                 'equipo':this.equipo,
-                'puntos': parseFloat(this.ptsintercepta.toString()),
+                'puntos': Number(this.ptsintercepta),
                 'numanota':this.njinteranota,
                 'numlanza':'',
                 'idItercepcion':key.idItercepcion
@@ -108,7 +108,7 @@ export class CrointercepcionesPage implements OnInit {
           'medio':_medio,
           'down':_down,
           'equipo':this.equipo,
-          'puntos': parseFloat(this.ptsintercepta.toString()),
+          'puntos': Number(this.ptsintercepta),
           'numanota':this.njinteranota,
           'numlanza':'',
           'idItercepcion':this.iditemedit
@@ -145,7 +145,7 @@ export class CrointercepcionesPage implements OnInit {
           'medio':this.medio,
           'down':this.down,
           'equipo':this.equipo,
-          'puntos': parseFloat(this.ptsintercepta.toString()),
+          'puntos': Number(this.ptsintercepta),
           'numanota':this.njinteranota,
           'numlanza':'',
           'idItercepcion':key1
@@ -157,7 +157,7 @@ export class CrointercepcionesPage implements OnInit {
     this.njintercepta = "";
     this.interanota = false;
     this.njinteranota = "";
-    this.ptsintercepta = 0;
+    this.ptsintercepta = "0";
     this.router.navigate(['/cronome']);
   }
   /* Retorna la fecha y hora actual en numeros */
@@ -172,6 +172,10 @@ export class CrointercepcionesPage implements OnInit {
   /* Poner el número de quién intercepto como defalut para el número de quién anoto */
   fncInterAnota() {
     this.njinteranota = this.njintercepta;
+    this.ptsintercepta = "0";
+    if (this.interanota) {
+      this.ptsintercepta = "6";
+    }
   }
   /* Actualizar la información para poder ser editada */
   async editarIntercepcion(_key: any) {
@@ -179,6 +183,10 @@ export class CrointercepcionesPage implements OnInit {
     this.iditemedit = _key.iditem;
     this.njintercepta = _key.njintercepta;
     this.interanota = _key.anota;
+    if (this.interanota) {
+      this.njinteranota = _key.njintercepta;
+    } 
+
     if (_key.anota) {
       const _storage = await this.storageService.list();
       await _storage?.forEach((key:any, value:any) => {
@@ -186,7 +194,7 @@ export class CrointercepcionesPage implements OnInit {
         if (array[1] === 'AC' && array[2] === 'TW') {
           if (this.iditemedit === key.idItercepcion) {
             this.njinteranota = key.numanota;
-            this.ptsintercepta = 6; //key.puntos;
+            this.ptsintercepta = "6"; //key.puntos;
             console.log("ptsintercepta: ", this.ptsintercepta);
           }
         }

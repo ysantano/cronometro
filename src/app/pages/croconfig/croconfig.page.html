@@ -101,6 +101,21 @@
     </ion-list>
   </div>
 
+  <ion-list>
+    <ion-item>
+      <ion-toggle [enableOnOffLabels]="true" [checked]="vTF1" [(ngModel)]='vTF1'> <small>Tiempo fuera 1 Visita</small> </ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-toggle [enableOnOffLabels]="true" [checked]="vTF2" [(ngModel)]='vTF2'> <small>Tiempo fuera 2 Visita</small> </ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-toggle [enableOnOffLabels]="true" [checked]="lTF1" [(ngModel)]='lTF1'> <small>Tiempo fuera 1 Local</small> </ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-toggle [enableOnOffLabels]="true" [checked]="lTF2" [(ngModel)]='lTF2'> <small>Tiempo fuera 2 Local</small> </ion-toggle>
+    </ion-item>
+  </ion-list>
+
   <ion-fab routerLink="/cronome" class="btnBack">
     <ion-fab-button>
       <ion-icon name="close-outline"></ion-icon>
