@@ -37,6 +37,7 @@ export class CronomePage implements OnInit {
   vTF2: boolean = true;
   lTF1: boolean = true;
   lTF2: boolean = true;
+
   alertButtons = ['Aceptar'];
 
   constructor(
@@ -83,7 +84,6 @@ export class CronomePage implements OnInit {
     this.vTF2 = true;
     this.lTF1 = true;
     this.lTF2 = true;
-
   }
 
   /* FUNCIONAMIENTO DEL CRONOMETRO */
@@ -342,7 +342,7 @@ export class CronomePage implements OnInit {
   }
 
   async ionViewDidEnter() {
-    //console.log('Actualizar el cronómetro!');
+    console.log('Actualizar el cronómetro!');
     this.idReg = 0;
     this.ptosLocal = 0;
     this.ptosVisitante = 0;
@@ -379,6 +379,13 @@ export class CronomePage implements OnInit {
         this.vTF2 = key.vTF2
         this.lTF1 = key.lTF1
         this.lTF2 = key.lTF2
+
+        console.log('Leidos!');
+        console.log('vTF1: ', this.vTF1);
+        console.log('vTF2: ', this.vTF2);
+        console.log('lTF1: ', this.lTF1);
+        console.log('lTF2: ', this.lTF2);
+
       }
       this.idReg++;
     })
@@ -421,7 +428,7 @@ export class CronomePage implements OnInit {
 
   async fncTiempFuera(_tiefur: any) {
     const dt = new Date();
-    const key1 = this.idReg + '|AC|TF|135|' + this.getCurrentDayTimestamp(dt);
+    const key1 = this.idReg + '|CR|TF|135|' + this.getCurrentDayTimestamp(dt);
     const rec1 = {
       'feho':dt,
       'tiempo':this.tiempo,
@@ -433,8 +440,6 @@ export class CronomePage implements OnInit {
     await this.storageService.set(key1, rec1);
     this.idReg++;
   }
-
-
 
 /*
   ionViewWillEnter() {

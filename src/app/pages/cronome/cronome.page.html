@@ -31,18 +31,18 @@
 
   <div style="margin:3px 20px 15px 20px;padding:6px;">
     <ion-row>
-      <ion-col id="present-alert1" size="2" class="ion-text-left"><ion-toggle [enableOnOffLabels]="true" [disabled]="!vTF1" [checked]="vTF1" [(ngModel)]='vTF1' (ionChange)="fncTiempFuera('vTF1');"></ion-toggle></ion-col>
-      <ion-col id="present-alert2" size="2" class="ion-text-left"><ion-toggle [enableOnOffLabels]="true" [disabled]="!vTF2" [checked]="vTF2" [(ngModel)]='vTF2' (ionChange)="fncTiempFuera('vTF2');"></ion-toggle></ion-col>
+      <ion-col id="present-alert1" size="2" class="ion-text-left"><ion-toggle [enableOnOffLabels]="true" [disabled]="!vTF1" [checked]="vTF1" [(ngModel)]="vTF1" (ionChange)="fncTiempFuera('vTF1');"></ion-toggle></ion-col>
+      <ion-col id="present-alert2" size="2" class="ion-text-left"><ion-toggle [enableOnOffLabels]="true" [disabled]="!vTF2" [checked]="vTF2" [(ngModel)]="vTF2" (ionChange)="fncTiempFuera('vTF2');"></ion-toggle></ion-col>
       <ion-col size="4" class="ion-text-center">|</ion-col>
-      <ion-col id="present-alert3" size="2" class="ion-text-right"><ion-toggle [enableOnOffLabels]="true" [disabled]="!lTF1" [checked]="lTF1" [(ngModel)]='lTF1' (ionChange)="fncTiempFuera('lTF1');"></ion-toggle></ion-col>
-      <ion-col id="present-alert4" size="2" class="ion-text-right"><ion-toggle [enableOnOffLabels]="true" [disabled]="!lTF2" [checked]="lTF2" [(ngModel)]='lTF2' (ionChange)="fncTiempFuera('lTF2');"></ion-toggle></ion-col>
+      <ion-col id="present-alert3" size="2" class="ion-text-right"><ion-toggle [enableOnOffLabels]="true" [disabled]="!lTF1" [checked]="lTF1" [(ngModel)]="lTF1" (ionChange)="fncTiempFuera('lTF1');"></ion-toggle></ion-col>
+      <ion-col id="present-alert4" size="2" class="ion-text-right"><ion-toggle [enableOnOffLabels]="true" [disabled]="!lTF2" [checked]="lTF2" [(ngModel)]="lTF2" (ionChange)="fncTiempFuera('lTF2');"></ion-toggle></ion-col>
     </ion-row>
   </div>
 
-  <ion-alert trigger="present-alert1" header="AZUR" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>  
-  <ion-alert trigger="present-alert2" header="AZUR" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>  
-  <ion-alert trigger="present-alert3" header="AMAZONAS RENEGADOS" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>  
-  <ion-alert trigger="present-alert4" header="AMAZONAS RENEGADOS" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>  
+  <ion-alert trigger="present-alert1" header="AZUR" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
+  <ion-alert trigger="present-alert2" header="AZUR" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
+  <ion-alert trigger="present-alert3" header="AMAZONAS RENEGADOS" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
+  <ion-alert trigger="present-alert4" header="AMAZONAS RENEGADOS" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
 
   <ion-segment [value]='down' [(ngModel)]='down' mode="ios" (ionChange)="fncChangeDown();">
     <ion-segment-button value="0">

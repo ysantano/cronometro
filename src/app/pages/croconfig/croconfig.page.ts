@@ -25,6 +25,8 @@ export class CroconfigPage implements OnInit {
   lTF1: boolean = true;
   lTF2: boolean = true;
 
+  _params:any
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,6 +37,7 @@ export class CroconfigPage implements OnInit {
     //console.log('Inicio de configiración!');
     this.route.params.subscribe(params => {
       if (params) {
+        this._params = params;
         //console.log(params);
         this._equipo = params['equipo'];
         this._down = params['down'];
@@ -106,18 +109,35 @@ export class CroconfigPage implements OnInit {
     + dt.getSeconds().toString().padStart(2, '0');
   }
 
-  ionViewWillEnter() {
-    console.log('funcion: ionViewWillEnter()');
-  }
-  ionViewDidEnter() {
-    console.log('funcion: ionViewDidEnter()');
-  }
-  ionViewWillLeave() {
+  async ionViewWillLeave() {
     console.log('funcion: ionViewWillLeave()');
-  }
-  ionViewDidLeave() {
-    console.log('funcion: ionViewDidLeave()');
-  }
+    const dt = new Date();
+    var key1 =  this._idreg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
+    const rec1 = {
+      'feho':dt,
+      'equipo':this._params['equipo'],
+      'down':this._params['down'],
+      'timeTab':this._params['timeTab'],
+      'minutosInputT1':this._params['minutosInputT1'],
+      'segundosInputT1':this._params['segundosInputT1'],
+      'minutosInputMT':this._params['minutosInputMT'],
+      'segundosInputMT':this._params['segundosInputMT'],
+      'minutosInputT2':this._params['minutosInputT2'],
+      'segundosInputT2':this._params['segundosInputT2'],
+      'vTF1':String(this.vTF1),
+      'vTF2':String(this.vTF2),
+      'lTF1':String(this.lTF1),
+      'lTF2':String(this.lTF2)  
+    };
+    const _listStorage = await this.storageService.list();
+    await _listStorage?.forEach((key:any, value:any, index:any) => {
+      const array = value.split('|');
+      if (array[1] === 'DG' && array[2] === 'BK') {
+        key1 = value;
+      }
+    });
+    await this.storageService.set(key1, rec1);
 
+  }
 
 }
