@@ -6,26 +6,26 @@
       </ion-button>
     </ion-buttons>
     <ion-title class="ion-text-right">
-      <ion-badge color="warning" style="font-size:x-small;text-transform:uppercase;"> Femenil libre </ion-badge><br/>
-      <ion-badge color="success" style="font-size:x-small;"> Campo 2 </ion-badge> / <ion-badge color="success" style="font-size:x-small;"> Jornada 6 </ion-badge>
+      <ion-badge color="warning" style="font-size:x-small;text-transform:uppercase;"> {{ nomTor }} {{ nomCat }} </ion-badge><br/>
+      <ion-badge color="success" style="font-size:x-small;"> Campo {{ idCampo }} </ion-badge> / <ion-badge color="success" style="font-size:x-small;"> Jornada {{ idJornada }} </ion-badge>
     </ion-title>
     <ion-buttons [collapse]="true" slot="end">
       <ion-button fill="clear" shape="round" routerLink="/cronome">
-        <img alt="captura" width="45px" height="auto" src="../../../assets/icon/ligas/naolg_65d9557c38b9c_20240224033332.png" />
+        <img alt="captura" width="45px" height="auto" src="https://naosports.sanyoma.com/assets/img/naoflag/ligas/{{ logoLiga }}" />
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 
   <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" (ionChange)="fncChangeTeam();">
     <ion-segment-button value="visitante">
-      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
+      <img alt="inicio" width="38px" height="auto" src="https://naosports.sanyoma.com/assets/img/naoflag/equipos/{{ logoEquV }}" />
       <ion-badge style="font-size:large;">{{sVisitante}}</ion-badge>
-      <ion-label style="font-size:x-small;text-transform:uppercase;">Azur</ion-label><br/>
+      <ion-label style="font-size:x-small;text-transform:uppercase;">{{ nomEquV }}</ion-label><br/>
     </ion-segment-button>
     <ion-segment-button value="local">
-      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
+      <img alt="inicio" width="38px" height="auto" src="https://naosports.sanyoma.com/assets/img/naoflag/equipos/{{ logoEquL }}" />
       <ion-badge style="font-size:large;">{{sLocal}}</ion-badge>
-      <ion-label style="font-size:x-small;text-transform:uppercase;">Amazonas renegados</ion-label><br/>
+      <ion-label style="font-size:x-small;text-transform:uppercase;">{{ nomEquL }}</ion-label><br/>
     </ion-segment-button>
   </ion-segment>
 

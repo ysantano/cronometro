@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/service/storage.service';
+import { ApiService } from 'src/app/service/api.service';
 
 @Component({
   selector: 'app-croconfig',
@@ -30,7 +31,8 @@ export class CroconfigPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private apiService: ApiService
   ) { }
 
   ngOnInit() {
@@ -39,6 +41,7 @@ export class CroconfigPage implements OnInit {
       if (params) {
         this._params = params;
         //console.log(params);
+        this.apiService.idJuego = params['idJuego'];
         this._equipo = params['equipo'];
         this._down = params['down'];
         this.timeTab = params['timeTab'];
@@ -87,7 +90,7 @@ export class CroconfigPage implements OnInit {
       'vTF1':this.vTF1,
       'vTF2':this.vTF2,
       'lTF1':this.lTF1,
-      'lTF2':this.lTF2  
+      'lTF2':this.lTF2
     };
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
@@ -97,7 +100,13 @@ export class CroconfigPage implements OnInit {
       }
     })
     await this.storageService.set(key1, rec1);
-    this.router.navigate(['/cronome']);
+
+    console.log("SOPAS: ", this.apiService.idJuego);
+
+    const informacion = {
+      _idJuegos: this.apiService.idJuego
+    };
+    this.router.navigate(['/cronome',informacion]);
   }
 
   getCurrentDayTimestamp(dt:any) {
@@ -127,7 +136,7 @@ export class CroconfigPage implements OnInit {
       'vTF1':String(this.vTF1),
       'vTF2':String(this.vTF2),
       'lTF1':String(this.lTF1),
-      'lTF2':String(this.lTF2)  
+      'lTF2':String(this.lTF2)
     };
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {

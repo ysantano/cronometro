@@ -11,7 +11,31 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CronomePage implements OnInit {
 
-  idJuego: string = "0";
+  dataJuego: any;
+
+  idTempRolJue: string;
+  nombreLiga: string;
+  logoLiga: string;
+  idLiga: string;
+  nomCampo: string;
+  fecJug: string;
+  horJug: string;
+  eqLocal: string;
+  ptsLocal: string;
+  nomEquL: string;
+  logoEquL: string;
+  recordLoc: string;
+  eqVisita: string;
+  ptsVisita: string;
+  nomEquV: string;
+  logoEquV: string;
+  recordVis: string;
+  idCampo: string;
+  idJornada: string;
+  nomTor: string;
+  finalizado: string;
+  nomCat: string;
+
 
   equipo: string = "visitante";
   sVisitante: string = "00";
@@ -63,9 +87,41 @@ export class CronomePage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params) {
-        this.idJuego = params['_idJuegos'];
+        this.apiService.idJuego = params['_idJuegos'];
       }
     });
+
+
+    console.log("apiService.idJuego", this.apiService.idJuego);
+    //console.log('cronome.jsonDataJuegos => ', this.apiService.jsonDataJuegos);
+
+    const data = this.filtrarPorIdTempRolJue(this.apiService.jsonDataJuegos, this.apiService.idJuego);
+
+    this.dataJuego = data;
+
+    this.idTempRolJue = this.dataJuego.idTempRolJue;
+    this.nombreLiga = this.dataJuego.nombreLiga;
+    this.logoLiga = this.dataJuego.logoLiga;
+    this.idLiga = this.dataJuego.idLiga;
+    this.nomCampo = this.dataJuego.nomCampo;
+    this.fecJug = this.dataJuego.fecJug;
+    this.horJug = this.dataJuego.horJug;
+    this.eqLocal = this.dataJuego.eqLocal;
+    this.ptsLocal = this.dataJuego.ptsLocal;
+    this.nomEquL = this.dataJuego.nomEquL;
+    this.logoEquL = this.dataJuego.logoEquL;
+    this.recordLoc = this.dataJuego.recordLoc;
+    this.eqVisita = this.dataJuego.eqVisita;
+    this.ptsVisita = this.dataJuego.ptsVisita;
+    this.nomEquV = this.dataJuego.nomEquV;
+    this.logoEquV = this.dataJuego.logoEquV;
+    this.recordVis = this.dataJuego.recordVis;
+    this.idCampo = this.dataJuego.idCampo;
+    this.idJornada = this.dataJuego.idJornada;
+    this.nomTor = this.dataJuego.nomTor;
+    this.finalizado = this.dataJuego.finalizado;
+    this.nomCat = this.dataJuego.nomCat;
+
     this.tiempoRestante = 0;
 
     this.minutosInputT1 = 5;
@@ -266,6 +322,7 @@ export class CronomePage implements OnInit {
   /*  CARGAR LA PAGUINA SEGÚN LA ACCIÓN SELECCIONADA */
   goCroconfig() {
     const informacion = {
+      idJuego: this.apiService.idJuego,
       equipo: this.equipo,
       down:Number(this.down),
       timeTab:this.timeTab,
@@ -362,11 +419,6 @@ export class CronomePage implements OnInit {
 
   async ionViewDidEnter() {
     console.log('Actualizar el cronómetro!');
-    console.log("idJuego", this.idJuego);
-    //console.log('cronome.jsonDataJuegos => ', this.apiService.jsonDataJuegos);
-
-    const dataJuego = this.filtrarPorIdTempRolJue(this.apiService.jsonDataJuegos, this.idJuego);
-    console.log('dataJuego', dataJuego);
 
     this.idReg = 0;
     this.ptosLocal = 0;

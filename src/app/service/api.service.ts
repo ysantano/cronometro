@@ -13,6 +13,7 @@ export class ApiService {
   //private apiUrl = 'http://sanyoma.com/API_ngastos'; // Reemplaza con la URL de tu servicio
   private apiUrl = 'https://sanyoma.com/API_naosports';
   public jsonDataJuegos: any[] = [];
+  public idJuego: any;
 
   constructor(private http: HttpClient) {}
 
