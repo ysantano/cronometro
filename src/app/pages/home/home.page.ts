@@ -53,11 +53,9 @@ export class HomePage implements OnInit {
   }
 
   goCronometro(idTempRolJue: any) {
-    console.log('a-idTempRolJue', idTempRolJue);
     const informacion = {
-      _equipo: idTempRolJue
+      _idJuegos: idTempRolJue
     };
-
     this.router.navigate(['/cronome',informacion]);
   }
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { StorageService } from 'src/app/service/storage.service';
 import { ApiService } from 'src/app/service/api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cronome',
@@ -11,7 +11,9 @@ import { ApiService } from 'src/app/service/api.service';
 })
 export class CronomePage implements OnInit {
 
-  equipo: string = "visitante"
+  idJuego: string = "0";
+
+  equipo: string = "visitante";
   sVisitante: string = "00";
   sLocal: string = "00";
   down: string = "0";
@@ -42,6 +44,7 @@ export class CronomePage implements OnInit {
   alertButtons = ['Aceptar'];
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private toastController: ToastController,
     private storageService: StorageService,
@@ -58,6 +61,11 @@ export class CronomePage implements OnInit {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      if (params) {
+        this.idJuego = params['_idJuegos'];
+      }
+    });
     this.tiempoRestante = 0;
 
     this.minutosInputT1 = 5;
@@ -343,9 +351,22 @@ export class CronomePage implements OnInit {
     this.router.navigate(['/estadisticasfinales', informacion]);
   }
 
+  filtrarPorIdTempRolJue(data: any, id: any) {
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].idTempRolJue === id) {
+        return data[i];
+      }
+    }
+    return null;
+  }
+
   async ionViewDidEnter() {
     console.log('Actualizar el cronómetro!');
-    console.log('cronome.jsonDataJuegos => ', this.apiService.jsonDataJuegos);
+    console.log("idJuego", this.idJuego);
+    //console.log('cronome.jsonDataJuegos => ', this.apiService.jsonDataJuegos);
+
+    const dataJuego = this.filtrarPorIdTempRolJue(this.apiService.jsonDataJuegos, this.idJuego);
+    console.log('dataJuego', dataJuego);
 
     this.idReg = 0;
     this.ptosLocal = 0;
