@@ -30,6 +30,7 @@ export class CrocapturasPage implements OnInit {
 
   /* Cargar información inicial de las anotaciones */
   ngOnInit() {
+
     this.route.params.subscribe(params => {
       if (params) {
         //console.log(params);

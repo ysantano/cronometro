@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/service/storage.service';
+import { ApiService } from 'src/app/service/api.service';
 
 @Component({
   selector: 'app-cronome',
@@ -43,7 +44,8 @@ export class CronomePage implements OnInit {
   constructor(
     private router: Router,
     private toastController: ToastController,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private apiService: ApiService
   ) { }
 
   async presentToast(position: 'top' | 'middle' | 'bottom', message: string) {
@@ -343,6 +345,8 @@ export class CronomePage implements OnInit {
 
   async ionViewDidEnter() {
     console.log('Actualizar el cronómetro!');
+    console.log('cronome.jsonDataJuegos => ', this.apiService.jsonDataJuegos);
+
     this.idReg = 0;
     this.ptosLocal = 0;
     this.ptosVisitante = 0;

@@ -10,13 +10,15 @@ import { catchError } from 'rxjs/operators';
 })
 export class ApiService {
   //http://sanyoma.com/API_ngastos/gastos
-  private apiUrl = 'http://sanyoma.com/API_ngastos'; // Reemplaza con la URL de tu servicio
+  //private apiUrl = 'http://sanyoma.com/API_ngastos'; // Reemplaza con la URL de tu servicio
+  private apiUrl = 'https://sanyoma.com/API_naosports';
+  public jsonDataJuegos: any[] = [];
 
   constructor(private http: HttpClient) {}
 
   // Ejemplo de solicitud GET
   getDatos(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/gastos`).pipe(
+    return this.http.get<any>(`${this.apiUrl}/temporadas?juegosTodos`).pipe(
       catchError((error) => {
         // Manejar errores aquí
         throw error;

@@ -9,119 +9,99 @@
     <ion-label class="ion-text-center">Juegos del día</ion-label>
   </ion-item>
   <div id="container">
-    <!--
-    <ion-card (click)="fncCronometroJuego();">
-      <ion-card-header>
-        <ion-card-subtitle>
+
+
+    <div *ngFor="let item of listJuegos">
+      <ion-card (click)="goCronometro(item.idTempRolJue);">
+
+        <ion-item color="light">
+          <ion-text color="primary" slot="start">{{ item.nomCampo }}</ion-text>
+          <ion-text slot="end">{{ item.fecJug }} {{ item.horJug }}</ion-text>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-avatar aria-hidden="true" slot="start">
+            <img alt="" src="https://naosports.sanyoma.com/assets/img/naoflag/equipos/{{ item.logoEquL }}" />
+          </ion-avatar>
+          <ion-label>{{ item.nomEquL }}</ion-label>
+          <ion-badge slot="end"> {{item.ptsLocal}} </ion-badge>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-avatar aria-hidden="true" slot="start">
+            <img alt="" src="https://naosports.sanyoma.com/assets/img/naoflag/equipos/{{ item.logoEquV }}" />
+          </ion-avatar>
+          <ion-label>{{ item.nomEquV }}</ion-label>
+          <ion-badge slot="end"> {{item.ptsVisita}} </ion-badge>
+        </ion-item>
+        <ion-item color="light">
+          <ion-text slot="start"> {{item.nomTor}} </ion-text>
+          <ion-text slot="start"> {{item.nomCat}} </ion-text>
+          <ion-badge color="success" slot="end"> J{{item.idJornada}} </ion-badge>
+          <ion-badge color="success" slot="end"> C{{item.idCampo}} </ion-badge>
+        </ion-item>
+
+
+      </ion-card>
+
+      <!--
+      <ion-card (click)="goCronometro(item.idTempRolJue);">
+        <ion-card-header>
+          <ion-card-subtitle>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="ion-text-left">
+                  <ion-label><b>{{ item.nomCampo }}</b></ion-label>
+                </ion-col>
+                <ion-col class="ion-text-right">
+                  <ion-label>
+                    <small>{{ item.fecJug }}</small><br/>
+                    <b>{{ item.horJug }} hrs.</b>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
           <ion-grid>
             <ion-row>
-              <ion-col class="ion-text-left">
-                <ion-label><b>El Pocito</b></ion-label>
+              <ion-col class="ion-text-center">
+                <img alt="logoLocal" src="https://naosports.sanyoma.com/assets/img/naoflag/equipos/{{ item.logoEquL }}" />
               </ion-col>
-              <ion-col class="ion-text-right">
-                <ion-label>
-                  <small>15/01/2024</small><br/>
-                  <b>21:00</b>
-                </ion-label>
+              <ion-col class="ion-text-center" size="8">vs</ion-col>
+              <ion-col class="ion-text-center">
+                <img alt="logoVisita" src="https://naosports.sanyoma.com/assets/img/naoflag/equipos/{{ item.logoEquV }}" />
               </ion-col>
             </ion-row>
-          </ion-grid>
-        </ion-card-subtitle>
-      </ion-card-header>
 
-      <ion-card-content>
-        <ion-grid>
-          <ion-row>
-            <ion-col class="ion-text-center">
-              <img alt="inicio" src="../../../assets/icon/equipos/raiders.png" />
-            </ion-col>
-            <ion-col class="ion-text-center" size="8">vs</ion-col>
-            <ion-col class="ion-text-center">
-              <img alt="inicio" src="../../../assets/icon/equipos/pats.png" />
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col class="ion-text-center">
-              <ion-label>Azur</ion-label><br/>
-              <ion-label style="font-size:x-small;">(0-0)</ion-label>
-            </ion-col>
-            <ion-col class="ion-text-center" size="8">
-              <ion-badge color="success" style="font-size:medium;">C4 J0</ion-badge>
-            </ion-col>
-            <ion-col class="ion-text-center">
-              <ion-label>Amazonas renegados</ion-label><br/>
-              <ion-label style="font-size:x-small;">(0-0)</ion-label>
-            </ion-col>
-          </ion-row>
-
-          <ion-row>
-            <ion-col class="ion-text-center">
-              <ion-badge color="warning"> <small>Varonil 35+</small> </ion-badge>
-            </ion-col>
-          </ion-row>
-
-        </ion-grid>
-
-      </ion-card-content>
-    </ion-card>
-    -->
-
-    <ion-card (click)="goCronometro();">
-      <ion-card-header>
-        <ion-card-subtitle>
-          <ion-grid>
             <ion-row>
-              <ion-col class="ion-text-left">
-                <ion-label><b>El Pocito</b></ion-label>
+              <ion-col class="ion-text-center">
+                <ion-label>{{ item.nomEquL }}</ion-label><br/>
+                <ion-label style="font-size:x-small;">({{ item.recordLoc }})</ion-label>
               </ion-col>
-              <ion-col class="ion-text-right">
-                <ion-label>
-                  <small>15/01/2024</small><br/>
-                  <b>21:00</b>
-                </ion-label>
+              <ion-col class="ion-text-center" size="8">
+                <ion-badge color="success" style="font-size:medium;">C{{ item.idCampo }} J{{ item.idJornada }}</ion-badge>
+              </ion-col>
+              <ion-col class="ion-text-center">
+                <ion-label>{{ item.nomEquV }}</ion-label><br/>
+                <ion-label style="font-size:x-small;">({{ item.recordVis }})</ion-label>
               </ion-col>
             </ion-row>
+
+            <ion-row>
+              <ion-col class="ion-text-center">
+                <ion-badge color="warning"> <small>{{ item.nomCat }}</small> </ion-badge>
+              </ion-col>
+            </ion-row>
+
           </ion-grid>
-        </ion-card-subtitle>
-      </ion-card-header>
 
-      <ion-card-content>
-        <ion-grid>
-          <ion-row>
-            <ion-col class="ion-text-center">
-              <img alt="inicio" src="../../../assets/icon/equipos/raiders.png" />
-            </ion-col>
-            <ion-col class="ion-text-center" size="8">vs</ion-col>
-            <ion-col class="ion-text-center">
-              <img alt="inicio" src="../../../assets/icon/equipos/pats.png" />
-            </ion-col>
-          </ion-row>
+        </ion-card-content>
+      </ion-card>
+      -->
 
-          <ion-row>
-            <ion-col class="ion-text-center">
-              <ion-label>Azur</ion-label><br/>
-              <ion-label style="font-size:x-small;">(0-0)</ion-label>
-            </ion-col>
-            <ion-col class="ion-text-center" size="8">
-              <ion-badge color="success" style="font-size:medium;">C4 J0</ion-badge>
-            </ion-col>
-            <ion-col class="ion-text-center">
-              <ion-label>Amazonas renegados</ion-label><br/>
-              <ion-label style="font-size:x-small;">(0-0)</ion-label>
-            </ion-col>
-          </ion-row>
+    </div>
 
-          <ion-row>
-            <ion-col class="ion-text-center">
-              <ion-badge color="warning"> <small>Varonil 35+</small> </ion-badge>
-            </ion-col>
-          </ion-row>
-
-        </ion-grid>
-
-      </ion-card-content>
-    </ion-card>
 
   </div>
 

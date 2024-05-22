@@ -14,19 +14,23 @@ import { ScreenOrientation, OrientationType } from '@capawesome/capacitor-screen
 })
 export class HomePage implements OnInit {
 
+  listJuegos: any = [];
+
   constructor(
     private router: Router,
     private apiService: ApiService
   ) {}
 
   async ngOnInit() {
-    //console.log('Dentro de page.home');
+    console.log('Dentro de page.home');
 
     const result = await ScreenOrientation.getCurrentOrientation();
 
     this.apiService.getDatos().subscribe((response) => {
       // Manejar la respuesta aquí
-      //console.log('getDatos() => ', response);
+      this.apiService.jsonDataJuegos = response;
+      this.listJuegos = this.apiService.jsonDataJuegos;
+      console.log('jsonDataJuegos => ', this.apiService.jsonDataJuegos);
     });
 
     const getInfo = await Device.getInfo();
@@ -48,8 +52,13 @@ export class HomePage implements OnInit {
 
   }
 
-  goCronometro() {
-    this.router.navigate(['/cronome']);
+  goCronometro(idTempRolJue: any) {
+    console.log('a-idTempRolJue', idTempRolJue);
+    const informacion = {
+      _equipo: idTempRolJue
+    };
+
+    this.router.navigate(['/cronome',informacion]);
   }
 
   fncCronometroJuego() {
