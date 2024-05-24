@@ -9,6 +9,12 @@ import { StorageService } from 'src/app/service/storage.service';
 })
 export class CrocapturasPage implements OnInit {
 
+  idJuego: any;
+  logoEquL: string;
+  nomEquL: string;
+  logoEquV: string;
+  nomEquV: string
+
   njcaptura: string = "";
   capturaPtos: boolean = false;
   accionGuardar: string = "Guardar";
@@ -29,7 +35,12 @@ export class CrocapturasPage implements OnInit {
   ) { }
 
   /* Cargar información inicial de las anotaciones */
-  ngOnInit() {
+  async ngOnInit() {
+    this.idJuego = await this.storageService.get('idjuego');
+    this.logoEquL = await this.storageService.get('logoEquL');
+    this.nomEquL = await this.storageService.get('nomEquL');
+    this.logoEquV = await this.storageService.get('logoEquV');
+    this.nomEquV = await this.storageService.get('nomEquV');
 
     this.route.params.subscribe(params => {
       if (params) {
@@ -59,6 +70,10 @@ export class CrocapturasPage implements OnInit {
           const rec1 = {
             'iditem':value,
             'feho':key.feho,
+            'timecurrent':key.timecurrent,
+            'grp':key.grp,
+            'acc':key.acc,
+            'idjuego':key.idJuego,
             'tiempo':key.tiempo,
             'medio':key.medio,
             'down':key.down,
@@ -87,10 +102,18 @@ export class CrocapturasPage implements OnInit {
       if (regNew && this.capturaPtos) {
         this.ptsintercepta = 2;
         const dt = new Date();
-        const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+        const _timecurrent = this.getCurrentDayTimestamp(dt);
+        const _grp = 'AC';
+        const _acc = 'TW';
+        const key2 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
+        //const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
         const rec2 = {
           'iditem':key2,
           'feho':dt,
+          'timecurrent':_timecurrent,
+          'grp':_grp,
+          'acc':_acc,
+          'idjuego':this.idJuego,
           'tiempo':_tiempo,
           'medio':_timeTab,
           'down':_down,
@@ -106,10 +129,18 @@ export class CrocapturasPage implements OnInit {
 
     } else {
       const dt = new Date();
-      const key1 = this.idReg + '|AC|KP|135|' + this.getCurrentDayTimestamp(dt);
+      const _timecurrent = this.getCurrentDayTimestamp(dt);
+      const _grp = 'AC';
+      const _acc = 'KP';
+      const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
+      //const key1 = this.idReg + '|AC|KP|135|' + this.getCurrentDayTimestamp(dt);
       const rec1 = {
         'iditem':key1,
         'feho':dt,
+        'timecurrent':_timecurrent,
+        'grp':_grp,
+        'acc':_acc,
+        'idjuego':this.idJuego,
         'tiempo':this.tiempo,
         'medio':this.medio,
         'down':this.down,
@@ -123,10 +154,18 @@ export class CrocapturasPage implements OnInit {
       if (this.capturaPtos) {
         this.ptsintercepta = 2;
         const dt = new Date();
-        const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+        const _timecurrent = this.getCurrentDayTimestamp(dt);
+        const _grp = 'AC';
+        const _acc = 'TW';
+        const key2 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
+        //const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
         const rec2 = {
           'iditem':key2,
           'feho':dt,
+          'timecurrent':_timecurrent,
+          'grp':_grp,
+          'acc':_acc,
+          'idjuego':this.idJuego,
           'tiempo':this.tiempo,
           'medio':this.medio,
           'down':this.down,

@@ -17,12 +17,12 @@
 
   <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" (ionChange)="fncInfoEquipo()">
     <ion-segment-button value="visitante">
-      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/raiders.png" />
-      <ion-label style="font-size:x-small;text-transform:uppercase;">Azur</ion-label><br/>
+      <img alt="inicio" width="38px" height="auto" src="https://naosports.sanyoma.com/assets/img/naoflag/equipos/{{ logoEquV }}" />
+      <ion-label style="font-size:x-small;text-transform:uppercase;">{{nomEquV}}</ion-label><br/>
     </ion-segment-button>
     <ion-segment-button value="local">
-      <img alt="inicio" width="38px" height="auto" src="../../../assets/icon/equipos/pats.png" />
-      <ion-label style="font-size:x-small;text-transform:uppercase;">Amazonas renegados</ion-label><br/>
+      <img alt="inicio" width="38px" height="auto" src="https://naosports.sanyoma.com/assets/img/naoflag/equipos/{{ logoEquL }}" />
+      <ion-label style="font-size:x-small;text-transform:uppercase;">{{nomEquL}}</ion-label><br/>
     </ion-segment-button>
   </ion-segment>
 

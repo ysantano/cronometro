@@ -9,6 +9,8 @@ import { ApiService } from 'src/app/service/api.service';
   styleUrls: ['./croconfig.page.scss'],
 })
 export class CroconfigPage implements OnInit {
+  idJuego: any;
+
   _equipo: string = "";
   _down: number = 0;
   _idreg: number = 0;
@@ -35,13 +37,14 @@ export class CroconfigPage implements OnInit {
     private apiService: ApiService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     //console.log('Inicio de configiración!');
+    this.idJuego = await this.storageService.get('idjuego');
+
     this.route.params.subscribe(params => {
       if (params) {
         this._params = params;
         //console.log(params);
-        this.apiService.idJuego = params['idJuego'];
         this._equipo = params['equipo'];
         this._down = params['down'];
         this.timeTab = params['timeTab'];
@@ -75,9 +78,17 @@ export class CroconfigPage implements OnInit {
 
   async guardarDatos() {
     const dt = new Date();
-    var key1 =  this._idreg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
+    const _timecurrent = this.getCurrentDayTimestamp(dt);
+    const _grp = 'DG';
+    const _acc = 'BK';
+    var key1 = this._idreg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
+    //var key1 =  this._idreg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
     const rec1 = {
       'feho':dt,
+      'timecurrent':_timecurrent,
+      'grp':_grp,
+      'acc':_acc,
+      'idjuego':this.idJuego,
       'equipo':this._equipo,
       'down':this._down,
       'timeTab':this.timeTab,
@@ -100,13 +111,7 @@ export class CroconfigPage implements OnInit {
       }
     })
     await this.storageService.set(key1, rec1);
-
-    console.log("SOPAS: ", this.apiService.idJuego);
-
-    const informacion = {
-      _idJuegos: this.apiService.idJuego
-    };
-    this.router.navigate(['/cronome',informacion]);
+    this.router.navigate(['/cronome']);
   }
 
   getCurrentDayTimestamp(dt:any) {
@@ -121,9 +126,17 @@ export class CroconfigPage implements OnInit {
   async ionViewWillLeave() {
     console.log('funcion: ionViewWillLeave()');
     const dt = new Date();
-    var key1 =  this._idreg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
+    const _timecurrent = this.getCurrentDayTimestamp(dt);
+    const _grp = 'DG';
+    const _acc = 'BK';
+    var key1 =  this._idreg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
+    //var key1 =  this._idreg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
     const rec1 = {
       'feho':dt,
+      'timecurrent':_timecurrent,
+      'grp':_grp,
+      'acc':_acc,
+      'idjuego':this.idJuego,
       'equipo':this._params['equipo'],
       'down':this._params['down'],
       'timeTab':this._params['timeTab'],

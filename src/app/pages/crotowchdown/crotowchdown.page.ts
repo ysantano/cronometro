@@ -8,6 +8,12 @@ import { StorageService } from 'src/app/service/storage.service';
   styleUrls: ['./crotowchdown.page.scss'],
 })
 export class CrotowchdownPage implements OnInit {
+  idJuego: any;
+
+  logoEquL: string;
+  nomEquL: string;
+  logoEquV: string;
+  nomEquV: string
 
   puntos: string = "6";
   numanota: string = "";
@@ -29,7 +35,13 @@ export class CrotowchdownPage implements OnInit {
   ) { }
 
   /* Cargar información inicial de las anotaciones */
-  ngOnInit() {
+  async ngOnInit() {
+    this.idJuego = await this.storageService.get('idjuego');
+    this.logoEquL = await this.storageService.get('logoEquL');
+    this.nomEquL = await this.storageService.get('nomEquL');
+    this.logoEquV = await this.storageService.get('logoEquV');
+    this.nomEquV = await this.storageService.get('nomEquV');
+ 
     this.route.params.subscribe(params => {
       if (params) {
         //console.log(params);
@@ -51,6 +63,10 @@ export class CrotowchdownPage implements OnInit {
           const rec1 = {
             'iditem':value,
             'feho':key.feho,
+            'timecurrent':key.timecurrent,
+            'grp':key.grp,
+            'acc':key.acc,
+            'idjuego':key.idJuego,
             'tiempo':key.tiempo,
             'medio':key.medio,
             'down':key.down,
@@ -65,10 +81,18 @@ export class CrotowchdownPage implements OnInit {
       });
     } else {
       const dt = new Date();
-      const key1 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
+      const _timecurrent = this.getCurrentDayTimestamp(dt);
+      const _grp = 'AC';
+      const _acc = 'TW';
+      const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
+      //const key1 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
       const rec1 = {
         'iditem':key1,
         'feho':dt,
+        'timecurrent':_timecurrent,
+        'grp':_grp,
+        'acc':_acc,
+        'idjuego':this.idJuego,
         'tiempo':this.tiempo,
         'medio':this.medio,
         'down':this.down,

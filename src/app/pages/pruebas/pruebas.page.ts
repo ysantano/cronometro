@@ -74,10 +74,15 @@ export class PruebasPage {
   }
 
   async listValue() {
+    var jsonGral:any = [];
     this._storage = await this.storageService.list();
     await this._storage?.forEach((key:any, value:any, index:any) => {
-      console.log(value, key);
-    })
+      if (value.includes('|')) {
+        //console.log(value, key);
+        jsonGral.push(key);
+      }
+    });
+    console.log('jsonGral =>', jsonGral);
   }
 
   async listValueOrder() {
@@ -85,17 +90,22 @@ export class PruebasPage {
     this._storage = await this.storageService.list();
     this._storage2 = new Map();
     await this._storage?.forEach((value: any, key: any) => {
-      var _key = key.split('|');
-      if (_key[1] === "AC") {
-        //console.log(_key[1]);
-        value['keyid'] = key;
-        value['keyord'] = Number(_key[0]);
-        value['keygrp'] = _key[1];
-        value['keyact'] = _key[2];
-        value['keygam'] = _key[3];
-        value['keydat'] = _key[4];
-        const keyi = _key[0];
-        this._storage2.set(keyi, value);
+      if (key.includes('|')) {
+
+        var _key = key.split('|');
+        console.log(_key[1]);
+        if (_key[1] === "AC") {
+          //console.log(_key[1]);
+          value['keyid'] = key;
+          value['keyord'] = Number(_key[0]);
+          value['keygrp'] = _key[1];
+          value['keyact'] = _key[2];
+          value['keygam'] = _key[3];
+          value['keydat'] = _key[4];
+          const keyi = _key[0];
+          this._storage2.set(keyi, value);
+        }
+  
       }
     });
 

@@ -8,6 +8,12 @@ import { StorageService } from 'src/app/service/storage.service';
   styleUrls: ['./estadisticasfinales.page.scss'],
 })
 export class EstadisticasfinalesPage implements OnInit {
+
+  logoEquL: string;
+  nomEquL: string;
+  logoEquV: string;
+  nomEquV: string
+
   private _storage: any | null = null;
   private _storage2: Map<any, any>;
   dataFinal: any = [];
@@ -19,7 +25,12 @@ export class EstadisticasfinalesPage implements OnInit {
     private storageService: StorageService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.logoEquL = await this.storageService.get('logoEquL');
+    this.nomEquL = await this.storageService.get('nomEquL');
+    this.logoEquV = await this.storageService.get('logoEquV');
+    this.nomEquV = await this.storageService.get('nomEquV');
+
     this.route.params.subscribe(params => {
       if (params) {
         this.equipo = params['equipo'];

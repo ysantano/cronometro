@@ -8,6 +8,11 @@ import { StorageService } from 'src/app/service/storage.service';
   styleUrls: ['./crocastigos.page.scss'],
 })
 export class CrocastigosPage implements OnInit {
+  idJuego: any;
+  logoEquL: string;
+  nomEquL: string;
+  logoEquV: string;
+  nomEquV: string
 
   njcastigo: string = "";
   idcastigo: number = 1;
@@ -40,7 +45,13 @@ export class CrocastigosPage implements OnInit {
     private storageService: StorageService
   ) { }
     /* Actualziar información enviada del formulario anterior. */
-  ngOnInit() {
+  async ngOnInit() {
+    this.idJuego = await this.storageService.get('idjuego');
+    this.logoEquL = await this.storageService.get('logoEquL');
+    this.nomEquL = await this.storageService.get('nomEquL');
+    this.logoEquV = await this.storageService.get('logoEquV');
+    this.nomEquV = await this.storageService.get('nomEquV');
+
     this.route.params.subscribe(params => {
       if (params) {
         this.tiempo = params['tiempo'];
@@ -63,6 +74,10 @@ export class CrocastigosPage implements OnInit {
           const rec1 = {
             'iditem':value,
             'feho':key.feho,
+            'timecurrent':key.timecurrent,
+            'grp':key.grp,
+            'acc':key.acc,
+            'idjuego':key.idJuego,
             'tiempo':key.tiempo,
             'medio':key.medio,
             'down':key.down,
@@ -76,10 +91,18 @@ export class CrocastigosPage implements OnInit {
 
     } else {
       const dt = new Date();
-      const key1 = this.idReg + '|AC|CT|135|' + this.getCurrentDayTimestamp(dt);
+      const _timecurrent = this.getCurrentDayTimestamp(dt);
+      const _grp = 'AC';
+      const _acc = 'CT';
+      const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
+      //const key1 = this.idReg + '|AC|CT|135|' + this.getCurrentDayTimestamp(dt);
       const rec1 = {
         'iditem':key1,
         'feho':dt,
+        'timecurrent':_timecurrent,
+        'grp':_grp,
+        'acc':_acc,
+        'idjuego':this.idJuego,
         'tiempo':this.tiempo,
         'medio':this.medio,
         'down':this.down,

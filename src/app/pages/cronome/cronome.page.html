@@ -39,10 +39,10 @@
     </ion-row>
   </div>
 
-  <ion-alert trigger="present-alert1" header="AZUR" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
-  <ion-alert trigger="present-alert2" header="AZUR" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
-  <ion-alert trigger="present-alert3" header="AMAZONAS RENEGADOS" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
-  <ion-alert trigger="present-alert4" header="AMAZONAS RENEGADOS" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
+  <ion-alert trigger="present-alert1" header="{{nomEquV}}" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
+  <ion-alert trigger="present-alert2" header="{{nomEquV}}" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
+  <ion-alert trigger="present-alert3" header="{{nomEquL}}" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
+  <ion-alert trigger="present-alert4" header="{{nomEquL}}" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
 
   <ion-segment [value]='down' [(ngModel)]='down' mode="ios" (ionChange)="fncChangeDown();">
     <ion-segment-button value="0">

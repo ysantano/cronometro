@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CronomePage implements OnInit {
 
+  idJuego: any;
   dataJuego: any;
 
   idTempRolJue: string;
@@ -68,7 +69,6 @@ export class CronomePage implements OnInit {
   alertButtons = ['Aceptar'];
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private toastController: ToastController,
     private storageService: StorageService,
@@ -84,19 +84,12 @@ export class CronomePage implements OnInit {
     await toast.present();
   }
 
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      if (params) {
-        this.apiService.idJuego = params['_idJuegos'];
-      }
-    });
-
-
-    console.log("apiService.idJuego", this.apiService.idJuego);
+  async ngOnInit() {
+    this.idJuego = await this.storageService.get('idjuego');
+    //console.log("idJuego", this.idJuego);
     //console.log('cronome.jsonDataJuegos => ', this.apiService.jsonDataJuegos);
 
-    const data = this.filtrarPorIdTempRolJue(this.apiService.jsonDataJuegos, this.apiService.idJuego);
-
+    const data = this.filtrarPorIdTempRolJue(this.apiService.jsonDataJuegos, this.idJuego);
     this.dataJuego = data;
 
     this.idTempRolJue = this.dataJuego.idTempRolJue;
@@ -121,6 +114,10 @@ export class CronomePage implements OnInit {
     this.nomTor = this.dataJuego.nomTor;
     this.finalizado = this.dataJuego.finalizado;
     this.nomCat = this.dataJuego.nomCat;
+    await this.storageService.set('logoEquL', this.logoEquL);
+    await this.storageService.set('nomEquL', this.nomEquL);
+    await this.storageService.set('logoEquV', this.logoEquV);
+    await this.storageService.set('nomEquV', this.nomEquV);
 
     this.tiempoRestante = 0;
 
@@ -160,9 +157,17 @@ export class CronomePage implements OnInit {
       this.iconBottonPlayPause = "pause-outline";
 
       const dt = new Date();
-      const key1 = this.idReg + '|CR|PY|135|' + this.getCurrentDayTimestamp(dt);
+      const _timecurrent = this.getCurrentDayTimestamp(dt);
+      const _grp = 'CR';
+      const _acc = 'PY';
+      const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
       const rec1 = {
+        'iditem':key1,
         'feho':dt,
+        'timecurrent':_timecurrent,
+        'grp':_grp,
+        'acc':_acc,
+        'idjuego':this.idJuego,
         'tiempo':this.tiempo,
         'medio':this.timeTab,
         'down':Number(this.down),
@@ -181,9 +186,17 @@ export class CronomePage implements OnInit {
       //this.equipo = "visitante"
 
       const dt = new Date();
-      const key1 = this.idReg + '|CR|PA|135|' + this.getCurrentDayTimestamp(dt);
+      const _timecurrent = this.getCurrentDayTimestamp(dt);
+      const _grp = 'CR';
+      const _acc = 'PA';
+      const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
       const rec1 = {
+        'iditem':key1,
         'feho':dt,
+        'timecurrent':_timecurrent,
+        'grp':_grp,
+        'acc':_acc,
+        'idjuego':this.idJuego,
         'tiempo':this.tiempo,
         'medio':this.timeTab,
         'down':Number(this.down),
@@ -292,9 +305,17 @@ export class CronomePage implements OnInit {
   /* ACTUALIZA EL CAMBIO DEL EQUIPO */
   async fncChangeTeam() {
     const dt = new Date();
-    const key1 = this.idReg + '|CR|TM|135|' + this.getCurrentDayTimestamp(dt);
+    const _timecurrent = this.getCurrentDayTimestamp(dt);
+    const _grp = 'CR';
+    const _acc = 'TM';
+    const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
     const rec1 = {
+      'iditem':key1,
       'feho':dt,
+      'timecurrent':_timecurrent,
+      'grp':_grp,
+      'acc':_acc,
+      'idjuego':this.idJuego,
       'tiempo':this.tiempo,
       'medio':this.timeTab,
       'down':Number(this.down),
@@ -307,9 +328,17 @@ export class CronomePage implements OnInit {
   /* ACTUALIZAR CUANDO SE HACE CAMBIO DE DOWN */
   async fncChangeDown() {
     const dt = new Date();
-    const key1 = this.idReg + '|CR|DW|135|' + this.getCurrentDayTimestamp(dt);
+    const _timecurrent = this.getCurrentDayTimestamp(dt);
+    const _grp = 'CR';
+    const _acc = 'DW';
+    const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
     const rec1 = {
+      'iditem':key1,
       'feho':dt,
+      'timecurrent':_timecurrent,
+      'grp':_grp,
+      'acc':_acc,
+      'idjuego':this.idJuego,
       'tiempo':this.tiempo,
       'medio':this.timeTab,
       'down':Number(this.down),
@@ -322,7 +351,7 @@ export class CronomePage implements OnInit {
   /*  CARGAR LA PAGUINA SEGÚN LA ACCIÓN SELECCIONADA */
   goCroconfig() {
     const informacion = {
-      idJuego: this.apiService.idJuego,
+      idJuego: this.idJuego,
       equipo: this.equipo,
       down:Number(this.down),
       timeTab:this.timeTab,
@@ -456,13 +485,6 @@ export class CronomePage implements OnInit {
         this.vTF2 = key.vTF2
         this.lTF1 = key.lTF1
         this.lTF2 = key.lTF2
-
-        console.log('Leidos!');
-        console.log('vTF1: ', this.vTF1);
-        console.log('vTF2: ', this.vTF2);
-        console.log('lTF1: ', this.lTF1);
-        console.log('lTF2: ', this.lTF2);
-
       }
       this.idReg++;
     })
@@ -475,10 +497,18 @@ export class CronomePage implements OnInit {
   async ionViewWillLeave() {
     // Guardar variables del juego.
     const dt = new Date();
-    var key1 =  this.idReg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
+    const _timecurrent = this.getCurrentDayTimestamp(dt);
+    const _grp = 'DG';
+    const _acc = 'BK';
+    var key1 =  this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
 
     const rec1 = {
+      'iditem':key1,
       'feho':dt,
+      'timecurrent':_timecurrent,
+      'grp':_grp,
+      'acc':_acc,
+      'idjuego':this.idJuego,
       'equipo':this.equipo,
       'down':Number(this.down),
       'timeTab':this.timeTab,
@@ -501,13 +531,29 @@ export class CronomePage implements OnInit {
       }
     })
     await this.storageService.set(key1, rec1);
+
+    console.log('Actualizar el marcador de la ficha principal!');
+
+    this.dataJuego.ptsLocal = this.sLocal;
+    this.dataJuego.ptsVisita = this.sVisitante;
+
+    console.log('dataJuego=>', this.dataJuego);
+
   }
 
   async fncTiempFuera(_tiefur: any) {
     const dt = new Date();
-    const key1 = this.idReg + '|CR|TF|135|' + this.getCurrentDayTimestamp(dt);
+    const _timecurrent = this.getCurrentDayTimestamp(dt);
+    const _grp = 'CR';
+    const _acc = 'TF';
+    const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
     const rec1 = {
+      'iditem':key1,
       'feho':dt,
+      'timecurrent':_timecurrent,
+      'grp':_grp,
+      'acc':_acc,
+      'idjuego':this.idJuego,
       'tiempo':this.tiempo,
       'medio':this.timeTab,
       'down':Number(this.down),
@@ -518,18 +564,20 @@ export class CronomePage implements OnInit {
     this.idReg++;
   }
 
+
+
 /*
   ionViewWillEnter() {
     console.log('funcion: ionViewWillEnter()');
+  }
+  ionViewDidLeave() {
+    console.log('funcion: ionViewDidLeave()');
   }
   ionViewDidEnter() {
     console.log('funcion: ionViewDidEnter()');
   }
   ionViewWillLeave() {
     console.log('funcion: ionViewWillLeave()');
-  }
-  ionViewDidLeave() {
-    console.log('funcion: ionViewDidLeave()');
   }
 */
 }

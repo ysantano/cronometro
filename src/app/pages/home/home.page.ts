@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/api.service';
-
 import { Device } from '@capacitor/device';
 import { Geolocation } from '@capacitor/geolocation';
-
 import { ScreenOrientation, OrientationType } from '@capawesome/capacitor-screen-orientation';
+import { StorageService } from 'src/app/service/storage.service';
+
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,8 @@ export class HomePage implements OnInit {
 
   constructor(
     private router: Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private storageService: StorageService
   ) {}
 
   async ngOnInit() {
@@ -52,11 +53,9 @@ export class HomePage implements OnInit {
 
   }
 
-  goCronometro(idTempRolJue: any) {
-    const informacion = {
-      _idJuegos: idTempRolJue
-    };
-    this.router.navigate(['/cronome',informacion]);
+  async goCronometro(idTempRolJue: any) {
+    await this.storageService.set('idjuego', idTempRolJue);
+    this.router.navigate(['/cronome']);
   }
 
   fncCronometroJuego() {
