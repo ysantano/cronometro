@@ -3,6 +3,7 @@ import { ToastController } from '@ionic/angular';
 import { StorageService } from 'src/app/service/storage.service';
 import { ApiService } from 'src/app/service/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Device, DevicePlugin } from '@capacitor/device';
 
 @Component({
   selector: 'app-cronome',
@@ -10,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./cronome.page.scss'],
 })
 export class CronomePage implements OnInit {
+  idDevice: string | undefined;
 
   idJuego: any;
   dataJuego: any;
@@ -66,6 +68,9 @@ export class CronomePage implements OnInit {
   lTF1: boolean = true;
   lTF2: boolean = true;
 
+  ctrlCronometro: boolean = false;
+  ctrlEstadisticas: boolean = false;
+
   alertButtons = ['Aceptar'];
 
   constructor(
@@ -85,7 +90,12 @@ export class CronomePage implements OnInit {
   }
 
   async ngOnInit() {
+    const _idDevice = await Device.getId();
+    this.idDevice = _idDevice.identifier;
     this.idJuego = await this.storageService.get('idjuego');
+
+    console.log('idDevice: ',this.idDevice);
+
     //console.log("idJuego", this.idJuego);
     //console.log('cronome.jsonDataJuegos => ', this.apiService.jsonDataJuegos);
 
@@ -147,6 +157,9 @@ export class CronomePage implements OnInit {
     this.vTF2 = true;
     this.lTF1 = true;
     this.lTF2 = true;
+
+    this.ctrlCronometro = false;
+    this.ctrlEstadisticas = false;
   }
 
   /* FUNCIONAMIENTO DEL CRONOMETRO */
@@ -162,6 +175,7 @@ export class CronomePage implements OnInit {
       const _acc = 'PY';
       const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
       const rec1 = {
+        'idDevice':this.idDevice,
         'iditem':key1,
         'feho':dt,
         'timecurrent':_timecurrent,
@@ -191,6 +205,7 @@ export class CronomePage implements OnInit {
       const _acc = 'PA';
       const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
       const rec1 = {
+        'idDevice':this.idDevice,
         'iditem':key1,
         'feho':dt,
         'timecurrent':_timecurrent,
@@ -310,6 +325,7 @@ export class CronomePage implements OnInit {
     const _acc = 'TM';
     const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
     const rec1 = {
+      'idDevice':this.idDevice,
       'iditem':key1,
       'feho':dt,
       'timecurrent':_timecurrent,
@@ -333,6 +349,7 @@ export class CronomePage implements OnInit {
     const _acc = 'DW';
     const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
     const rec1 = {
+      'idDevice':this.idDevice,
       'iditem':key1,
       'feho':dt,
       'timecurrent':_timecurrent,
@@ -365,7 +382,9 @@ export class CronomePage implements OnInit {
       vTF2: this.vTF2,
       lTF1: this.lTF1,
       lTF2: this.lTF2,
-      idreg: this.idReg
+      idreg: this.idReg,
+      ctrlCronometro: this.ctrlCronometro,
+      ctrlEstadisticas: this.ctrlEstadisticas
     };
     this.router.navigate(['/croconfig', informacion]);
   }
@@ -481,10 +500,17 @@ export class CronomePage implements OnInit {
         } else if (this.timeTab == "T2") {
           this.tiempo = `${String(this.minutosInputT2).padStart(2, "0")}:${String(this.segundosInputT2).padStart(2, "0")}`;
         }
-        this.vTF1 = key.vTF1
-        this.vTF2 = key.vTF2
-        this.lTF1 = key.lTF1
-        this.lTF2 = key.lTF2
+        this.vTF1 = key.vTF1;
+        this.vTF2 = key.vTF2;
+        this.lTF1 = key.lTF1;
+        this.lTF2 = key.lTF2;
+
+        this.ctrlCronometro = key.ctrlCronometro;
+        this.ctrlEstadisticas = key.ctrlEstadisticas;
+
+        console.log('ctrlCronometro', this.ctrlCronometro);
+        console.log('ctrlEstadisticas', this.ctrlEstadisticas);
+
       }
       this.idReg++;
     })
@@ -503,6 +529,7 @@ export class CronomePage implements OnInit {
     var key1 =  this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
 
     const rec1 = {
+      'idDevice':this.idDevice,
       'iditem':key1,
       'feho':dt,
       'timecurrent':_timecurrent,
@@ -521,7 +548,9 @@ export class CronomePage implements OnInit {
       'vTF1':this.vTF1,
       'vTF2':this.vTF2,
       'lTF1':this.lTF1,
-      'lTF2':this.lTF2
+      'lTF2':this.lTF2,
+      'ctrlCronometro':this.ctrlCronometro,
+      'ctrlEstadisticas':this.ctrlEstadisticas
     };
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
@@ -548,6 +577,7 @@ export class CronomePage implements OnInit {
     const _acc = 'TF';
     const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
     const rec1 = {
+      'idDevice':this.idDevice,
       'iditem':key1,
       'feho':dt,
       'timecurrent':_timecurrent,

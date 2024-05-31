@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/service/storage.service';
+import { Device, DevicePlugin } from '@capacitor/device';
 
 @Component({
   selector: 'app-crocastigos',
@@ -8,6 +9,8 @@ import { StorageService } from 'src/app/service/storage.service';
   styleUrls: ['./crocastigos.page.scss'],
 })
 export class CrocastigosPage implements OnInit {
+  idDevice: string | undefined;
+
   idJuego: any;
   logoEquL: string;
   nomEquL: string;
@@ -46,6 +49,9 @@ export class CrocastigosPage implements OnInit {
   ) { }
     /* Actualziar información enviada del formulario anterior. */
   async ngOnInit() {
+    const _idDevice = await Device.getId();
+    this.idDevice = _idDevice.identifier;
+
     this.idJuego = await this.storageService.get('idjuego');
     this.logoEquL = await this.storageService.get('logoEquL');
     this.nomEquL = await this.storageService.get('nomEquL');
@@ -97,6 +103,7 @@ export class CrocastigosPage implements OnInit {
       const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
       //const key1 = this.idReg + '|AC|CT|135|' + this.getCurrentDayTimestamp(dt);
       const rec1 = {
+        'idDevice':this.idDevice,
         'iditem':key1,
         'feho':dt,
         'timecurrent':_timecurrent,

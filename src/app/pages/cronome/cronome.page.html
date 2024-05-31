@@ -16,7 +16,7 @@
     </ion-buttons>
   </ion-toolbar>
 
-  <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" (ionChange)="fncChangeTeam();">
+  <ion-segment [value]="equipo" [(ngModel)]="equipo" mode="ios" (ionChange)="fncChangeTeam();" disabled="{{ctrlCronometro}}">
     <ion-segment-button value="visitante">
       <img alt="inicio" width="38px" height="auto" src="https://naosports.sanyoma.com/assets/img/naoflag/equipos/{{ logoEquV }}" />
       <ion-badge style="font-size:large;">{{sVisitante}}</ion-badge>
@@ -31,11 +31,11 @@
 
   <div style="margin:3px 20px 15px 20px;padding:6px;">
     <ion-row>
-      <ion-col id="present-alert1" size="2" class="ion-text-left"><ion-toggle [enableOnOffLabels]="true" [disabled]="!vTF1" [checked]="vTF1" [(ngModel)]="vTF1" (ionChange)="fncTiempFuera('vTF1');"></ion-toggle></ion-col>
-      <ion-col id="present-alert2" size="2" class="ion-text-left"><ion-toggle [enableOnOffLabels]="true" [disabled]="!vTF2" [checked]="vTF2" [(ngModel)]="vTF2" (ionChange)="fncTiempFuera('vTF2');"></ion-toggle></ion-col>
+      <ion-col id="present-alert1" size="2" class="ion-text-left"><ion-toggle [enableOnOffLabels]="true" [disabled]="!vTF1" [checked]="vTF1" [(ngModel)]="vTF1" (ionChange)="fncTiempFuera('vTF1');" disabled="{{ctrlCronometro}}"></ion-toggle></ion-col>
+      <ion-col id="present-alert2" size="2" class="ion-text-left"><ion-toggle [enableOnOffLabels]="true" [disabled]="!vTF2" [checked]="vTF2" [(ngModel)]="vTF2" (ionChange)="fncTiempFuera('vTF2');" disabled="{{ctrlCronometro}}"></ion-toggle></ion-col>
       <ion-col size="4" class="ion-text-center">|</ion-col>
-      <ion-col id="present-alert3" size="2" class="ion-text-right"><ion-toggle [enableOnOffLabels]="true" [disabled]="!lTF1" [checked]="lTF1" [(ngModel)]="lTF1" (ionChange)="fncTiempFuera('lTF1');"></ion-toggle></ion-col>
-      <ion-col id="present-alert4" size="2" class="ion-text-right"><ion-toggle [enableOnOffLabels]="true" [disabled]="!lTF2" [checked]="lTF2" [(ngModel)]="lTF2" (ionChange)="fncTiempFuera('lTF2');"></ion-toggle></ion-col>
+      <ion-col id="present-alert3" size="2" class="ion-text-right"><ion-toggle [enableOnOffLabels]="true" [disabled]="!lTF1" [checked]="lTF1" [(ngModel)]="lTF1" (ionChange)="fncTiempFuera('lTF1');" disabled="{{ctrlCronometro}}"></ion-toggle></ion-col>
+      <ion-col id="present-alert4" size="2" class="ion-text-right"><ion-toggle [enableOnOffLabels]="true" [disabled]="!lTF2" [checked]="lTF2" [(ngModel)]="lTF2" (ionChange)="fncTiempFuera('lTF2');" disabled="{{ctrlCronometro}}"></ion-toggle></ion-col>
     </ion-row>
   </div>
 
@@ -44,7 +44,7 @@
   <ion-alert trigger="present-alert3" header="{{nomEquL}}" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
   <ion-alert trigger="present-alert4" header="{{nomEquL}}" subHeader="TIEMPO FUERA" [buttons]="alertButtons"></ion-alert>
 
-  <ion-segment [value]='down' [(ngModel)]='down' mode="ios" (ionChange)="fncChangeDown();">
+  <ion-segment [value]='down' [(ngModel)]='down' mode="ios" (ionChange)="fncChangeDown();" disabled="{{ctrlCronometro}}">
     <ion-segment-button value="0">
       <ion-label>kickoff</ion-label>
     </ion-segment-button>
@@ -79,19 +79,19 @@
   </ion-grid>
 
   <ion-fab (click)="iniciarCronometro()" class="btnPlayPause">
-    <ion-fab-button>
+    <ion-fab-button disabled="{{ctrlCronometro}}">
       <ion-icon [name]="iconBottonPlayPause"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <ion-fab (click)="fncNextDown()" class="btnNextDown">
-    <ion-fab-button color="success">
+    <ion-fab-button color="success" disabled="{{ctrlCronometro}}">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <ion-fab (click)="fncLastDown()" class="btnLastDown">
-    <ion-fab-button color="success">
+    <ion-fab-button color="success" disabled="{{ctrlCronometro}}">
       <ion-icon name="remove-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -104,23 +104,24 @@
 
 <ion-footer>
   <ion-toolbar>
+
     <ion-button fill="clear" (click)="goCroconfig()">
       <img alt="Configurar" style="width: 40px;height: auto;padding: 0px !important;" src="../../../assets/icon/config.png" />
     </ion-button>
 
-    <ion-button fill="clear" class="btnTochdown_2" (click)="goTowchdown()">
+    <ion-button fill="clear" class="btnTochdown_2" (click)="goTowchdown()" disabled="{{ctrlEstadisticas}}">
       <img alt="Towchdown" style="width: 40px;height: auto;padding: 0px !important;" src="../../../assets/icon/anotacion.png" />
     </ion-button>
 
-    <ion-button fill="clear" class="btnCastigo_2" (click)="goCastigos()">
+    <ion-button fill="clear" class="btnCastigo_2" (click)="goCastigos()" disabled="{{ctrlEstadisticas}}">
       <img alt="Castigos" style="width: 40px;height: auto;padding: 0px !important;" src="../../../assets/icon/castigo.png" />
     </ion-button>
 
-    <ion-button fill="clear" class="btnIntercepciones_2" (click)="goIntercepciones()">
+    <ion-button fill="clear" class="btnIntercepciones_2" (click)="goIntercepciones()" disabled="{{ctrlEstadisticas}}">
       <img alt="Intercepciones" style="width: 40px;height: auto;padding: 0px !important;" src="../../../assets/icon/intersepcion.png" />
     </ion-button>
 
-    <ion-button fill="clear" class="btnCaptura_2" (click)="goCaptura()">
+    <ion-button fill="clear" class="btnCaptura_2" (click)="goCaptura()" disabled="{{ctrlEstadisticas}}">
       <img alt="Captura" style="width: 40px;height: auto;padding: 0px !important;" src="../../../assets/icon/captura.png" />
     </ion-button>
 

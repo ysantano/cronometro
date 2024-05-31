@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/service/storage.service';
+import { Device, DevicePlugin } from '@capacitor/device';
 
 @Component({
   selector: 'app-crocapturas',
@@ -8,6 +9,7 @@ import { StorageService } from 'src/app/service/storage.service';
   styleUrls: ['./crocapturas.page.scss'],
 })
 export class CrocapturasPage implements OnInit {
+  idDevice: string | undefined;
 
   idJuego: any;
   logoEquL: string;
@@ -36,6 +38,9 @@ export class CrocapturasPage implements OnInit {
 
   /* Cargar información inicial de las anotaciones */
   async ngOnInit() {
+    const _idDevice = await Device.getId();
+    this.idDevice = _idDevice.identifier;
+
     this.idJuego = await this.storageService.get('idjuego');
     this.logoEquL = await this.storageService.get('logoEquL');
     this.nomEquL = await this.storageService.get('nomEquL');
@@ -108,6 +113,7 @@ export class CrocapturasPage implements OnInit {
         const key2 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
         //const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
         const rec2 = {
+          'idDevice':this.idDevice,
           'iditem':key2,
           'feho':dt,
           'timecurrent':_timecurrent,
@@ -135,6 +141,7 @@ export class CrocapturasPage implements OnInit {
       const key1 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
       //const key1 = this.idReg + '|AC|KP|135|' + this.getCurrentDayTimestamp(dt);
       const rec1 = {
+        'idDevice':this.idDevice,
         'iditem':key1,
         'feho':dt,
         'timecurrent':_timecurrent,
@@ -160,6 +167,7 @@ export class CrocapturasPage implements OnInit {
         const key2 = this.idReg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
         //const key2 = this.idReg + '|AC|TW|135|' + this.getCurrentDayTimestamp(dt);
         const rec2 = {
+          'idDevice':this.idDevice,
           'iditem':key2,
           'feho':dt,
           'timecurrent':_timecurrent,

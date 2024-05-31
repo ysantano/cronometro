@@ -101,20 +101,71 @@
     </ion-list>
   </div>
 
-  <ion-list>
-    <ion-item>
-      <ion-toggle [enableOnOffLabels]="true" [checked]="vTF1" [(ngModel)]='vTF1'> <small>Tiempo fuera 1 Visita</small> </ion-toggle>
-    </ion-item>
-    <ion-item>
-      <ion-toggle [enableOnOffLabels]="true" [checked]="vTF2" [(ngModel)]='vTF2'> <small>Tiempo fuera 2 Visita</small> </ion-toggle>
-    </ion-item>
-    <ion-item>
-      <ion-toggle [enableOnOffLabels]="true" [checked]="lTF1" [(ngModel)]='lTF1'> <small>Tiempo fuera 1 Local</small> </ion-toggle>
-    </ion-item>
-    <ion-item>
-      <ion-toggle [enableOnOffLabels]="true" [checked]="lTF2" [(ngModel)]='lTF2'> <small>Tiempo fuera 2 Local</small> </ion-toggle>
-    </ion-item>
-  </ion-list>
+  <ion-grid>
+    <ion-list>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="ion-text-center">
+              Tiempo fuera
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label class="ion-text-center">
+              Tiempo fuera
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-toggle [enableOnOffLabels]="true" [checked]="vTF1" [(ngModel)]='vTF1'>1 Visita</ion-toggle>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-toggle [enableOnOffLabels]="true" [checked]="lTF1" [(ngModel)]='lTF1'>1 Local</ion-toggle>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-toggle [enableOnOffLabels]="true" [checked]="vTF2" [(ngModel)]='vTF2'>2 Visita</ion-toggle>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-toggle [enableOnOffLabels]="true" [checked]="lTF2" [(ngModel)]='lTF2'>2 Local</ion-toggle>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+    </ion-list>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8">
+        <ion-list>
+          <ion-item>
+            <ion-toggle [enableOnOffLabels]="true" [checked]="ctrlCronometro" [(ngModel)]='ctrlCronometro'> <small>Cronómetro inactivo</small> </ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-toggle [enableOnOffLabels]="true" [checked]="ctrlEstadisticas" [(ngModel)]='ctrlEstadisticas'> <small>Estadísticas inactivas</small> </ion-toggle>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col size="8">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-fab routerLink="/cronome" class="btnBack">
     <ion-fab-button>

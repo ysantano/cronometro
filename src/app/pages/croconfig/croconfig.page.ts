@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/service/storage.service';
 import { ApiService } from 'src/app/service/api.service';
+import { Device, DevicePlugin } from '@capacitor/device';
 
 @Component({
   selector: 'app-croconfig',
@@ -9,6 +10,7 @@ import { ApiService } from 'src/app/service/api.service';
   styleUrls: ['./croconfig.page.scss'],
 })
 export class CroconfigPage implements OnInit {
+  idDevice: string | undefined;
   idJuego: any;
 
   _equipo: string = "";
@@ -28,6 +30,9 @@ export class CroconfigPage implements OnInit {
   lTF1: boolean = true;
   lTF2: boolean = true;
 
+  ctrlCronometro: boolean = false;
+  ctrlEstadisticas: boolean = false;
+
   _params:any
 
   constructor(
@@ -38,6 +43,9 @@ export class CroconfigPage implements OnInit {
   ) { }
 
   async ngOnInit() {
+    const _idDevice = await Device.getId();
+    this.idDevice = _idDevice.identifier;
+
     //console.log('Inicio de configiración!');
     this.idJuego = await this.storageService.get('idjuego');
 
@@ -59,6 +67,9 @@ export class CroconfigPage implements OnInit {
         this.vTF2 = params['vTF2'];
         this.lTF1 = params['lTF1'];
         this.lTF2 = params['lTF2'];
+
+        this.ctrlCronometro = params['ctrlCronometro'];
+        this.ctrlEstadisticas = params['ctrlEstadisticas'];
       }
     });
   }
@@ -84,6 +95,7 @@ export class CroconfigPage implements OnInit {
     var key1 = this._idreg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
     //var key1 =  this._idreg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
     const rec1 = {
+      'idDevice':this.idDevice,
       'feho':dt,
       'timecurrent':_timecurrent,
       'grp':_grp,
@@ -101,7 +113,9 @@ export class CroconfigPage implements OnInit {
       'vTF1':this.vTF1,
       'vTF2':this.vTF2,
       'lTF1':this.lTF1,
-      'lTF2':this.lTF2
+      'lTF2':this.lTF2,
+      'ctrlCronometro':this.ctrlCronometro,
+      'ctrlEstadisticas':this.ctrlEstadisticas
     };
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
@@ -132,6 +146,7 @@ export class CroconfigPage implements OnInit {
     var key1 =  this._idreg + '|' + _grp + '|' + _acc + '|' + this.idJuego + '|' + _timecurrent;
     //var key1 =  this._idreg + '|DG|BK|135|' + this.getCurrentDayTimestamp(dt);
     const rec1 = {
+      'idDevice':this.idDevice,
       'feho':dt,
       'timecurrent':_timecurrent,
       'grp':_grp,
@@ -149,7 +164,9 @@ export class CroconfigPage implements OnInit {
       'vTF1':String(this.vTF1),
       'vTF2':String(this.vTF2),
       'lTF1':String(this.lTF1),
-      'lTF2':String(this.lTF2)
+      'lTF2':String(this.lTF2),
+      'ctrlCronometro':String(this.ctrlCronometro),
+      'ctrlEstadisticas':String(this.ctrlEstadisticas)
     };
     const _listStorage = await this.storageService.list();
     await _listStorage?.forEach((key:any, value:any, index:any) => {
